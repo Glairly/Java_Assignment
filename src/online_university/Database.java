@@ -62,6 +62,7 @@ public class Database {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(p));
 
             System.out.println(in.readObject());
+            System.out.println("");
 
 //          data = in.readObject();
             in.close();
