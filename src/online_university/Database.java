@@ -42,12 +42,10 @@ public class Database {
         p = path;
     }
 
-    public <E> boolean write(ArrayList<E> data) {
+    public <E> boolean write(E data) {
         try {
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(p));
-            for (int i = 0; i < data.size(); i++) {
-                out.writeObject(data.indexOf(i));
-            }
+            out.writeObject(data);
             out.close();
             System.out.println("Writing Successful");
         } catch (Exception ex) {
@@ -60,29 +58,23 @@ public class Database {
     public void read() {
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(p));
-
             System.out.println(in.readObject());
-            System.out.println("");
-
-//          data = in.readObject();
             in.close();
         } catch (Exception e) {
             System.out.println("Reading File is Error with logs : " + e.toString());
         }
     }
 
-    public ArrayList<Object> get() {
-        ArrayList<Object> data = new ArrayList<Object>();
+    public Object get() {
+        Object data;
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(p));
-            while (in.available() != 0) {
-                System.out.println(in.read());
-            }
-//          data = in.readObject();
+            data = in.readObject();
             in.close();
+            return data;
         } catch (Exception e) {
             System.out.println("Reading File is Error with logs : " + e.toString());
+            return null;
         }
-        return data;
     }
 }
