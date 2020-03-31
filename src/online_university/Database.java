@@ -5,16 +5,12 @@
  */
 package online_university;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
@@ -41,7 +37,12 @@ public class Database {
     public void setPath(String path) {
         p = path;
     }
-
+    
+    public void setFile(String file){
+        Path path = Paths.get(p);
+        p = path.getParent().toString() + "\\" + file + ".dat";
+    }
+    
     public <E> boolean write(E data) {
         try {
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(p));
@@ -49,7 +50,7 @@ public class Database {
             out.close();
             System.out.println("Writing Successful");
         } catch (Exception ex) {
-            System.out.println("Writing Fails with logs : " + ex.toString());
+            System.out.println("Writing File is Error with logs : " + ex.toString());
             return false;
         }
         return true;
@@ -78,3 +79,40 @@ public class Database {
         }
     }
 }
+/*
+  Manual 
+    public static void main(String[] args) {
+        // Create writer and reader
+        Database db = new Database();
+        // sample Object
+        ArrayList<A> t = new ArrayList<A>();
+        for (int i = 0; i < 10; i++) {
+            t.add(new A());
+        }
+        // write to defaule file which is test.dat
+        db.write(t);
+        // read for show only
+        db.read();
+        
+        // test keep value in another variable
+        ArrayList<A> t1;
+        // get data 
+        t1 = (ArrayList<A>) db.get();
+        for(A i : t1) System.out.println(i);
+        
+        // print data's class
+        System.out.println(db.get().getClass());
+    }
+    // Tester class
+    public static class A implements Serializable {
+        static int count = 0;
+
+        public A() {
+            count++;
+        }
+        @Override
+        public String toString() {
+            return "Class A" + count; //To change body of generated methods, choose Tools | Templates.
+        }
+    }
+*/
