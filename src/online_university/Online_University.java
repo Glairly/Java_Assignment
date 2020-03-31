@@ -5,10 +5,12 @@
  */
 package online_university;
 
+import java.io.Serializable;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 /**
  *
@@ -20,11 +22,8 @@ public class Online_University {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       Database db = new Database();
-       ArrayList<String> t = new ArrayList<String>();
-       for(int i = 0; i<10;i++) t.add(""+i);
-       db.write(t);
-       db.read();
+      
     }
 
+    
 }
