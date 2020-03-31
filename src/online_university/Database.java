@@ -7,10 +7,12 @@ package online_university;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Calendar;
 
 /**
  *
@@ -19,19 +21,20 @@ import java.nio.file.Paths;
 public class Database {
 
     private String p;
-
+    private String file = "test.dat";
     public Database() {
         Path path = Paths.get(System.getProperty("user.dir"));
         p = new String(path.toString());
         p = p.replace("\\", "\\\\");
-        p += "\\\\data\\\\database\\\\test.dat";
+        p += "\\\\data\\\\database\\\\"+file;
     }
 
     public Database(String file) {
         Path path = Paths.get(System.getProperty("user.dir"));
         p = new String(path.toString());
         p = p.replace("\\", "\\\\");
-        p += "\\\\data\\\\database\\\\" + file;
+        p += "\\\\data\\\\database\\\\" + file + ".dat";
+        this.file = file;
     }
 
     public void setPath(String path) {
@@ -44,25 +47,43 @@ public class Database {
     }
     
     public <E> boolean write(E data) {
+        ObjectOutputStream out;
+        // write backup
+        try{
+            Path path = Paths.get(p);
+            out = new ObjectOutputStream(new FileOutputStream(path.getParent().toString() + "\\"+"backup"+ "\\"+file+ Calendar.getInstance().getTimeInMillis()+".dat"));
+            E backup = (E) this.get();
+            out.writeObject(backup);
+        }catch(Exception ex){
+             System.out.println("Writing Backup File is Error with logs : " + ex.toString());
+        }
+        // write file
         try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(p));
+            out = new ObjectOutputStream(new FileOutputStream(p));
             out.writeObject(data);
-            out.close();
             System.out.println("Writing Successful");
         } catch (Exception ex) {
             System.out.println("Writing File is Error with logs : " + ex.toString());
             return false;
         }
+       
+        try {
+            out.close();
+        } catch (IOException ex) {
+            System.out.println(ex.toString());
+        }
         return true;
     }
 
-    public void read() {
+    public boolean read() {
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(p));
             System.out.println(in.readObject());
             in.close();
+            return true;
         } catch (Exception e) {
             System.out.println("Reading File is Error with logs : " + e.toString());
+            return false;
         }
     }
 
@@ -74,7 +95,7 @@ public class Database {
             in.close();
             return data;
         } catch (Exception e) {
-            System.out.println("Reading File is Error with logs : " + e.toString());
+            System.out.println("Getting data from File is Error with logs : " + e.toString());
             return null;
         }
     }
