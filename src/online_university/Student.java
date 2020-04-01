@@ -11,18 +11,19 @@ import java.util.ArrayList;
  *
  * @author USER
  */
-public class Student extends Person{
+public class Student extends Person {
+
     final String role = "Student";
     private char Mark = 'X';
-    protected ArrayList<Course> course ;
-    
-    public Student(){
+    protected ArrayList<Course> course;
+
+    public Student() {
     }
 
     public Student(String name, String id, String password) {
         super(name, id, password);
     }
-    
+
     public char getMark() {
         return Mark;
     }
@@ -38,8 +39,8 @@ public class Student extends Person{
     public void setCourses(ArrayList<Course> course) {
         this.course = course;
     }
-    
-    public void addCourse(Course course){
+
+    public void addCourse(Course course) {
         this.course.add(course);
     }
 
@@ -47,11 +48,22 @@ public class Student extends Person{
         return role;
     }
 
+    public static Student getById(String id) {
+        return Person.getById(id, new Student(), new Database("students"));
+    }
+
+    public static int getIndex(String id) {
+        return Person.getIndex(id, new Student(), new Database("students"));
+    }
+
+    public static void submit(Student c) {
+        Person.submit(c, new Database("students"));
+    }
+
     @Override
     public String toString() {
         String s = super.toString();
-        return "Student"+s; //To change body of generated methods, choose Tools | Templates.
+        return "Student" + s; //To change body of generated methods, choose Tools | Templates.
     }
- 
-    
+
 }

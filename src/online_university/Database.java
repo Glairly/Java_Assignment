@@ -46,6 +46,22 @@ public class Database {
         p = path.getParent().toString() + "\\" + file + ".dat";
     }
     
+    public void setPath_Admins(){
+        Path path = Paths.get(p);
+        p = path.getParent().toString() + "\\admins.dat";
+    }
+    
+    public void setPath_Students(){
+        Path path = Paths.get(p);
+        p = path.getParent().toString() + "\\students.dat";
+    }
+
+    public void setPath_Staffs(){
+        Path path = Paths.get(p);
+        p = path.getParent().toString() + "\\staffs.dat";
+    }
+
+    
     public <E> boolean write(E data) {
         ObjectOutputStream out;
         // write backup
@@ -74,7 +90,7 @@ public class Database {
         }
         return true;
     }
-
+    
     public boolean read() {
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(p));
@@ -87,6 +103,16 @@ public class Database {
         }
     }
 
+     public boolean check() {
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(p));
+            in.close();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Reading File is Error with logs : " + e.toString());
+            return false;
+        }
+    }
     public Object get() {
         Object data;
         try {
@@ -99,6 +125,8 @@ public class Database {
             return null;
         }
     }
+    
+    
 }
 /*
   Manual 

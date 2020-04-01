@@ -60,11 +60,22 @@ class Course extends Person {
         this.staffs = staffs;
     }
 
+    public static Course getById(String id) {
+        return Person.getById(id, new Course(), new Database("courses"));
+    }
+
+    public static int getIndex(String id) {
+        return Person.getIndex(id, new Student(), new Database("courses"));
+    }
+
+    public static void submit(Course c) {
+        Person.submit(c, new Database("courses"));
+    }
+
     @Override
     public String toString() {
         String s = super.toString();
         return "Course" + s; //To change body of generated methods, choose Tools | Templates.
     }
 
-    
 }

@@ -14,8 +14,6 @@ import java.util.Arrays;
  */
 public class Staff extends Person {
 
-    private transient Database db = new Database("courses");
-    private transient ArrayList<Course> cs;
     final String role = "Staff";
     private ArrayList<Course> courses;
 
@@ -42,24 +40,22 @@ public class Staff extends Person {
         return role;
     }
 
-    public void submitCourse(Course c) {
-        if (db.read()) {
-            cs = (ArrayList<Course>) db.get();
-            cs.add(c);
-            if (!db.write(cs)) {
-                System.out.println("Submit Falied.");
-                return;
-            }
-        } else {
-            System.out.println("Submit Falied.");
-            return;
-        }
+    public static void submit(Staff c) {
+        Person.submit(c, new Database("staffs"));
     }
 
-    public void findCourse(){
-      
+    public static Staff getById(String id){
+        return Person.getById(id,new Staff(),new Database("staffs"));
     }
     
+    public static int getIndex(String id){
+         return Person.getIndex(id,new Staff(),new Database("staffs"));
+    }
+
+    public void findCourse() {
+
+    }
+
     @Override
     public String toString() {
         String s = super.toString();
