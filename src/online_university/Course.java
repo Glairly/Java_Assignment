@@ -6,6 +6,7 @@
 package online_university;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -13,9 +14,9 @@ import java.util.ArrayList;
  */
 class Course extends Person {
 
-    private ArrayList<Student> students;
+    private ArrayList<Student> students = new ArrayList<Student>();
     private String classDescription = "";
-    private ArrayList<Staff> staffs;
+    private ArrayList<Staff> staffs = new ArrayList<Staff>();
 
     public Course() {
     }
@@ -28,12 +29,16 @@ class Course extends Person {
         this.classDescription = des;
     }
 
-    public void addStaff(Staff staff) {
-        this.staffs.add(staff);
+    public void addStaff(Staff... staff) {
+        for (Staff i : staff) {
+            this.staffs.add(i);
+        }
     }
 
-    public void addStudent(Student student) {
-        this.students.add(student);
+    public void addStudent(Student... student) {
+        for (Student i : student) {
+            this.students.add(i);
+        }
     }
 
     public ArrayList<Student> getStudents() {
@@ -68,8 +73,8 @@ class Course extends Person {
         return Person.getIndex(id, new Student(), new Database("courses"));
     }
 
-    public static void submit(Course c) {
-        Person.submit(c, new Database("courses"));
+    public static void submit(Course... c) {
+        Person.submit(new Database("courses"),c);
     }
 
     @Override

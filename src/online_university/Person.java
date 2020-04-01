@@ -116,16 +116,22 @@ public class Person implements Serializable {
         }
     }
 
-    protected static <E extends Person> void submit(E c, Database d) {
+    protected static <E extends Person> void submit(Database d, E... C) {
         Database db = d;
         ArrayList<E> cs;
         if (db.check()) {
             cs = (ArrayList<E>) db.get();
-            ArrayList<Integer> isExist = Person.search(c.getName(), c.getId(), cs);
-            if (isExist.size() != 0 && isExist != null) {
-                cs.set(isExist.get(0), c);
-            } else {
-                cs.add(c);
+            for (E c : C) {
+                ArrayList<Integer> isExist = Person.search(c.getName(), c.getId(), cs);
+                if (isExist.size() != 0 && isExist != null) {
+                    cs.set(isExist.get(0), c);
+                } else {
+                    if (cs == null) {
+                        cs = new ArrayList<E>();
+                    }
+                    cs.add(c);
+
+                }
             }
             if (!db.write(cs)) {
                 System.out.println("Submit Falied.");

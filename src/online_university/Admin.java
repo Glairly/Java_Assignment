@@ -34,8 +34,8 @@ public class Admin extends Person {
         return Person.getIndex(id, new Admin(), new Database("admins"));
     }
 
-    public static void submit(Admin c) {
-        Person.submit(c, new Database("admins"));
+    public static void submit(Admin... c) {
+        Person.submit(new Database("admins"), c);
     }
 
     @Override

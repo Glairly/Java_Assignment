@@ -15,7 +15,7 @@ public class Student extends Person {
 
     final String role = "Student";
     private char Mark = 'X';
-    protected ArrayList<Course> course;
+    protected ArrayList<Course> course = new ArrayList<Course>();
 
     public Student() {
     }
@@ -56,8 +56,8 @@ public class Student extends Person {
         return Person.getIndex(id, new Student(), new Database("students"));
     }
 
-    public static void submit(Student c) {
-        Person.submit(c, new Database("students"));
+    public static void submit(Student... c) {
+        Person.submit(new Database("students"),c);
     }
 
     @Override

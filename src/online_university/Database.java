@@ -22,11 +22,12 @@ public class Database {
 
     private String p;
     private String file = "test.dat";
+
     public Database() {
         Path path = Paths.get(System.getProperty("user.dir"));
         p = new String(path.toString());
         p = p.replace("\\", "\\\\");
-        p += "\\\\data\\\\database\\\\"+file;
+        p += "\\\\data\\\\database\\\\" + file;
     }
 
     public Database(String file) {
@@ -37,41 +38,67 @@ public class Database {
         this.file = file;
     }
 
+    public void _init_() {
+        this.setPath_Admins();
+        this.write(null);
+        this.setPath_Staffs();
+        this.write(null);
+        this.setPath_Students();
+        this.write(null);
+        this.setPath_Courses();
+        this.write(null);
+    }
+
+    public void _READ_() {
+        this.setPath_Admins();
+        this.read();
+        this.setPath_Staffs();
+        this.read();
+        this.setPath_Students();
+        this.read();
+        this.setPath_Courses();
+        this.read();
+    }
+
     public void setPath(String path) {
         p = path;
     }
-    
-    public void setFile(String file){
+
+    public void setFile(String file) {
         Path path = Paths.get(p);
         p = path.getParent().toString() + "\\" + file + ".dat";
     }
-    
-    public void setPath_Admins(){
+
+    public void setPath_Admins() {
         Path path = Paths.get(p);
         p = path.getParent().toString() + "\\admins.dat";
     }
-    
-    public void setPath_Students(){
+
+    public void setPath_Students() {
         Path path = Paths.get(p);
         p = path.getParent().toString() + "\\students.dat";
     }
 
-    public void setPath_Staffs(){
+    public void setPath_Staffs() {
         Path path = Paths.get(p);
         p = path.getParent().toString() + "\\staffs.dat";
     }
 
-    
+    public void setPath_Courses() {
+        Path path = Paths.get(p);
+        p = path.getParent().toString() + "\\courses.dat";
+    }
+
     public <E> boolean write(E data) {
         ObjectOutputStream out;
         // write backup
-        try{
+        try {
             Path path = Paths.get(p);
-            out = new ObjectOutputStream(new FileOutputStream(path.getParent().toString() + "\\"+"backup"+ "\\"+file+ Calendar.getInstance().getTimeInMillis()+".dat"));
+            out = new ObjectOutputStream(new FileOutputStream(path.getParent().toString() + "\\" + "backup" + "\\" + file + Calendar.getInstance().getTimeInMillis() + ".dat"));
             E backup = (E) this.get();
             out.writeObject(backup);
-        }catch(Exception ex){
-             System.out.println("Writing Backup File is Error with logs : " + ex.toString());
+        } catch (Exception ex) {
+            System.out.println("Writing Backup File is Error with logs : " + ex.toString());
         }
         // write file
         try {
@@ -82,7 +109,7 @@ public class Database {
             System.out.println("Writing File is Error with logs : " + ex.toString());
             return false;
         }
-       
+
         try {
             out.close();
         } catch (IOException ex) {
@@ -90,7 +117,7 @@ public class Database {
         }
         return true;
     }
-    
+
     public boolean read() {
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(p));
@@ -103,7 +130,7 @@ public class Database {
         }
     }
 
-     public boolean check() {
+    public boolean check() {
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(p));
             in.close();
@@ -113,6 +140,7 @@ public class Database {
             return false;
         }
     }
+
     public Object get() {
         Object data;
         try {
@@ -125,8 +153,7 @@ public class Database {
             return null;
         }
     }
-    
-    
+
 }
 /*
   Manual 
