@@ -13,18 +13,15 @@ import java.util.ArrayList;
  */
 public class Admin extends Person {
 
-    private static Database dbPath = new Database("admins");
     final String role = "Admin";
 
     public Admin() {
+        super.setDbPath(new Database("admins"));
     }
 
     public Admin(String name, String id, String password) {
         super(name, id, password);
-    }
-
-    public static Database getDbPath() {
-        return dbPath;
+        super.setDbPath(new Database("admins"));
     }
 
     public String getRole() {

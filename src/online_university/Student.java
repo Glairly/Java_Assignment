@@ -13,20 +13,17 @@ import java.util.ArrayList;
  */
 public class Student extends Person {
 
-    private static Database dbPath = new Database("students");
     final String role = "Student";
     private char Mark = 'X';
     protected ArrayList<Course> course = new ArrayList<Course>();
 
     public Student() {
+        super.setDbPath(new Database("students"));
     }
 
     public Student(String name, String id, String password) {
         super(name, id, password);
-    }
-
-    public static Database getDbPath() {
-        return dbPath;
+        super.setDbPath(new Database("students"));
     }
 
     public char getMark() {

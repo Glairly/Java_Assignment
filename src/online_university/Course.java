@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * @author USER
  */
 class Course extends Person {
-    private static Database dbPath = new Database("courses");
+    private Database dbPath = new Database("courses");
     private ArrayList<Student> students = new ArrayList<Student>();
     private String classDescription = "";
     private ArrayList<Staff> staffs = new ArrayList<Staff>();
@@ -21,7 +21,7 @@ class Course extends Person {
     public Course() {
     }
 
-    public static Database getDbPath() {
+    public Database getDbPath() {
         return dbPath;
     }
 

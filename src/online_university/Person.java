@@ -8,7 +8,6 @@ package online_university;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -16,7 +15,7 @@ import java.util.stream.Collectors;
  */
 public class Person implements Serializable {
 
-    private static Database dbPath = new Database();
+    private Database dbPath = new Database();
     private String name = "";
     private String id = "";
     private String password = "";
@@ -30,8 +29,12 @@ public class Person implements Serializable {
         this.password = password;
     }
 
-    public static Database getDbPath() {
+    public Database getDbPath() {
         return dbPath;
+    }
+
+    public void setDbPath(Database dbPath) {
+        this.dbPath = dbPath;
     }
 
     public String getName() {
@@ -73,7 +76,7 @@ public class Person implements Serializable {
         } else {
             result = byName.size() > 0 ? byName : byId;
         }
-        if (result != null || result.size() > 0) {
+        if (result != null && result.size() > 0) {
             return result.get(0);
         } else {
             return -1;
@@ -119,29 +122,25 @@ public class Person implements Serializable {
         }
     }
 
-    protected static <E extends Person> void submit(E... C) {
-        Database db = E.getDbPath();
-        ArrayList<E> cs;
-        if (db.check()) {
-            cs = (ArrayList<E>) db.get();
-            for (E c : C) {
-                int isExist = Person.search(c.getName(), c.getId(), cs);
-                if (isExist != -1) {
-                    cs.set(isExist, c);
-                } else {
-                    if (cs == null) {
-                        cs = new ArrayList<E>();
-                    }
-                    cs.add(c);
+    protected static void submit(Person... C) {
+        ArrayList<Person> cs;
+        Database db = new Database();
+        for (Person c : C) {
+            db = c.getDbPath();
+            cs = (ArrayList<Person>) db.get();
+            int isExist = Person.search(c.getName(), c.getId(), cs);
+            if (isExist != -1) {
+                cs.set(isExist, c);
+            } else {
+                if (cs == null) {
+                    cs = new ArrayList<Person>();
                 }
+                cs.add(c);
             }
             if (!db.write(cs)) {
                 System.out.println("Submit Falied.");
                 return;
             }
-        } else {
-            System.out.println("Submit Falied.");
-            return;
         }
     }
 

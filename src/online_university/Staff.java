@@ -14,18 +14,20 @@ import java.util.Arrays;
  */
 public class Staff extends Person {
 
-    private static Database dbPath = new Database("staffs");
+    private Database dbPath = new Database("staffs");
     final String role = "Staff";
     private ArrayList<Course> courses = new ArrayList<Course>();
 
     public Staff() {
+        super.setDbPath(new Database("students"));
     }
 
     public Staff(String name, String id, String password) {
         super(name, id, password);
+        super.setDbPath(new Database("staffs"));
     }
 
-    public static Database getDbPath() {
+    public Database getDbPath() {
         return dbPath;
     }
 
