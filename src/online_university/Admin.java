@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class Admin extends Person {
 
+    private static Database dbPath = new Database("admins");
     final String role = "Admin";
 
     public Admin() {
@@ -22,20 +23,20 @@ public class Admin extends Person {
         super(name, id, password);
     }
 
+    public static Database getDbPath() {
+        return dbPath;
+    }
+
     public String getRole() {
         return role;
     }
 
     public static Admin getById(String id) {
-        return Person.getById(id, new Admin(), new Database("admins"));
+        return (Admin) Person.getById(id);
     }
 
     public static int getIndex(String id) {
         return Person.getIndex(id, new Admin(), new Database("admins"));
-    }
-
-    public static void submit(Admin... c) {
-        Person.submit(new Database("admins"), c);
     }
 
     @Override

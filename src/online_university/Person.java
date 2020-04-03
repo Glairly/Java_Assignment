@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
  */
 public class Person implements Serializable {
 
+    private static Database dbPath = new Database();
     private String name = "";
     private String id = "";
     private String password = "";
@@ -27,6 +28,10 @@ public class Person implements Serializable {
         this.name = name;
         this.id = id;
         this.password = password;
+    }
+
+    public static Database getDbPath() {
+        return dbPath;
     }
 
     public String getName() {
@@ -49,7 +54,7 @@ public class Person implements Serializable {
         this.password = password;
     }
 
-    public static <E extends Person> ArrayList<Integer> search(String name, String id, ArrayList<E> source) {
+    public static <E extends Person> int search(String name, String id, ArrayList<E> source) {
         ArrayList<Integer> byName, byId, result;
         byName = new ArrayList();
         byId = new ArrayList();
@@ -68,7 +73,11 @@ public class Person implements Serializable {
         } else {
             result = byName.size() > 0 ? byName : byId;
         }
-        return result;
+        if (result != null || result.size() > 0) {
+            return result.get(0);
+        } else {
+            return -1;
+        }
 
     }
 
@@ -82,14 +91,12 @@ public class Person implements Serializable {
         return list;
     }
 
-    protected static <E extends Person> E getById(String id, E sample, Database d) {
-        Database db = d;
-        ArrayList<E> arr;
-        if (db.check()) {
-            arr = (ArrayList<E>) db.get();
-            ArrayList<Integer> res = Person.search("", id, arr);
-            if (res.size() < 2 && res.size() != 0) {
-                return arr.get(res.get(0));
+    protected static Person getById(String id) {
+        ArrayList<Person> arr = Database.getPerson();
+        if (arr != null) {
+            int res = Person.search("", id, arr);
+            if (res != -1) {
+                return arr.get(res);
             } else {
                 return null;
             }
@@ -104,33 +111,28 @@ public class Person implements Serializable {
         ArrayList<E> arr;
         if (db.check()) {
             arr = (ArrayList<E>) db.get();
-            ArrayList<Integer> res = Person.search("", id, arr);
-            if (res.size() < 2 && res.size() != 0) {
-                return res.get(0);
-            } else {
-                return -1;
-            }
+            int res = Person.search("", id, arr);
+            return res;
         } else {
             System.out.println("Get Data Falied.");
             return -1;
         }
     }
 
-    protected static <E extends Person> void submit(Database d, E... C) {
-        Database db = d;
+    protected static <E extends Person> void submit(E... C) {
+        Database db = E.getDbPath();
         ArrayList<E> cs;
         if (db.check()) {
             cs = (ArrayList<E>) db.get();
             for (E c : C) {
-                ArrayList<Integer> isExist = Person.search(c.getName(), c.getId(), cs);
-                if (isExist.size() != 0 && isExist != null) {
-                    cs.set(isExist.get(0), c);
+                int isExist = Person.search(c.getName(), c.getId(), cs);
+                if (isExist != -1) {
+                    cs.set(isExist, c);
                 } else {
                     if (cs == null) {
                         cs = new ArrayList<E>();
                     }
                     cs.add(c);
-
                 }
             }
             if (!db.write(cs)) {

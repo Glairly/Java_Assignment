@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class Student extends Person {
 
+    private static Database dbPath = new Database("students");
     final String role = "Student";
     private char Mark = 'X';
     protected ArrayList<Course> course = new ArrayList<Course>();
@@ -22,6 +23,10 @@ public class Student extends Person {
 
     public Student(String name, String id, String password) {
         super(name, id, password);
+    }
+
+    public static Database getDbPath() {
+        return dbPath;
     }
 
     public char getMark() {
@@ -49,15 +54,11 @@ public class Student extends Person {
     }
 
     public static Student getById(String id) {
-        return Person.getById(id, new Student(), new Database("students"));
+        return   (Student) Person.getById(id);
     }
 
     public static int getIndex(String id) {
         return Person.getIndex(id, new Student(), new Database("students"));
-    }
-
-    public static void submit(Student... c) {
-        Person.submit(new Database("students"),c);
     }
 
     @Override
