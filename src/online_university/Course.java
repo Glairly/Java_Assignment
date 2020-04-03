@@ -13,12 +13,16 @@ import java.util.stream.Collectors;
  * @author USER
  */
 class Course extends Person {
-
+    private static Database dbPath = new Database("courses");
     private ArrayList<Student> students = new ArrayList<Student>();
     private String classDescription = "";
     private ArrayList<Staff> staffs = new ArrayList<Staff>();
 
     public Course() {
+    }
+
+    public static Database getDbPath() {
+        return dbPath;
     }
 
     public Course(String name, String id, String password) {
@@ -66,15 +70,11 @@ class Course extends Person {
     }
 
     public static Course getById(String id) {
-        return Person.getById(id, new Course(), new Database("courses"));
+        return (Course)Person.getById(id);
     }
 
     public static int getIndex(String id) {
         return Person.getIndex(id, new Student(), new Database("courses"));
-    }
-
-    public static void submit(Course... c) {
-        Person.submit(new Database("courses"),c);
     }
 
     @Override

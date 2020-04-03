@@ -12,6 +12,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -154,6 +155,31 @@ public class Database {
         }
     }
 
+    public static ArrayList<Person> getPerson() {
+        ArrayList<Person> arr = new ArrayList<>();
+        Database db = new Database("students");
+        var t = db.get();
+        if (t != null) {
+            arr.addAll((ArrayList<Person>) t);
+        }
+        db.setPath_Admins();
+        t = db.get();
+        if (t != null) {
+            arr.addAll((ArrayList<Person>) t);
+        }
+        db.setPath_Staffs();
+        t = db.get();
+        if (t != null) {
+            arr.addAll((ArrayList<Person>) t);
+        }
+        return arr;
+    }
+
+    @Override
+    public String toString() {
+        return "Database{" + "p=" + p + ", file=" + file + '}';
+    }
+
 }
 /*
   Manual 
@@ -191,4 +217,4 @@ public class Database {
             return "Class A" + count; //To change body of generated methods, choose Tools | Templates.
         }
     }
-*/
+ */

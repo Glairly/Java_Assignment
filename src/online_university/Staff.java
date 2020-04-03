@@ -14,6 +14,7 @@ import java.util.Arrays;
  */
 public class Staff extends Person {
 
+    private static Database dbPath = new Database("staffs");
     final String role = "Staff";
     private ArrayList<Course> courses = new ArrayList<Course>();
 
@@ -22,6 +23,10 @@ public class Staff extends Person {
 
     public Staff(String name, String id, String password) {
         super(name, id, password);
+    }
+
+    public static Database getDbPath() {
+        return dbPath;
     }
 
     public void addCourses(Course... course) {
@@ -42,12 +47,8 @@ public class Staff extends Person {
         return role;
     }
 
-    public static void submit(Staff... c) {
-        Person.submit(new Database("staffs"),c);
-    }
-
     public static Staff getById(String id) {
-        return Person.getById(id, new Staff(), new Database("staffs"));
+        return (Staff) Person.getById(id);
     }
 
     public static int getIndex(String id) {
