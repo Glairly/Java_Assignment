@@ -27,22 +27,23 @@ public class Database implements Serializable {
 
     public Database() {
         Path path = Paths.get(System.getProperty("user.dir"));
-        p = new String(path.toString());
+        p = path.toString();
         p = p.replace("\\", "\\\\");
         p += "\\\\data\\\\database\\\\" + file;
     }
 
     public Database(String file) {
         Path path = Paths.get(System.getProperty("user.dir"));
-        p = new String(path.toString());
+        p = path.toString();
         p = p.replace("\\", "\\\\");
         p += "\\\\data\\\\database\\\\" + file + ".dat";
         this.file = file;
     }
 
+    @SuppressWarnings("empty-statement")
     public void _init_() {
         this.setPath_Admins();
-        this.write(null);
+        this.write(null);;
         this.setPath_Staffs();
         this.write(null);
         this.setPath_Students();
@@ -99,7 +100,7 @@ public class Database implements Serializable {
             out = new ObjectOutputStream(new FileOutputStream(path.getParent().toString() + "\\" + "backup" + "\\" + file + Calendar.getInstance().getTimeInMillis() + ".dat"));
             E backup = (E) this.get();
             out.writeObject(backup);
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             System.out.println("Writing Backup File is Error with logs : " + ex.toString());
         }
         // write file
@@ -107,7 +108,7 @@ public class Database implements Serializable {
             out = new ObjectOutputStream(new FileOutputStream(p));
             out.writeObject(data);
             System.out.println("Writing Successful");
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             System.out.println("Writing File is Error with logs : " + ex.toString());
             return false;
         }
@@ -122,11 +123,11 @@ public class Database implements Serializable {
 
     public boolean read() {
         try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream(p));
-            System.out.println(in.readObject());
-            in.close();
+            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(p))) {
+                System.out.println(in.readObject());
+            }
             return true;
-        } catch (Exception e) {
+        } catch (IOException | ClassNotFoundException e) {
             System.out.println("Reading File is Error with logs : " + e.toString());
             return false;
         }
@@ -137,7 +138,7 @@ public class Database implements Serializable {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(p));
             in.close();
             return true;
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Reading File is Error with logs : " + e.toString());
             return false;
         }
@@ -146,11 +147,11 @@ public class Database implements Serializable {
     public Object get() {
         Object data;
         try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream(p));
-            data = in.readObject();
-            in.close();
+            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(p))) {
+                data = in.readObject();
+            }
             return data;
-        } catch (Exception e) {
+        } catch (IOException | ClassNotFoundException e) {
             System.out.println("Getting data from File is Error with logs : " + e.toString());
             return null;
         }

@@ -27,14 +27,8 @@ public class Staff extends Person {
         super.setDbPath(new Database("staffs"));
     }
 
-    public Database getDbPath() {
-        return dbPath;
-    }
-
     public void addCourses(Course... course) {
-        for (Course i : course) {
-            this.courses.add(i);
-        }
+        this.courses.addAll(Arrays.asList(course));
     }
 
     public ArrayList<Course> getCourses() {

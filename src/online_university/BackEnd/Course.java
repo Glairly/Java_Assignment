@@ -6,7 +6,7 @@
 package online_university.BackEnd;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.Arrays;
 
 /**
  *
@@ -21,10 +21,6 @@ class Course extends Person {
     public Course() {
     }
 
-    public Database getDbPath() {
-        return dbPath;
-    }
-
     public Course(String name, String id, String password) {
         super(name, id, password);
     }
@@ -34,15 +30,11 @@ class Course extends Person {
     }
 
     public void addStaff(Staff... staff) {
-        for (Staff i : staff) {
-            this.staffs.add(i);
-        }
+        this.staffs.addAll(Arrays.asList(staff));
     }
 
     public void addStudent(Student... student) {
-        for (Student i : student) {
-            this.students.add(i);
-        }
+        this.students.addAll(Arrays.asList(student));
     }
 
     public ArrayList<Student> getStudents() {

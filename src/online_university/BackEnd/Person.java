@@ -57,7 +57,7 @@ public class Person implements Serializable {
         this.password = password;
     }
 
-    public static <E extends Person> int search(String name, String id, ArrayList<E> source) {
+    public static int search(String name, String id, ArrayList<Person> source) {
         ArrayList<Integer> byName, byId, result;
         byName = new ArrayList();
         byId = new ArrayList();
@@ -85,12 +85,10 @@ public class Person implements Serializable {
     }
 
     public static <T> List<T> intersection(List<T> list1, List<T> list2) {
-        List<T> list = new ArrayList<T>();
-        for (T t : list1) {
-            if (list2.contains(t)) {
-                list.add(t);
-            }
-        }
+        List<T> list = new ArrayList<>();
+        list1.stream().filter((t) -> (list2.contains(t))).forEachOrdered((t) -> {
+            list.add(t);
+        });
         return list;
     }
 
@@ -109,11 +107,11 @@ public class Person implements Serializable {
         }
     }
 
-    protected static <E extends Person> int getIndex(String id, E sample, Database d) {
+    protected static int getIndex(String id, Person sample, Database d) {
         Database db = d;
-        ArrayList<E> arr;
+        ArrayList<Person> arr;
         if (db.check()) {
-            arr = (ArrayList<E>) db.get();
+            arr = (ArrayList<Person>) db.get();
             int res = Person.search("", id, arr);
             return res;
         } else {
@@ -122,9 +120,9 @@ public class Person implements Serializable {
         }
     }
 
-    protected static void submit(Person... C) {
+    protected static boolean submit(Person... C) {
         ArrayList<Person> cs;
-        Database db = new Database();
+        Database db;
         for (Person c : C) {
             db = c.getDbPath();
             cs = (ArrayList<Person>) db.get();
@@ -133,15 +131,16 @@ public class Person implements Serializable {
                 cs.set(isExist, c);
             } else {
                 if (cs == null) {
-                    cs = new ArrayList<Person>();
+                    cs = new ArrayList<>();
                 }
                 cs.add(c);
             }
             if (!db.write(cs)) {
                 System.out.println("Submit Falied.");
-                return;
+                return false;
             }
         }
+        return true;
     }
 
     @Override
