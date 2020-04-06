@@ -20,6 +20,7 @@ public class API {
     public static void main(String[] args) {
         Database db = new Database();
         db._READ_();
+        // Test pull
     }
 
     /**
@@ -30,28 +31,28 @@ public class API {
         return Database.getPerson(); 
     }
 
-    public static ArrayList<Person> getAllStudent() {
+    public static ArrayList<Student> getAllStudent() {
         Person st = new Student();
         Database db = st.getDbPath();
-        return (ArrayList<Person>) db.get();
+        return (ArrayList<Student>) db.get();
     }
 
-    public static ArrayList<Person> getAllStaff() {
+    public static ArrayList<Staff> getAllStaff() {
         Person st = new Staff();
         Database db = st.getDbPath();
-        return (ArrayList<Person>) db.get();
+        return (ArrayList<Staff>) db.get();
     }
 
-    public static ArrayList<Person> getAllAdmin() {
+    public static ArrayList<Admin> getAllAdmin() {
         Person st = new Admin();
         Database db = st.getDbPath();
-        return (ArrayList<Person>) db.get();
+        return (ArrayList<Admin>) db.get();
     }
 
-    public static ArrayList<Person> getAllCourse() {
+    public static ArrayList<Course> getAllCourse() {
         Person st = new Course();
         Database db = st.getDbPath();
-        return (ArrayList<Person>) db.get();
+        return (ArrayList<Course>) db.get();
     }
 
     /**
