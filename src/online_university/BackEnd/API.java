@@ -19,6 +19,7 @@ public class API {
     public static void main(String[] args) {
         Database db = new Database();
         db._READ_();
+        // Test Push
     }
 
     public static ArrayList<Person> getAll() {
