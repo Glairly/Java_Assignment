@@ -14,7 +14,6 @@ import java.util.Arrays;
  */
 public class Staff extends Person {
 
-    private Database dbPath = new Database("staffs");
     final String role = "Staff";
     private ArrayList<Course> courses = new ArrayList<Course>();
 
