@@ -16,17 +16,57 @@ import java.util.List;
 public class Person implements Serializable {
 
     private Database dbPath = new Database();
-    private String name = "";
-    private String id = "";
-    private String password = "";
+    private String FirstName = "";
+    private String LastName = "";
+    private String UserName = "";
+    private String PassWord = "";
+    private String Age = "";
+    private String StudentId = "";
+    private String Email = "";
 
     public Person() {
     }
 
-    public Person(String name, String id, String password) {
-        this.name = name;
-        this.id = id;
-        this.password = password;
+    public Person(String name,String lname,String age,String stuId,String id, String password,String email) {
+        this.FirstName = name;
+        this.UserName = id;
+        this.PassWord = password;
+        this.Age = age;
+        this.StudentId = stuId;
+        this.LastName = lname;
+        this.Email = email;
+    }
+
+    public String getLastName() {
+        return LastName;
+    }
+
+    public void setLastName(String LastName) {
+        this.LastName = LastName;
+    }
+
+    public String getPassWord() {
+        return PassWord;
+    }
+
+    public void setPassWord(String PassWord) {
+        this.PassWord = PassWord;
+    }
+
+    public String getAge() {
+        return Age;
+    }
+
+    public void setAge(String Age) {
+        this.Age = Age;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String Email) {
+        this.Email = Email;
     }
 
     public Database getDbPath() {
@@ -37,36 +77,36 @@ public class Person implements Serializable {
         this.dbPath = dbPath;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return FirstName;
     }
 
-    public String getId() {
-        return id;
+    public String getUsername() {
+        return UserName;
     }
 
     public String getPassword() {
-        return password;
+        return PassWord;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String FirstName) {
+        this.FirstName = FirstName;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.PassWord = password;
     }
 
     public static int search(String name, String id, ArrayList<Person> source) {
         ArrayList<Integer> byName, byId, result;
-        byName = new ArrayList();
-        byId = new ArrayList();
+        byName = new ArrayList<>();
+        byId = new ArrayList<>();
         if (source != null) {
             for (int i = 0; i < source.size(); i++) {
-                if (source.get(i).getName().equals(name)) {
+                if (source.get(i).getFirstName().equals(name)) {
                     byName.add(i);
                 }
-                if (source.get(i).getId().equals(id)) {
+                if (source.get(i).getUsername().equals(id)) {
                     byId.add(i);
                 }
             }
@@ -126,7 +166,7 @@ public class Person implements Serializable {
         for (Person c : C) {
             db = c.getDbPath();
             cs = (ArrayList<Person>) db.get();
-            int isExist = Person.search(c.getName(), c.getId(), cs);
+            int isExist = Person.search(c.getFirstName(), c.getUsername(), cs);
             if (isExist != -1) {
                 cs.set(isExist, c);
             } else {
@@ -143,9 +183,11 @@ public class Person implements Serializable {
         return true;
     }
 
+
+    
     @Override
     public String toString() {
-        return "{Name : " + this.name + " Id : " + this.id + "}";
+        return "{Name : " + this.FirstName + " Id : " + this.UserName + "}";
     }
 
 }

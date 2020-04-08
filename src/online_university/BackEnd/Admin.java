@@ -5,7 +5,6 @@
  */
 package online_university.BackEnd;
 
-
 /**
  *
  * @author USER
@@ -15,12 +14,12 @@ public class Admin extends Person {
     final String role = "Admin";
 
     public Admin() {
-        super.setDbPath(new Database("admins"));
+        super.setDbPath(new Database("Admins"));
     }
 
-    public Admin(String name, String id, String password) {
-        super(name, id, password);
-        super.setDbPath(new Database("admins"));
+    public Admin(String name, String lname, String age, String stuId, String id, String password, String email) {
+        super(name, lname, age, stuId, id, password, email);
+        super.setDbPath(new Database("Admins"));
     }
 
     public String getRole() {

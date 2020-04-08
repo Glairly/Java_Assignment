@@ -24,32 +24,40 @@ public class Database implements Serializable {
 
     private String p;
     private String file = "test.dat";
+    private String mainParent = "";
 
     public Database() {
         Path path = Paths.get(System.getProperty("user.dir"));
         p = path.toString();
         p = p.replace("\\", "\\\\");
+        mainParent = p;
+        mainParent += "\\\\data\\\\database\\\\";
         p += "\\\\data\\\\database\\\\" + file;
+
     }
 
     public Database(String file) {
         Path path = Paths.get(System.getProperty("user.dir"));
         p = path.toString();
         p = p.replace("\\", "\\\\");
+        mainParent = p;
+        mainParent += "\\\\data\\\\database\\\\";
         p += "\\\\data\\\\database\\\\" + file + ".dat";
         this.file = file;
     }
 
     @SuppressWarnings("empty-statement")
-    public void _init_() {
+    public boolean _init_() {
+        int t = 0;
         this.setPath_Admins();
-        this.write(null);;
+        t += (this.write(null) ? 0 : 1);
         this.setPath_Staffs();
-        this.write(null);
+        t += (this.write(null) ? 0 : 1);
         this.setPath_Students();
-        this.write(null);
+        t += (this.write(null) ? 0 : 1);
         this.setPath_Courses();
-        this.write(null);
+        t += (this.write(null) ? 0 : 1);
+        return t == 0;
     }
 
     public void _READ_() {
@@ -101,7 +109,7 @@ public class Database implements Serializable {
             E backup = (E) this.get();
             out.writeObject(backup);
         } catch (IOException ex) {
-            System.out.println("Writing Backup File is Error with logs : " + ex.toString());
+            System.out.println("Writing Backup File is Error with logs : " + ex.toString() + " Parameter's Class :" + data.getClass());
         }
         // write file
         try {
@@ -123,7 +131,7 @@ public class Database implements Serializable {
 
     public boolean read() {
         try {
-            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(p))) {
+            try ( ObjectInputStream in = new ObjectInputStream(new FileInputStream(p))) {
                 System.out.println(in.readObject());
             }
             return true;
@@ -147,7 +155,7 @@ public class Database implements Serializable {
     public Object get() {
         Object data;
         try {
-            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(p))) {
+            try ( ObjectInputStream in = new ObjectInputStream(new FileInputStream(p))) {
                 data = in.readObject();
             }
             return data;
@@ -159,7 +167,8 @@ public class Database implements Serializable {
 
     public static ArrayList<Person> getPerson() {
         ArrayList<Person> arr = new ArrayList<>();
-        Database db = new Database("students");
+        Database db = new Database();
+        db.setPath_Students();
         var t = db.get();
         if (t != null) {
             arr.addAll((ArrayList<Person>) t);
@@ -177,46 +186,32 @@ public class Database implements Serializable {
         return arr;
     }
 
+    protected ArrayList<String> getDatabaseList(){
+        Database db = new Database("Lists");
+        return (ArrayList<String>) db.get();
+    }
+    
+    protected <E> boolean newDatabase(String name, E data) {
+        String path = this.mainParent;
+        Database db = new Database();
+        db.setPath(path + name + ".dat");
+        if( !db.check() && db.write(data)){
+            db.setFile("Lists");
+            ArrayList<String> arr = (ArrayList<String>) db.get();
+            arr.add(name);
+            while(!db.write(arr)){
+            }
+        }else{
+            if(db.check()) System.out.println("Database already Existed.");
+            else System.out.println("Creating Database is Failured.");
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public String toString() {
         return "Database{" + "p=" + p + ", file=" + file + '}';
     }
 
 }
-/*
-  Manual 
-    public static void main(String[] args) {
-        // Create writer and reader
-        Database db = new Database();
-        // sample Object
-        ArrayList<A> t = new ArrayList<A>();
-        for (int i = 0; i < 10; i++) {
-            t.add(new A());
-        }
-        // write to defaule file which is test.dat
-        db.write(t);
-        // read for show only
-        db.read();
-        
-        // test keep value in another variable
-        ArrayList<A> t1;
-        // get data 
-        t1 = (ArrayList<A>) db.get();
-        for(A i : t1) System.out.println(i);
-        
-        // print data's class
-        System.out.println(db.get().getClass());
-    }
-    // Tester class
-    public static class A implements Serializable {
-        static int count = 0;
-
-        public A() {
-            count++;
-        }
-        @Override
-        public String toString() {
-            return "Class A" + count; //To change body of generated methods, choose Tools | Templates.
-        }
-    }
- */

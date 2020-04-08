@@ -17,37 +17,57 @@ public class API {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        // Test pull
+    }
+
+    public static boolean _INIT_DATABASE_() {
         Database db = new Database();
-        db._READ_();
-        // Test Push
+        return db._init_();
     }
 
-    public static ArrayList<Person> getAll() {
-        return Database.getPerson();
+    public static ArrayList<ArrayList<Object>> _GET_DATABASE_() {
+        Database db = new Database("Lists");
+        ArrayList<ArrayList<Object>> arr = new ArrayList<>();
+        ArrayList<String> list = (ArrayList<String>) db.get();
+        for (String file : list) {
+            db.setFile(file);
+            arr.add((ArrayList<Object>) db.get());
+        }
+        return arr;
     }
 
-    public static ArrayList<Person> getAllStudent() {
+    /**
+     * Get all Account
+     *
+     * @return
+     */
+    public static ArrayList<Student> getAllStudent() {
         Person st = new Student();
         Database db = st.getDbPath();
-        return (ArrayList<Person>) db.get();
+        return (ArrayList<Student>) db.get();
     }
 
-    public static ArrayList<Person> getAllStaff() {
+    public static ArrayList<Staff> getAllStaff() {
         Person st = new Staff();
         Database db = st.getDbPath();
-        return (ArrayList<Person>) db.get();
+        return (ArrayList<Staff>) db.get();
     }
 
-    public static ArrayList<Person> getAllAdmin() {
+    public static ArrayList<Admin> getAllAdmin() {
         Person st = new Admin();
         Database db = st.getDbPath();
-        return (ArrayList<Person>) db.get();
+        return (ArrayList<Admin>) db.get();
     }
 
-    public static ArrayList<Person> getAllCourse() {
+    public static ArrayList<Course> getAllCourse() {
         Person st = new Course();
         Database db = st.getDbPath();
-        return (ArrayList<Person>) db.get();
+        return (ArrayList<Course>) db.get();
+    }
+
+    public static ArrayList<Object> getCustom(String file) {
+        Database db = new Database(file);
+        return (ArrayList<Object>) db.get();
     }
 
     /**
@@ -59,7 +79,7 @@ public class API {
      */
     public static <E extends Person> int searchByObject(E object) {
         Database db = object.getDbPath();
-        return Person.search(object.getName(), object.getId(), (ArrayList<Person>) db.get());
+        return Person.search(object.getFirstName(), object.getUsername(), (ArrayList<Person>) db.get());
     }
 
     public static Person searchById(String id) {
@@ -77,7 +97,7 @@ public class API {
         }
     }
 
-    public static <E extends Person> boolean saveToDatabase(E o) {
+    public static <E extends Person> boolean saveToDatabase(E... o) {
         return E.submit(o);
     }
 }
