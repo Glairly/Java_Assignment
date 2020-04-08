@@ -13,18 +13,21 @@ import java.util.Arrays;
  * @author USER
  */
 class Course extends Person {
-    
+
     private ArrayList<Student> students = new ArrayList<Student>();
     private String classDescription = "";
     private ArrayList<Staff> staffs = new ArrayList<Staff>();
 
     public Course() {
-        
+        super.setDbPath(new Database("Courses"));
     }
 
-    public Course(String name, String id, String password) {
-        super(name, id, password);
+    public Course(String name, String lname, String age, String stuId, String id, String password, String email) {
+        super(name, lname, age, stuId, id, password, email);
+        super.setDbPath(new Database("Courses"));
     }
+
+
 
     public Course(String des) {
         this.classDescription = des;
@@ -63,7 +66,7 @@ class Course extends Person {
     }
 
     public static Course getById(String id) {
-        return (Course)Person.getById(id);
+        return (Course) Person.getById(id);
     }
 
     public static int getIndex(String id) {

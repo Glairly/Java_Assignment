@@ -18,13 +18,15 @@ public class Student extends Person {
     protected ArrayList<Course> course = new ArrayList<Course>();
 
     public Student() {
-        super.setDbPath(new Database("students"));
+        super.setDbPath(new Database("Students"));
     }
 
-    public Student(String name, String id, String password) {
-        super(name, id, password);
-        super.setDbPath(new Database("students"));
+    public Student(String name, String lname, String age, String stuId, String id, String password, String email) {
+        super(name, lname, age, stuId, id, password, email);
+        super.setDbPath(new Database("Students"));
     }
+
+
 
     public char getMark() {
         return Mark;
@@ -51,7 +53,7 @@ public class Student extends Person {
     }
 
     public static Student getById(String id) {
-        return   (Student) Person.getById(id);
+        return (Student) Person.getById(id);
     }
 
     public static int getIndex(String id) {

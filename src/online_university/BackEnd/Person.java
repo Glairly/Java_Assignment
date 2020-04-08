@@ -22,14 +22,51 @@ public class Person implements Serializable {
     private String PassWord = "";
     private String Age = "";
     private String StudentId = "";
+    private String Email = "";
 
     public Person() {
     }
 
-    public Person(String name, String id, String password) {
+    public Person(String name,String lname,String age,String stuId,String id, String password,String email) {
         this.FirstName = name;
         this.UserName = id;
         this.PassWord = password;
+        this.Age = age;
+        this.StudentId = stuId;
+        this.LastName = lname;
+        this.Email = email;
+    }
+
+    public String getLastName() {
+        return LastName;
+    }
+
+    public void setLastName(String LastName) {
+        this.LastName = LastName;
+    }
+
+    public String getPassWord() {
+        return PassWord;
+    }
+
+    public void setPassWord(String PassWord) {
+        this.PassWord = PassWord;
+    }
+
+    public String getAge() {
+        return Age;
+    }
+
+    public void setAge(String Age) {
+        this.Age = Age;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String Email) {
+        this.Email = Email;
     }
 
     public Database getDbPath() {
@@ -146,6 +183,8 @@ public class Person implements Serializable {
         return true;
     }
 
+
+    
     @Override
     public String toString() {
         return "{Name : " + this.FirstName + " Id : " + this.UserName + "}";
