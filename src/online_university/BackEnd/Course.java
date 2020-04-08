@@ -13,13 +13,12 @@ import java.util.Arrays;
  * @author USER
  */
 class Course extends Person {
-    
+    private Database dbPath = new Database("courses");
     private ArrayList<Student> students = new ArrayList<Student>();
     private String classDescription = "";
     private ArrayList<Staff> staffs = new ArrayList<Staff>();
 
     public Course() {
-        
     }
 
     public Course(String name, String id, String password) {
