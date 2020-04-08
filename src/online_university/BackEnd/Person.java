@@ -16,17 +16,20 @@ import java.util.List;
 public class Person implements Serializable {
 
     private Database dbPath = new Database();
-    private String name = "";
-    private String id = "";
-    private String password = "";
+    private String FirstName = "";
+    private String LastName = "";
+    private String UserName = "";
+    private String PassWord = "";
+    private String Age = "";
+    private String StudentId = "";
 
     public Person() {
     }
 
     public Person(String name, String id, String password) {
-        this.name = name;
-        this.id = id;
-        this.password = password;
+        this.FirstName = name;
+        this.UserName = id;
+        this.PassWord = password;
     }
 
     public Database getDbPath() {
@@ -37,36 +40,36 @@ public class Person implements Serializable {
         this.dbPath = dbPath;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return FirstName;
     }
 
-    public String getId() {
-        return id;
+    public String getUsername() {
+        return UserName;
     }
 
     public String getPassword() {
-        return password;
+        return PassWord;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String FirstName) {
+        this.FirstName = FirstName;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.PassWord = password;
     }
 
     public static int search(String name, String id, ArrayList<Person> source) {
         ArrayList<Integer> byName, byId, result;
-        byName = new ArrayList();
-        byId = new ArrayList();
+        byName = new ArrayList<>();
+        byId = new ArrayList<>();
         if (source != null) {
             for (int i = 0; i < source.size(); i++) {
-                if (source.get(i).getName().equals(name)) {
+                if (source.get(i).getFirstName().equals(name)) {
                     byName.add(i);
                 }
-                if (source.get(i).getId().equals(id)) {
+                if (source.get(i).getUsername().equals(id)) {
                     byId.add(i);
                 }
             }
@@ -126,7 +129,7 @@ public class Person implements Serializable {
         for (Person c : C) {
             db = c.getDbPath();
             cs = (ArrayList<Person>) db.get();
-            int isExist = Person.search(c.getName(), c.getId(), cs);
+            int isExist = Person.search(c.getFirstName(), c.getUsername(), cs);
             if (isExist != -1) {
                 cs.set(isExist, c);
             } else {
@@ -145,7 +148,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "{Name : " + this.name + " Id : " + this.id + "}";
+        return "{Name : " + this.FirstName + " Id : " + this.UserName + "}";
     }
 
 }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
  *
  * @author USER
  */
+
 public class API {
 
     /**
@@ -22,8 +23,12 @@ public class API {
         // Test Pull
     }
 
+    /**
+     * Get all Account 
+     * @return
+     */
     public static ArrayList<Person> getAll() {
-        return Database.getPerson();
+        return Database.getPerson(); 
     }
 
     public static ArrayList<Person> getAllStudent() {
@@ -59,7 +64,7 @@ public class API {
      */
     public static <E extends Person> int searchByObject(E object) {
         Database db = object.getDbPath();
-        return Person.search(object.getName(), object.getId(), (ArrayList<Person>) db.get());
+        return Person.search(object.getFirstName(), object.getUsername(), (ArrayList<Person>) db.get());
     }
 
     public static Person searchById(String id) {
@@ -77,6 +82,7 @@ public class API {
         }
     }
 
+    
     public static <E extends Person> boolean saveToDatabase(E o) {
         return E.submit(o);
     }
