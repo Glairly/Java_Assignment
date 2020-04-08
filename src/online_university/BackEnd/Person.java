@@ -37,6 +37,14 @@ public class Person implements Serializable {
         this.Email = email;
     }
 
+    public String getUserName() {
+        return UserName;
+    }
+
+    public String getStudentId() {
+        return StudentId;
+    }
+
     public String getLastName() {
         return LastName;
     }
