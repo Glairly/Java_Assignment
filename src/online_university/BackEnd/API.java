@@ -11,26 +11,36 @@ import java.util.ArrayList;
  *
  * @author USER
  */
-
 public class API {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Database db = new Database();
-        db._READ_();
         // Test pull
     }
 
-    /**
-     * Get all Account 
-     * @return
-     */
-    public static ArrayList<Person> getAll() {
-        return Database.getPerson(); 
+    public static boolean _INIT_DATABASE_() {
+        Database db = new Database();
+        return db._init_();
     }
 
+    public static ArrayList<ArrayList<Object>> _GET_DATABASE_() {
+        Database db = new Database("Lists");
+        ArrayList<ArrayList<Object>> arr = new ArrayList<>();
+        ArrayList<String> list = (ArrayList<String>) db.get();
+        for (String file : list) {
+            db.setFile(file);
+            arr.add((ArrayList<Object>) db.get());
+        }
+        return arr;
+    }
+
+    /**
+     * Get all Account
+     *
+     * @return
+     */
     public static ArrayList<Student> getAllStudent() {
         Person st = new Student();
         Database db = st.getDbPath();
@@ -53,6 +63,11 @@ public class API {
         Person st = new Course();
         Database db = st.getDbPath();
         return (ArrayList<Course>) db.get();
+    }
+
+    public static ArrayList<Object> getCustom(String file) {
+        Database db = new Database(file);
+        return (ArrayList<Object>) db.get();
     }
 
     /**
@@ -82,8 +97,7 @@ public class API {
         }
     }
 
-    
-    public static <E extends Person> boolean saveToDatabase(E o) {
+    public static <E extends Person> boolean saveToDatabase(E... o) {
         return E.submit(o);
     }
 }

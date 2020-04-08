@@ -18,12 +18,12 @@ public class Staff extends Person {
     private ArrayList<Course> courses = new ArrayList<Course>();
 
     public Staff() {
-        super.setDbPath(new Database("students"));
+        super.setDbPath(new Database("Staffs"));
     }
 
-    public Staff(String name, String id, String password) {
-        super(name, id, password);
-        super.setDbPath(new Database("staffs"));
+    public Staff(String name, String lname, String age, String stuId, String id, String password) {
+        super(name, lname, age, stuId, id, password);
+        super.setDbPath(new Database("Staffs"));
     }
 
     public void addCourses(Course... course) {
@@ -48,10 +48,6 @@ public class Staff extends Person {
 
     public static int getIndex(String id) {
         return Person.getIndex(id, new Staff(), new Database("staffs"));
-    }
-
-    public void findCourse() {
-
     }
 
     @Override

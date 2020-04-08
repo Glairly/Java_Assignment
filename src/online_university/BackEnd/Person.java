@@ -26,10 +26,13 @@ public class Person implements Serializable {
     public Person() {
     }
 
-    public Person(String name, String id, String password) {
+    public Person(String name,String lname,String age,String stuId,String id, String password) {
         this.FirstName = name;
         this.UserName = id;
         this.PassWord = password;
+        this.Age = age;
+        this.StudentId = stuId;
+        this.LastName = lname;
     }
 
     public Database getDbPath() {
@@ -146,6 +149,8 @@ public class Person implements Serializable {
         return true;
     }
 
+
+    
     @Override
     public String toString() {
         return "{Name : " + this.FirstName + " Id : " + this.UserName + "}";
