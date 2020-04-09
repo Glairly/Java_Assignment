@@ -82,22 +82,22 @@ public class Database implements Serializable {
 
     public void setPath_Admins() {
         Path path = Paths.get(p);
-        p = path.getParent().toString() + "\\admins.dat";
+        p = path.getParent().toString() + "\\Admins.dat";
     }
 
     public void setPath_Students() {
         Path path = Paths.get(p);
-        p = path.getParent().toString() + "\\students.dat";
+        p = path.getParent().toString() + "\\Students.dat";
     }
 
     public void setPath_Staffs() {
         Path path = Paths.get(p);
-        p = path.getParent().toString() + "\\staffs.dat";
+        p = path.getParent().toString() + "\\Staffs.dat";
     }
 
     public void setPath_Courses() {
         Path path = Paths.get(p);
-        p = path.getParent().toString() + "\\courses.dat";
+        p = path.getParent().toString() + "\\Courses.dat";
     }
 
     public <E> boolean write(E data) {
