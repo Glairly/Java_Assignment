@@ -18,12 +18,11 @@ public class Staff extends Person {
     private ArrayList<Course> courses = new ArrayList<Course>();
 
     public Staff() {
-        super.setDbPath(new Database("Staffs"));
+        super();
     }
 
     public Staff(String name, String lname, String age, String stuId, String id, String password, String email) {
         super(name, lname, age, stuId, id, password, email);
-                super.setDbPath(new Database("Staffs"));
     }
 
    

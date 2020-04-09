@@ -19,15 +19,12 @@ class Course extends Person {
     private ArrayList<Staff> staffs = new ArrayList<Staff>();
 
     public Course() {
-        super.setDbPath(new Database("Courses"));
+        super();
     }
 
     public Course(String name, String lname, String age, String stuId, String id, String password, String email) {
         super(name, lname, age, stuId, id, password, email);
-        super.setDbPath(new Database("Courses"));
     }
-
-
 
     public Course(String des) {
         this.classDescription = des;

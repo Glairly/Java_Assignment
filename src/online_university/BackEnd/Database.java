@@ -49,6 +49,8 @@ public class Database implements Serializable {
     @SuppressWarnings("empty-statement")
     public boolean _init_() {
         int t = 0;
+        this.setFile("Lists");
+        t += (this.write(null) ? 0 : 1);
         this.setPath_Admins();
         t += (this.write(null) ? 0 : 1);
         this.setPath_Staffs();
