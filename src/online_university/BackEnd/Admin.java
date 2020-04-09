@@ -14,12 +14,11 @@ public class Admin extends Person {
     final String role = "Admin";
 
     public Admin() {
-        super.setDbPath(new Database("Admins"));
+        super();
     }
 
     public Admin(String name, String lname, String age, String stuId, String id, String password, String email) {
         super(name, lname, age, stuId, id, password, email);
-        super.setDbPath(new Database("Admins"));
     }
 
     public String getRole() {

@@ -25,9 +25,10 @@ public class Person implements Serializable {
     private String Email = "";
 
     public Person() {
+        this.setDbPath(new Database(this.getClass().getSimpleName()+"s"));
     }
 
-    public Person(String name,String lname,String age,String stuId,String id, String password,String email) {
+    public Person(String name, String lname, String age, String stuId, String id, String password, String email) {
         this.FirstName = name;
         this.UserName = id;
         this.PassWord = password;
@@ -35,6 +36,7 @@ public class Person implements Serializable {
         this.StudentId = stuId;
         this.LastName = lname;
         this.Email = email;
+        this.setDbPath(new Database(this.getClass().getSimpleName()+"s"));
     }
 
     public String getUserName() {
@@ -191,8 +193,6 @@ public class Person implements Serializable {
         return true;
     }
 
-
-    
     @Override
     public String toString() {
         return "{Name : " + this.FirstName + " Id : " + this.UserName + "}";

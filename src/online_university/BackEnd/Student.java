@@ -18,15 +18,12 @@ public class Student extends Person {
     protected ArrayList<Course> course = new ArrayList<Course>();
 
     public Student() {
-        super.setDbPath(new Database("Students"));
+        super();
     }
 
     public Student(String name, String lname, String age, String stuId, String id, String password, String email) {
         super(name, lname, age, stuId, id, password, email);
-        super.setDbPath(new Database("Students"));
     }
-
-
 
     public char getMark() {
         return Mark;

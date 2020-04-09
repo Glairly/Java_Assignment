@@ -18,6 +18,8 @@ public class API {
      */
     public static void main(String[] args) {
         // Test pull
+        Student st = new Student();
+        System.out.println(st.getDbPath());
     }
 
     public static boolean _INIT_DATABASE_() {
