@@ -27,6 +27,12 @@ public class Person implements Serializable {
     public Person() {
         this.setDbPath(new Database(this.getClass().getSimpleName()+"s"));
     }
+    
+    public Person(String username,String password){
+         this.UserName = username;
+         this.PassWord = password;
+         this.setDbPath(new Database(this.getClass().getSimpleName()+"s"));
+    }
 
     public Person(String name, String lname, String age, String stuId, String id, String password, String email) {
         this.FirstName = name;

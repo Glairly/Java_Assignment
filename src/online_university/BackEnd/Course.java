@@ -22,6 +22,10 @@ class Course extends Person {
         super();
     }
 
+    public Course(String username, String password) {
+        super(username, password);
+    }
+
     public Course(String name, String lname, String age, String stuId, String id, String password, String email) {
         super(name, lname, age, stuId, id, password, email);
     }
