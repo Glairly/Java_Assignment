@@ -17,14 +17,30 @@ public class API {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // Test pull
-        Student st = new Student();
-        System.out.println(st.getDbPath());
+        // Save new Data
+            JavIdol javIdol = new JavIdol("Eimi","TUPOM-44");
+            // case Object's class name is equal to Database's file name
+            API.saveToDatabase(javIdol);
+            // else pass your Database's file name and your data
+            API.saveToCustom("Your Object's class name",javIdol);
+        // New database
+            API._NEW_DATABASE_("JAV_IDOL_CATALOG");
+            // save data to new database
+            JavIdol eimi_fukada = new JavIdol("Eimi Fukada","POMTU-44");
+            API.saveToCustom("JAV_IDOL_CATALOG", eimi_fukada);
+        // Get data 
+            // pass your file name
+            var arr = API.getCustom("JAV_IDOL_CATALOG");
     }
 
     public static boolean _INIT_DATABASE_() {
         Database db = new Database();
         return db._init_();
+    }
+    
+    public static boolean _NEW_DATABASE_(String fileName){
+        Database db = new Database();
+        return db.newDatabase(fileName, null);
     }
 
     public static ArrayList<ArrayList<Object>> _GET_DATABASE_() {
@@ -101,5 +117,34 @@ public class API {
 
     public static <E extends Person> boolean saveToDatabase(E... o) {
         return E.submit(o);
+    }
+
+    /**
+     * Pass file name and your data
+     * @param <E>
+     * @param file
+     * @param data
+     * @return boolean
+     */
+    public static <E extends Person> boolean saveToCustom(String file, E... data) {
+        Database db = new Database(file);
+        ArrayList<Person> cs;
+        for (Person c : data) {
+            cs = (ArrayList<Person>) db.get();
+            int isExist = Person.search(null, c.getUsername(), cs);
+            if (isExist != -1) {
+                cs.set(isExist, c);
+            } else {
+                if (cs == null) {
+                    cs = new ArrayList<>();
+                }
+                cs.add(c);
+            }
+            if (!db.write(cs)) {
+                System.out.println("Submit Falied.");
+                return false;
+            }
+        }
+        return true;
     }
 }
