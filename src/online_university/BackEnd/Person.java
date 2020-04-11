@@ -182,7 +182,7 @@ public class Person implements Serializable {
         for (Person c : C) {
             db = c.getDbPath();
             cs = (ArrayList<Person>) db.get();
-            int isExist = Person.search(c.getFirstName(), c.getUsername(), cs);
+            int isExist = Person.search(null, c.getUsername(), cs);
             if (isExist != -1) {
                 cs.set(isExist, c);
             } else {
