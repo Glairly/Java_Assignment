@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class Person implements Serializable {
 
+    final String role = "";
     private Database dbPath = new Database();
     private String FirstName = "";
     private String LastName = "";
@@ -25,13 +26,13 @@ public class Person implements Serializable {
     private String Email = "";
 
     public Person() {
-        this.setDbPath(new Database(this.getClass().getSimpleName()+"s"));
+        this.setDbPath(new Database(this.getClass().getSimpleName() + "s"));
     }
-    
-    public Person(String username,String password){
-         this.UserName = username;
-         this.PassWord = password;
-         this.setDbPath(new Database(this.getClass().getSimpleName()+"s"));
+
+    public Person(String username, String password) {
+        this.UserName = username;
+        this.PassWord = password;
+        this.setDbPath(new Database(this.getClass().getSimpleName() + "s"));
     }
 
     public Person(String name, String lname, String age, String stuId, String id, String password, String email) {
@@ -42,7 +43,7 @@ public class Person implements Serializable {
         this.StudentId = stuId;
         this.LastName = lname;
         this.Email = email;
-        this.setDbPath(new Database(this.getClass().getSimpleName()+"s"));
+        this.setDbPath(new Database(this.getClass().getSimpleName() + "s"));
     }
 
     public String getUserName() {
@@ -111,6 +112,10 @@ public class Person implements Serializable {
 
     public void setPassword(String password) {
         this.PassWord = password;
+    }
+
+    public String getRole() {
+        return role;
     }
 
     public static int search(String name, String id, ArrayList<Person> source) {
