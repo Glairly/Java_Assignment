@@ -15,6 +15,7 @@ public class Student extends Person {
 
     final String role = "Student";
     private char Mark = 'X';
+    private String Score = "";
     protected ArrayList<Course> course = new ArrayList<Course>();
 
     public Student() {
@@ -48,10 +49,6 @@ public class Student extends Person {
 
     public void addCourse(Course course) {
         this.course.add(course);
-    }
-
-    public String getRole() {
-        return role;
     }
 
     public static Student getById(String id) {

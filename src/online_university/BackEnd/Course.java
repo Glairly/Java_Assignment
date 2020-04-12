@@ -12,8 +12,8 @@ import java.util.Arrays;
  *
  * @author USER
  */
-class Course extends Person {
-
+public class Course extends Person {
+    final String role = "Course";
     private ArrayList<Student> students = new ArrayList<Student>();
     private String classDescription = "";
     private ArrayList<Staff> staffs = new ArrayList<Staff>();
@@ -79,5 +79,4 @@ class Course extends Person {
         String s = super.toString();
         return "Course" + s; //To change body of generated methods, choose Tools | Templates.
     }
-
 }

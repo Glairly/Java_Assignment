@@ -25,10 +25,6 @@ public class Admin extends Person {
         super(name, lname, age, stuId, id, password, email);
     }
 
-    public String getRole() {
-        return role;
-    }
-
     public static Admin getById(String id) {
         return (Admin) Person.getById(id);
     }
