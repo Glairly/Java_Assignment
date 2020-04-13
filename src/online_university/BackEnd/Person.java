@@ -24,6 +24,23 @@ public class Person implements Serializable {
     private String Age = "";
     private String StudentId = "";
     private String Email = "";
+    private String Gender = "";
+
+    public String getUserName() {
+        return UserName;
+    }
+
+    public void setUserName(String UserName) {
+        this.UserName = UserName;
+    }
+
+    public String getGender() {
+        return Gender;
+    }
+
+    public void setGender(String Gender) {
+        this.Gender = Gender;
+    }
 
     public Person() {
         this.setDbPath(new Database(this.getClass().getSimpleName() + "s"));
@@ -46,10 +63,6 @@ public class Person implements Serializable {
         this.setDbPath(new Database(this.getClass().getSimpleName() + "s"));
     }
 
-    public String getUserName() {
-        return UserName;
-    }
-
     public String getStudentId() {
         return StudentId;
     }
@@ -60,10 +73,6 @@ public class Person implements Serializable {
 
     public void setLastName(String LastName) {
         this.LastName = LastName;
-    }
-
-    public String getPassWord() {
-        return PassWord;
     }
 
     public void setPassWord(String PassWord) {
@@ -124,11 +133,15 @@ public class Person implements Serializable {
         byId = new ArrayList<>();
         if (source != null) {
             for (int i = 0; i < source.size(); i++) {
-                if (source.get(i).getFirstName().equals(name)) {
-                    byName.add(i);
+                if (name != null) {
+                    if (source.get(i).getFirstName().equals(name)) {
+                        byName.add(i);
+                    }
                 }
-                if (source.get(i).getUsername().equals(id)) {
-                    byId.add(i);
+                if (id != null) {
+                    if (source.get(i).getUsername().equals(id)) {
+                        byId.add(i);
+                    }
                 }
             }
         }
