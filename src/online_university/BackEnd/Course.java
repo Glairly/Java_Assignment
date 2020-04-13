@@ -87,23 +87,35 @@ public class Course extends Person {
         return Person.getIndex(id, new Student(), new Database("courses"));
     }
 
-    public Grading getStudentGrading(Student student) {
-        if (this.students != null) {
-            for (int i = 0; i < this.students.size(); i++) {
-                if (this.students.get(i).getKey().equals(student)) {
-                    return this.students.get(i).getValue();
-                }
+    public Grading getStudentGrading(Student st) {
+        ArrayList<Student> arr = new ArrayList<>();
+        for (Pair<Student, Grading> s : this.students) {
+            if (s.getKey().getUsername().equals(st.getUsername())) {
+                return s.getValue();
             }
         }
         return null;
     }
-    
-    public boolean isStudentExist(Student st){
+
+    public boolean isStudentExist(Student st) {
         ArrayList<Student> arr = new ArrayList<>();
-        for(Pair<Student, Grading> s : this.students){
-            arr.add(s.getKey());
+        for (Pair<Student, Grading> s : this.students) {
+            if (s.getKey().getUsername().equals(st.getUsername())) {
+                return true;
+            }
         }
-        return arr.contains(st);
+
+        return false;
+    }
+
+    public Pair<Student, Grading> getStudent(Student st) {
+        ArrayList<Student> arr = new ArrayList<>();
+        for (Pair<Student, Grading> s : this.students) {
+            if (s.getKey().getUsername().equals(st.getUsername())) {
+                return s;
+            }
+        }
+        return null;
     }
 
     @Override
