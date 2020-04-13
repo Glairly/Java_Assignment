@@ -42,7 +42,7 @@ public class Register extends Application {
     VBox NameBox2 = new VBox(10);
     HBox BackBox = new HBox(20);
 
-    Button next = new Button("OK");
+    Button next = new Button("Login");
     TextField fillName = new TextField("YOUR ID");
     TextField fillPW = new PasswordField();
 
@@ -57,11 +57,11 @@ public class Register extends Application {
     TextField[] allfill;
     HBox[] Column;
 
-    ObservableList<String> options = FXCollections.observableArrayList("STUDENT", "TEACHER", "ADMIN");
+//    ObservableList<String> options = FXCollections.observableArrayList("STUDENT", "TEACHER", "ADMIN");
     ObservableList<String> Registorr = FXCollections.observableArrayList("Student", "Staff");
     ObservableList<String> gender = FXCollections.observableArrayList("MALE", "FEMALE");
 
-    ComboBox comboBox = new ComboBox(options);
+//    ComboBox comboBox = new ComboBox(options);
     ComboBox comboBox2 = new ComboBox(Registorr);
     ComboBox genderBox = new ComboBox(gender);
 
@@ -94,10 +94,10 @@ public class Register extends Application {
         alltext[1].setFill(Color.NAVY);
         alltext[1].setUnderline(true);
         NameBox.getChildren().add(fillName);
-        comboBox.setVisibleRowCount(2);
+//        comboBox.setVisibleRowCount(2);
         PWBox.getChildren().add(fillPW);
         TextBox.getChildren().add(alltext[1]);
-        LogInpage.getChildren().addAll(TextBox, NameBox, PWBox, comboBox);
+        LogInpage.getChildren().addAll(TextBox, NameBox, PWBox); //, comboBox);
         LogInpage.getChildren().addAll(next, allbutton[3]);
         next.setOnAction((ActionEvent t) -> {
             Person user = (Person) idcheckers();
@@ -219,7 +219,7 @@ public class Register extends Application {
     void Setbacktostartingpage() {
         fillName.setText("Your ID");
         fillPW.setText("");
-        comboBox.setValue("");
+//        comboBox.setValue("");
         scene[1] = s1;
     }
 

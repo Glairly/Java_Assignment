@@ -17,7 +17,7 @@ public class API {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-      
+        Authority.registor(new Staff("Glairly","g12345"));
     }
 
     public static boolean _INIT_DATABASE_() {
