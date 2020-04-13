@@ -7,14 +7,23 @@ package online_university.BackEnd;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import javafx.util.Pair;
 
 /**
  *
  * @author USER
  */
 public class Course extends Person {
+
+    public static void main(String[] args) {
+        Course c = new Course();
+        c.addStudent(new Student("s1", "123123"), new Student("s2", "123123"));
+        c.getStudents().get(0).getValue().setScore("50.25");
+        System.out.println(c.getStudents());
+    }
+
     final String role = "Course";
-    private ArrayList<Student> students = new ArrayList<Student>();
+    private ArrayList<Pair<Student, Grading>> students = new ArrayList<>();
     private String classDescription = "";
     private ArrayList<Staff> staffs = new ArrayList<Staff>();
 
@@ -39,10 +48,14 @@ public class Course extends Person {
     }
 
     public void addStudent(Student... student) {
-        this.students.addAll(Arrays.asList(student));
+        ArrayList<Pair<Student, Grading>> arr = new ArrayList<>();
+        for (Student st : student) {
+            arr.add(new Pair<>(st, new Grading()));
+        }
+        this.students.addAll(arr);
     }
 
-    public ArrayList<Student> getStudents() {
+    public ArrayList<Pair<Student, Grading>> getStudents() {
         return students;
     }
 
@@ -54,7 +67,7 @@ public class Course extends Person {
         return staffs;
     }
 
-    public void setStudents(ArrayList<Student> students) {
+    public void setStudents(ArrayList<Pair<Student, Grading>> students) {
         this.students = students;
     }
 
@@ -72,6 +85,25 @@ public class Course extends Person {
 
     public static int getIndex(String id) {
         return Person.getIndex(id, new Student(), new Database("courses"));
+    }
+
+    public Grading getStudentGrading(Student student) {
+        if (this.students != null) {
+            for (int i = 0; i < this.students.size(); i++) {
+                if (this.students.get(i).getKey().equals(student)) {
+                    return this.students.get(i).getValue();
+                }
+            }
+        }
+        return null;
+    }
+    
+    public boolean isStudentExist(Student st){
+        ArrayList<Student> arr = new ArrayList<>();
+        for(Pair<Student, Grading> s : this.students){
+            arr.add(s.getKey());
+        }
+        return arr.contains(st);
     }
 
     @Override
