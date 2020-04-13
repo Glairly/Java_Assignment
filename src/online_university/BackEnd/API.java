@@ -17,20 +17,7 @@ public class API {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // Save new Data
-            JavIdol javIdol = new JavIdol("Eimi","TUPOM-44");
-            // case Object's class name is equal to Database's file name
-            API.saveToDatabase(javIdol);
-            // else pass your Database's file name and your data
-            API.saveToCustom("Your Object's class name",javIdol);
-        // New database
-            API._NEW_DATABASE_("JAV_IDOL_CATALOG");
-            // save data to new database
-            JavIdol eimi_fukada = new JavIdol("Eimi Fukada","POMTU-44");
-            API.saveToCustom("JAV_IDOL_CATALOG", eimi_fukada);
-        // Get data 
-            // pass your file name
-            var arr = API.getCustom("JAV_IDOL_CATALOG");
+      
     }
 
     public static boolean _INIT_DATABASE_() {
