@@ -31,7 +31,7 @@ public class Course extends Person {
         super();
     }
 
-    public Course(String classDescription,ArrayList<Staff> stffs,ArrayList<Pair<Student, Grading>> students) {
+    public Course(String classDescription, ArrayList<Staff> stffs, ArrayList<Pair<Student, Grading>> students) {
         this.students = students;
         this.classDescription = classDescription;
         this.staffs = stffs;
@@ -53,6 +53,12 @@ public class Course extends Person {
         this.students.addAll(arr);
     }
 
+    public void addStaffs(Staff... staff) {
+        for (Staff st : staff) {
+            this.staffs.add(st);
+        }
+    }
+
     public ArrayList<Pair<Student, Grading>> getStudents() {
         return students;
     }
@@ -61,7 +67,7 @@ public class Course extends Person {
         return classDescription;
     }
 
-    public ArrayList<Staff> getTeachers() {
+    public ArrayList<Staff> getStaffs() {
         return staffs;
     }
 
@@ -73,7 +79,7 @@ public class Course extends Person {
         this.classDescription = classDescription;
     }
 
-    public void setTeachers(ArrayList<Staff> staffs) {
+    public void setStaffs(ArrayList<Staff> staffs) {
         this.staffs = staffs;
     }
 
