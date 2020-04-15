@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author USER
  */
 public class Authority {
-    
+
     public static <E extends Person> Person login(String id, String password) {
         ArrayList<Person> arr = Database.getPerson();
         int res = Person.search(null, id, arr);
@@ -23,14 +23,14 @@ public class Authority {
         }
         return null;
     }
-    
+
     public static <E extends Person> boolean registor(E data) {
         if (Authority.login(data.getUserName(), data.getPassWord()) == null) {
-            API.saveToCustom("Register", data);
+            API.saveToCustom("Registers", data);
         } else {
             return false;
         }
         return true;
     }
-    
+
 }
