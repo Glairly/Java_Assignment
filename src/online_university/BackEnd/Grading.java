@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 public class Grading implements Serializable {
 
-    private String Grade = "X", Score = "0";
+    private String Grade = "X", Other_score = "0", MidExam = "0", FinalExam = "0";
 
     public String getGrade() {
         return Grade;
@@ -23,16 +23,40 @@ public class Grading implements Serializable {
         this.Grade = Grade;
     }
 
+    public String getOther_score() {
+        return Other_score;
+    }
+
+    public void setOther_score(String Other_score) {
+        this.Other_score = Other_score;
+    }
+
+    public String getMidExam() {
+        return MidExam;
+    }
+
+    public void setMidExam(String MidExam) {
+        this.MidExam = MidExam;
+    }
+
+    public String getFinalExam() {
+        return FinalExam;
+    }
+
+    public void setFinalExam(String FinalExam) {
+        this.FinalExam = FinalExam;
+    }
+
     @Override
     public String toString() {
-        return "Grading{Score : " + this.Score + " Grade : " + this.Grade + "}"; //To change body of generated methods, choose Tools | Templates.
+        return "Grading{Score : " + this.Other_score + " Grade : " + this.Grade + "}"; //To change body of generated methods, choose Tools | Templates.
     }
 
     public String getScore() {
-        return Score;
+        return Other_score;
     }
 
     public void setScore(String Score) {
-        this.Score = Score;
+        this.Other_score = Score;
     }
 }
