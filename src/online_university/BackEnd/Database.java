@@ -50,12 +50,15 @@ public class Database implements Serializable {
     public boolean _init_() {
         int t = 0;
         this.setFile("Lists");
-        ArrayList<String> starterDatabase = new ArrayList<>(){{
-            add("Admins");
-            add("Staffs");
-            add("Students");
-            add("Courses");
-        }};
+        ArrayList<String> starterDatabase = new ArrayList<>() {
+            {
+                add("Admins");
+                add("Staffs");
+                add("Students");
+                add("Courses");
+                add("Registers");
+            }
+        };
         t += (this.write(starterDatabase) ? 0 : 1);
         this.setPath_Admins();
         t += (this.write(null) ? 0 : 1);
@@ -65,7 +68,10 @@ public class Database implements Serializable {
         t += (this.write(null) ? 0 : 1);
         this.setPath_Courses();
         t += (this.write(null) ? 0 : 1);
+        this.setPath_Register();
+        t += (this.write(null) ? 0 : 1);
         return t == 0;
+
     }
 
     public void _READ_() {
@@ -76,6 +82,8 @@ public class Database implements Serializable {
         this.setPath_Students();
         this.read();
         this.setPath_Courses();
+        this.read();
+        this.setPath_Register();
         this.read();
     }
 
@@ -106,6 +114,11 @@ public class Database implements Serializable {
     public void setPath_Courses() {
         Path path = Paths.get(p);
         p = path.getParent().toString() + "\\Courses.dat";
+    }
+
+    public void setPath_Register() {
+        Path path = Paths.get(p);
+        p = path.getParent().toString() + "\\Registers.dat";
     }
 
     public <E> boolean write(E data) {
@@ -194,24 +207,27 @@ public class Database implements Serializable {
         return arr;
     }
 
-    protected ArrayList<String> getDatabaseList(){
+    protected ArrayList<String> getDatabaseList() {
         Database db = new Database("Lists");
         return (ArrayList<String>) db.get();
     }
-    
+
     protected <E> boolean newDatabase(String name, E data) {
         String path = this.mainParent;
         Database db = new Database();
         db.setPath(path + name + ".dat");
-        if( !db.check() && db.write(data)){
+        if (!db.check() && db.write(data)) {
             db.setFile("Lists");
             ArrayList<String> arr = (ArrayList<String>) db.get();
             arr.add(name);
-            while(!db.write(arr)){
+            while (!db.write(arr)) {
             }
-        }else{
-            if(db.check()) System.out.println("Database already Existed.");
-            else System.out.println("Creating Database is Failured.");
+        } else {
+            if (db.check()) {
+                System.out.println("Database already Existed.");
+            } else {
+                System.out.println("Creating Database is Failured.");
+            }
             return false;
         }
         return true;
