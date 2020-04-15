@@ -28,8 +28,8 @@ public class API {
         Database db = new Database();
         return db._init_();
     }
-    
-    public static boolean _NEW_DATABASE_(String fileName){
+
+    public static boolean _NEW_DATABASE_(String fileName) {
         Database db = new Database();
         return db.newDatabase(fileName, null);
     }
@@ -74,6 +74,12 @@ public class API {
         return (ArrayList<Course>) db.get();
     }
 
+    public static ArrayList<Person> getAllRegister() {
+        Database db = new Database();
+        db.setPath_Register();
+        return (ArrayList<Person>) db.get();
+    }
+
     public static ArrayList<Object> getCustom(String file) {
         Database db = new Database(file);
         return (ArrayList<Object>) db.get();
@@ -112,6 +118,7 @@ public class API {
 
     /**
      * Pass file name and your data
+     *
      * @param <E>
      * @param file
      * @param data
