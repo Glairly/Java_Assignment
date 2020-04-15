@@ -90,7 +90,7 @@ public class Course extends Person {
     public Grading getStudentGrading(Student st) {
         ArrayList<Student> arr = new ArrayList<>();
         for (Pair<Student, Grading> s : this.students) {
-            if (s.getKey().getUsername().equals(st.getUsername())) {
+            if (s.getKey().getUserName().equals(st.getUserName())) {
                 return s.getValue();
             }
         }
@@ -100,7 +100,7 @@ public class Course extends Person {
     public boolean isStudentExist(Student st) {
         ArrayList<Student> arr = new ArrayList<>();
         for (Pair<Student, Grading> s : this.students) {
-            if (s.getKey().getUsername().equals(st.getUsername())) {
+            if (s.getKey().getUserName().equals(st.getUserName())) {
                 return true;
             }
         }
@@ -111,7 +111,7 @@ public class Course extends Person {
     public Pair<Student, Grading> getStudent(Student st) {
         ArrayList<Student> arr = new ArrayList<>();
         for (Pair<Student, Grading> s : this.students) {
-            if (s.getKey().getUsername().equals(st.getUsername())) {
+            if (s.getKey().getUserName().equals(st.getUserName())) {
                 return s;
             }
         }

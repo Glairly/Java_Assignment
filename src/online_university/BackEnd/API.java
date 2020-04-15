@@ -86,7 +86,7 @@ public class API {
      */
     public static <E extends Person> int searchByObject(E object) {
         Database db = object.getDbPath();
-        return Person.search(object.getFirstName(), object.getUsername(), (ArrayList<Person>) db.get());
+        return Person.search(object.getFirstName(), object.getUserName(), (ArrayList<Person>) db.get());
     }
 
     public static Person searchById(String id) {
@@ -120,7 +120,7 @@ public class API {
         ArrayList<Person> cs;
         for (Person c : data) {
             cs = (ArrayList<Person>) db.get();
-            int isExist = Person.search(null, c.getUsername(), cs);
+            int isExist = Person.search(null, c.getUserName(), cs);
             if (isExist != -1) {
                 cs.set(isExist, c);
             } else {

@@ -26,12 +26,12 @@ public class Person implements Serializable {
     private String Email = "";
     private String Gender = "";
 
-    public String getUserName() {
-        return UserName;
-    }
-
     public void setUserName(String UserName) {
         this.UserName = UserName;
+    }
+
+    public void setStudentId(String StudentId) {
+        this.StudentId = StudentId;
     }
 
     public String getGender() {
@@ -107,11 +107,11 @@ public class Person implements Serializable {
         return FirstName;
     }
 
-    public String getUsername() {
+    public String getUserName() {
         return UserName;
     }
 
-    public String getPassword() {
+    public String getPassWord() {
         return PassWord;
     }
 
@@ -139,7 +139,7 @@ public class Person implements Serializable {
                     }
                 }
                 if (id != null) {
-                    if (source.get(i).getUsername().equals(id)) {
+                    if (source.get(i).getUserName().equals(id)) {
                         byId.add(i);
                     }
                 }
@@ -200,7 +200,7 @@ public class Person implements Serializable {
         for (Person c : C) {
             db = c.getDbPath();
             cs = (ArrayList<Person>) db.get();
-            int isExist = Person.search(null, c.getUsername(), cs);
+            int isExist = Person.search(null, c.getUserName(), cs);
             if (isExist != -1) {
                 cs.set(isExist, c);
             } else {
