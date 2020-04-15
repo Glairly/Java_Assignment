@@ -58,8 +58,8 @@ public class Register extends Application {
     HBox[] Column;
 
 //    ObservableList<String> options = FXCollections.observableArrayList("STUDENT", "TEACHER", "ADMIN");
-    ObservableList<String> Registorr = FXCollections.observableArrayList("Student", "Staff");
-    ObservableList<String> gender = FXCollections.observableArrayList("MALE", "FEMALE");
+    ObservableList<String> Registorr = FXCollections.observableArrayList("Student", "Staff", "Admin");
+    ObservableList<String> gender = FXCollections.observableArrayList("Male", "Female");
 
 //    ComboBox comboBox = new ComboBox(options);
     ComboBox comboBox2 = new ComboBox(Registorr);
@@ -131,16 +131,17 @@ public class Register extends Application {
 
         allbutton[4].setOnAction((ActionEvent t) -> {
             if (checkpassWord()) {
-                for (int i = 1; i < 8; i++) {
-                    System.out.println(allfill[i].getText());
-                }
                 alltext[12].setText(" Login Success Press Back To Continues ");
                 if (comboBox2.getValue().equals("Student")) {
-                    Student st = new Student(allfill[1].getText(), allfill[2].getText());
+                    //public Person(String name, String lname, String age, String stuId, String id, String password, String email) 
+                    Student st = new Student(allfill[3].getText(), allfill[4].getText(), allfill[5].getText(), null, allfill[1].getText(), allfill[2].getText(), allfill[6].getText());
                     Authority.registor(st);
                 }// get role
                 else if (comboBox2.getValue().equals("Staff")) {
-                    Staff st = new Staff(allfill[1].getText(), allfill[2].getText());
+                    Staff st = new Staff(allfill[3].getText(), allfill[4].getText(), allfill[5].getText(), null, allfill[1].getText(), allfill[2].getText(), allfill[6].getText());
+                    Authority.registor(st);
+                } else if (comboBox2.getValue().equals("Admin")) {
+                    Admin st = new Admin(allfill[3].getText(), allfill[4].getText(), allfill[5].getText(), null, allfill[1].getText(), allfill[2].getText(), allfill[6].getText());
                     Authority.registor(st);
                 }
                 genderBox.getValue();

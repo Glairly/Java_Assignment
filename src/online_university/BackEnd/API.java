@@ -17,9 +17,11 @@ public class API {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Authority.registor(new Staff("Glairly","g12345"));
-        Authority.registor(new Staff("Gai","g12345"));
-        System.out.println(Authority.login("Gai", "g12345"));
+//        API._INIT_DATABASE_();
+//        Authority.registor(new Staff("Glairly","g12345"));
+//        Authority.registor(new Staff("Gai","g12345"));
+//        System.out.println(Authority.login("Gai", "g12345"));
+        System.out.println(API.getCustom("Register"));
     }
 
     public static boolean _INIT_DATABASE_() {
