@@ -16,24 +16,38 @@ import javafx.util.Pair;
 public class Course extends Person {
 
     public static void main(String[] args) {
-        Course c = new Course();
-        c.addStudent(new Student("s1", "123123"), new Student("s2", "123123"));
-        c.getStudents().get(0).getValue().setScore("50.25");
-        System.out.println(c.getStudents());
+        Course c = new Course("Calculus",null,null);
+        Course c1 = new Course("CalculusII",null,null);
+        Course c2 = new Course("Circuit",null,null);
+        API.saveToDatabase(c,c1,c2);
     }
 
     final String role = "Course";
     private ArrayList<Pair<Student, Grading>> students = new ArrayList<>();
     private String classDescription = "";
     private ArrayList<Staff> staffs = new ArrayList<Staff>();
+    private ArrayList<Session> sessions = new ArrayList();
+
+    public ArrayList<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(ArrayList<Session> sessions) {
+        this.sessions = sessions;
+    }
+    
+    public void addSession(Session ss){
+        this.sessions.add(ss);
+    }
 
     public Course() {
         super();
     }
 
-    public Course(String classDescription, ArrayList<Staff> stffs, ArrayList<Pair<Student, Grading>> students) {
+    public Course(String className, ArrayList<Staff> stffs, ArrayList<Pair<Student, Grading>> students) {
         this.students = students;
-        this.classDescription = classDescription;
+        this.classDescription = className + " Description is Empty";
+        this.setUserName(className);
         this.staffs = stffs;
     }
 
@@ -122,6 +136,17 @@ public class Course extends Person {
         return null;
     }
 
+    public static ArrayList getCouresByStudent(Student st){
+        var arrC = API.getAllCourse();
+        ArrayList<Course> result = new ArrayList<>();
+        for(var i : arrC){
+            if(i.getStudent(st) != null){
+                result.add(i);
+            }
+        }
+        return result;
+    }
+    
     @Override
     public String toString() {
         String s = super.toString();

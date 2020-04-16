@@ -127,6 +127,20 @@ public class Person implements Serializable {
         return role;
     }
 
+    public static <E> ArrayList<Integer> search(E e, ArrayList source) {
+        ArrayList<Integer> collector;
+        collector = new ArrayList<>();
+        if (source != null) {
+            for (int i = 0; i < source.size(); i++) {
+                if (source.get(i).toString().equals(e.toString())) {
+                    collector.add(i);
+                }
+            }
+        }
+        return collector;
+
+    }
+
     public static int search(String name, String id, ArrayList<Person> source) {
         ArrayList<Integer> byName, byId, result;
         byName = new ArrayList<>();

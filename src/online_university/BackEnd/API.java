@@ -21,7 +21,11 @@ public class API {
 //        Authority.registor(new Staff("Glairly","g12345"));
 //        Authority.registor(new Staff("Gai","g12345"));
 //        System.out.println(Authority.login("Gai", "g12345"));
-        System.out.println(API.getCustom("Register"));
+//        System.out.println(API.getCustom("Register"));
+        API._INIT_DATABASE_();
+        System.out.println(API.getAllSession());
+//        Database db = new Database("Sessions");
+//        db.write(null);
     }
 
     public static boolean _INIT_DATABASE_() {
@@ -39,7 +43,7 @@ public class API {
         ArrayList<ArrayList<Object>> arr = new ArrayList<>();
         ArrayList<String> list = (ArrayList<String>) db.get();
         for (String file : list) {
-            db.setFile(file);
+            db.setPath_custom(file);
             arr.add((ArrayList<Object>) db.get());
         }
         return arr;
@@ -80,6 +84,12 @@ public class API {
         return (ArrayList<Person>) db.get();
     }
 
+    public static ArrayList<Person> getAllSession() {
+        Database db = new Database();
+        db.setPath_Sessions();
+        return (ArrayList<Person>) db.get();
+    }
+
     public static ArrayList<Object> getCustom(String file) {
         Database db = new Database(file);
         return (ArrayList<Object>) db.get();
@@ -116,6 +126,20 @@ public class API {
         return E.submit(o);
     }
 
+    public static <E> boolean RemoveFromDatabase(String file, E data) {
+        Database db = new Database(file);
+        ArrayList<E> arr = (ArrayList<E>) db.get();
+        if (arr != null) {
+            for (E i : arr) {
+                if (i.toString().equals(data.toString())) {
+                    arr.remove(i);
+                    return db.write(arr);
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * Pass file name and your data
      *
@@ -127,20 +151,22 @@ public class API {
     public static <E extends Person> boolean saveToCustom(String file, E... data) {
         Database db = new Database(file);
         ArrayList<Person> cs;
-        for (Person c : data) {
-            cs = (ArrayList<Person>) db.get();
-            int isExist = Person.search(null, c.getUserName(), cs);
-            if (isExist != -1) {
-                cs.set(isExist, c);
-            } else {
-                if (cs == null) {
-                    cs = new ArrayList<>();
+        if (data != null) {
+            for (Person c : data) {
+                cs = (ArrayList<Person>) db.get();
+                int isExist = Person.search(null, c.getUserName(), cs);
+                if (isExist != -1) {
+                    cs.set(isExist, c);
+                } else {
+                    if (cs == null) {
+                        cs = new ArrayList<>();
+                    }
+                    cs.add(c);
                 }
-                cs.add(c);
-            }
-            if (!db.write(cs)) {
-                System.out.println("Submit Falied.");
-                return false;
+                if (!db.write(cs)) {
+                    System.out.println("Submit Falied.");
+                    return false;
+                }
             }
         }
         return true;

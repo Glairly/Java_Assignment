@@ -49,14 +49,15 @@ public class Database implements Serializable {
     @SuppressWarnings("empty-statement")
     public boolean _init_() {
         int t = 0;
-        this.setFile("Lists");
+        this.setPath_custom("Lists");
         ArrayList<String> starterDatabase = new ArrayList<>() {
             {
                 add("Admins");
                 add("Staffs");
                 add("Students");
-                add("Courses");
                 add("Registers");
+                add("Courses");
+                add("Sessions");
             }
         };
         t += (this.write(starterDatabase) ? 0 : 1);
@@ -66,9 +67,11 @@ public class Database implements Serializable {
         t += (this.write(null) ? 0 : 1);
         this.setPath_Students();
         t += (this.write(null) ? 0 : 1);
+        this.setPath_Register();
+        t += (this.write(null) ? 0 : 1);
         this.setPath_Courses();
         t += (this.write(null) ? 0 : 1);
-        this.setPath_Register();
+        this.setPath_Sessions();
         t += (this.write(null) ? 0 : 1);
         return t == 0;
 
@@ -81,9 +84,11 @@ public class Database implements Serializable {
         this.read();
         this.setPath_Students();
         this.read();
+        this.setPath_Register();
+        this.read();
         this.setPath_Courses();
         this.read();
-        this.setPath_Register();
+        this.setPath_Sessions();
         this.read();
     }
 
@@ -91,9 +96,14 @@ public class Database implements Serializable {
         p = path;
     }
 
-    public void setFile(String file) {
+    public void setPath_custom(String file) {
         Path path = Paths.get(p);
         p = path.getParent().toString() + "\\" + file + ".dat";
+    }
+
+    public void setPath_Sessions() {
+        Path path = Paths.get(p);
+        p = path.getParent().toString() + "\\Sessions.dat";
     }
 
     public void setPath_Admins() {
@@ -217,7 +227,7 @@ public class Database implements Serializable {
         Database db = new Database();
         db.setPath(path + name + ".dat");
         if (!db.check() && db.write(data)) {
-            db.setFile("Lists");
+            db.setPath_custom("Lists");
             ArrayList<String> arr = (ArrayList<String>) db.get();
             arr.add(name);
             while (!db.write(arr)) {
