@@ -19,17 +19,13 @@ public class Session extends Person {
         ArrayList allC = API.getAllCourse();
         var c = API.getAllCourse().get(2);
         System.out.println(Person.search(c, allC));
-        
+
     }
 
     private Course course;
     private String sessionId = null;
     private Date date;
     private ArrayList<Student> attended_Student = new ArrayList();
-
-    public Session() {
-
-    }
 
     public Session(Course c) {
         this.course = c;
@@ -56,8 +52,12 @@ public class Session extends Person {
         this.course = course;
     }
 
-    public ArrayList<Student> getAttended_Student() {
+    public ArrayList<Student> getAttended_Students() {
         return attended_Student;
+    }
+
+    public boolean addAtended_Student(Student st) {
+        return this.attended_Student.add(st);
     }
 
     public void setAttended_Student(ArrayList<Student> attended_Student) {
