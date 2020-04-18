@@ -7,7 +7,6 @@ package online_university.BackEnd;
 
 import java.util.ArrayList;
 import java.util.Date;
-import javafx.util.Pair;
 
 /**
  *
@@ -26,10 +25,18 @@ public class Session extends Person {
     private String sessionId = null;
     private Date date;
     private ArrayList<Student> attended_Student = new ArrayList();
+    private boolean Status = false;
 
     public Session(Course c) {
         this.course = c;
-        this.sessionId = c.getUserName() + date;
+        if (c != null) {
+            this.sessionId = c.getUserName() + date;
+        }
+        this.setUserName(this.sessionId);
+    }
+
+    public ArrayList<Student> getAttended_Student() {
+        return attended_Student;
     }
 
     public static boolean start_Session(Session ss) {
@@ -38,6 +45,30 @@ public class Session extends Person {
             ss.sessionId = ss.course.getUserName() + ss.date;
         }
         return API.saveToCustom("Sessions", ss);
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public boolean isStatus() {
+        return Status;
+    }
+
+    public void setStatus(boolean Status) {
+        this.Status = Status;
     }
 
     public static boolean end_Session(Session ss) {
@@ -57,11 +88,28 @@ public class Session extends Person {
     }
 
     public boolean addAtended_Student(Student st) {
+        for (Student i : attended_Student) {
+            if (i.toString().equals(st.toString())) {
+                return false;
+            }
+        }
+        this.course.getStudent(st).getValue().Attending();
         return this.attended_Student.add(st);
     }
 
     public void setAttended_Student(ArrayList<Student> attended_Student) {
         this.attended_Student = attended_Student;
+    }
+
+    public static ArrayList<Session> getSessionByStudent(Student st) {
+        var arrSS = API.getAllSession();
+        ArrayList<Session> result = new ArrayList<>();
+        for (var i : arrSS) {
+            if (i.getCourse().getStudent(st) != null) {
+                result.add(i);
+            }
+        }
+        return result;
     }
 
     @Override
