@@ -23,9 +23,21 @@ public class API {
 //        System.out.println(Authority.login("Gai", "g12345"));
 //        System.out.println(API.getCustom("Register"));
         API._INIT_DATABASE_();
-        System.out.println(API.getAllSession());
+        //       System.out.println(API.getAllSession());
 //        Database db = new Database("Sessions");
 //        db.write(null);
+    }
+
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
 
     public static boolean _INIT_DATABASE_() {
@@ -84,10 +96,10 @@ public class API {
         return (ArrayList<Person>) db.get();
     }
 
-    public static ArrayList<Person> getAllSession() {
+    public static ArrayList<Session> getAllSession() {
         Database db = new Database();
         db.setPath_Sessions();
-        return (ArrayList<Person>) db.get();
+        return (ArrayList<Session>) db.get();
     }
 
     public static ArrayList<Object> getCustom(String file) {

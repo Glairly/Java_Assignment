@@ -16,9 +16,18 @@ public class Staff extends Person {
 
     final String role = "Staff";
     private ArrayList<Course> courses = new ArrayList<Course>();
+    private boolean on_Session = false;
 
     public Staff() {
         super();
+    }
+
+    public boolean isOn_Session() {
+        return on_Session;
+    }
+
+    public void setOn_Session(boolean on_Session) {
+        this.on_Session = on_Session;
     }
 
     public Staff(String username, String password) {
@@ -29,7 +38,6 @@ public class Staff extends Person {
         super(name, lname, age, stuId, id, password, email);
     }
 
-   
     public void addCourses(Course... course) {
         this.courses.addAll(Arrays.asList(course));
     }
