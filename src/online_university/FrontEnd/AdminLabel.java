@@ -1015,37 +1015,9 @@ public class AdminLabel extends Application {
 
         // OK AddCourse Button //
         okAddCourseButton.setOnAction(e -> {
-            if (stateForOKButton == 1) {
-                if(roleSelector.getValue() == "Teacher"){
-                    teacherData.add(new Staff(
-                        textFirstName.getText(), textLastName.getText(),
-                        textAge.getText(), textStudentID.getText(),
-                        textUserName.getText(), textPassWord.getText(),
-                        textEmail.getText()
-                    ));
-                    teacherData.get(teacherData.size()-1).setGender(genderSelector.getValue());
-                    textFieldAddUserClear();
-                }else {
-                    studentData.add(new Student(        
-                        textFirstName.getText(), textLastName.getText(),
-                        textAge.getText(), textStudentID.getText(),
-                        textUserName.getText(), textPassWord.getText(),
-                        textEmail.getText()
-                    ));
-                    studentData.get(studentData.size()-1).setGender(genderSelector.getValue());
-                    textFieldAddUserClear();
-                }
-            } else if (stateForOKButton == 2) {
-                studentData.get(indexForEdit).setFirstName(textFirstName.getText());
-                studentData.get(indexForEdit).setLastName(textLastName.getText());
-                studentData.get(indexForEdit).setAge(textAge.getText());
-                studentData.get(indexForEdit).setPassWord(textPassWord.getText());
-                studentData.get(indexForEdit).setEmail(textEmail.getText());
-
-                studentDataTable.refresh();
-
-                textFieldAddUserClear();
-            }
+            API.saveToDatabase(new Course(textCourseName.getText(),null,null));
+            textFieldAddCourseClear();
+            System.out.println("Add Course to DataBase!!!");
         });
 
         /// Close Program ///

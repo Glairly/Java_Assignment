@@ -46,6 +46,10 @@ public class Student extends Person {
         this.course = course;
     }
 
+    public String getRole() {
+        return role;
+    }
+
     public void addCourse(Course course) {
         this.course.add(course);
     }
