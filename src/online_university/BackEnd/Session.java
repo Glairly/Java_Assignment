@@ -35,10 +35,6 @@ public class Session extends Person {
         this.setUserName(this.sessionId);
     }
 
-    public ArrayList<Student> getAttended_Student() {
-        return attended_Student;
-    }
-
     public static boolean start_Session(Session ss) {
         ss.date = new Date();
         if (ss.sessionId == null) {
@@ -93,7 +89,6 @@ public class Session extends Person {
                 return false;
             }
         }
-        this.course.getStudent(st).getValue().Attending();
         return this.attended_Student.add(st);
     }
 

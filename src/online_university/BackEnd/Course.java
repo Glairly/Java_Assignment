@@ -60,6 +60,15 @@ public class Course extends Person {
         }
     }
 
+    public void AttendingStudent() {
+        if (sessions != null && sessions.size() > 0) {
+            for (Student i : this.getLastestSession().getAttended_Students()) {
+                System.out.println(this.getStudent(i));
+                this.getStudent(i).getValue().Attending();
+            }
+        }
+    }
+
     public void addStaffs(Staff... staff) {
         for (Staff st : staff) {
             this.staffs.add(st);
@@ -119,6 +128,19 @@ public class Course extends Person {
         }
 
         return false;
+    }
+
+    public void upDateLastestSession() {
+        Session local_ss = null;
+        var allSS = API.getAllSession();
+        Session ss = this.getLastestSession();
+        if (ss != null) {
+            for (Session SS : allSS) {
+                if (SS.toString().equals(ss.toString())) {
+                    this.setLastestSession(SS);
+                }
+            }
+        }
     }
 
     public Pair<Student, Grading> getStudent(Student st) {

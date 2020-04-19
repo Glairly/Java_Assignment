@@ -23,6 +23,7 @@ public class Grading implements Serializable {
         int count = Integer.parseInt(Attending_Count);
         count++;
         this.setAttending_Count("" + count);
+        System.out.println(this.getAttending_Count());
     }
     
     public String getAttending_Count() {
