@@ -22,7 +22,10 @@ public class API {
 //        Authority.registor(new Staff("Gai","g12345"));
 //        System.out.println(Authority.login("Gai", "g12345"));
 //        System.out.println(API.getCustom("Register"));
-        API._INIT_DATABASE_();
+        Staff user = (Staff) Authority.login("Staff1", "12345");
+        System.out.println(API.getAllCourse().get(1).getStudents());
+        //      System.out.println(API.getAllCourse().get(0).getStudents());
+        //       API._INIT_DATABASE_();
         //       System.out.println(API.getAllSession());
 //        Database db = new Database("Sessions");
 //        db.write(null);

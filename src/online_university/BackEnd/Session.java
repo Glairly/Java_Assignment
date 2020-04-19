@@ -26,6 +26,7 @@ public class Session extends Person {
     private Date date;
     private ArrayList<Student> attended_Student = new ArrayList();
     private boolean Status = false;
+    private Staff staff;
 
     public Session(Course c) {
         this.course = c;
@@ -67,6 +68,14 @@ public class Session extends Person {
         this.Status = Status;
     }
 
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
+    }
+
     public static boolean end_Session(Session ss) {
         return API.RemoveFromDatabase("Sessions", ss);
     }
@@ -99,9 +108,11 @@ public class Session extends Person {
     public static ArrayList<Session> getSessionByStudent(Student st) {
         var arrSS = API.getAllSession();
         ArrayList<Session> result = new ArrayList<>();
-        for (var i : arrSS) {
-            if (i.getCourse().getStudent(st) != null) {
-                result.add(i);
+        if (arrSS != null) {
+            for (var i : arrSS) {
+                if (i.getCourse().getStudent(st) != null) {
+                    result.add(i);
+                }
             }
         }
         return result;

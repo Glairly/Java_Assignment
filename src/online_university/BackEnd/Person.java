@@ -19,6 +19,7 @@ public class Person implements Serializable {
     private Database dbPath = new Database();
     private String FirstName = "";
     private String LastName = "";
+    private String FullName = "";
     private String UserName = "";
     private String PassWord = "";
     private String Age = "";
@@ -42,6 +43,14 @@ public class Person implements Serializable {
         this.Gender = Gender;
     }
 
+    public String getFullName() {
+        return FullName;
+    }
+
+    public void setFullName(String FullName) {
+        this.FullName = FullName;
+    }
+
     public Person() {
         this.setDbPath(new Database(this.getClass().getSimpleName() + "s"));
     }
@@ -60,6 +69,7 @@ public class Person implements Serializable {
         this.StudentId = stuId;
         this.LastName = lname;
         this.Email = email;
+        this.FullName = this.FirstName + " " + this.LastName;
         this.setDbPath(new Database(this.getClass().getSimpleName() + "s"));
     }
 
@@ -73,6 +83,7 @@ public class Person implements Serializable {
 
     public void setLastName(String LastName) {
         this.LastName = LastName;
+        this.FullName = this.FirstName + " " + this.LastName;
     }
 
     public void setPassWord(String PassWord) {
@@ -117,6 +128,7 @@ public class Person implements Serializable {
 
     public void setFirstName(String FirstName) {
         this.FirstName = FirstName;
+        this.FullName = this.FirstName + " " + this.LastName;
     }
 
     public void setPassword(String password) {

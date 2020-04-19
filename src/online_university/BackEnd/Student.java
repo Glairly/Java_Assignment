@@ -25,7 +25,6 @@ public class Student extends Person {
     public Student(String username, String password) {
         super(username, password);
     }
-    
 
     public Student(String name, String lname, String age, String stuId, String id, String password, String email) {
         super(name, lname, age, stuId, id, password, email);
@@ -49,6 +48,30 @@ public class Student extends Person {
 
     public void addCourse(Course course) {
         this.course.add(course);
+    }
+
+    public void updateCourse() {
+        ArrayList<Course> allC = API.getAllCourse();
+        ArrayList removeC = new ArrayList();
+        for (Course c : this.course) {
+            boolean isExist = false;
+            for (Course cc : allC) {
+                if (c.toString().equals(cc.toString())) {
+                    isExist = true;
+                    c.setStudents(cc.getStudents());
+                    break;
+                }
+            }
+        }
+    }
+
+    public void removeCourse(Course course) {
+        for (Course c : this.course) {
+            if (c.toString().equals(course.toString())) {
+                this.course.remove(c);
+                return;
+            }
+        }
     }
 
     public static Student getById(String id) {

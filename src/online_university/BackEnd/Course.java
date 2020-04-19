@@ -201,6 +201,17 @@ public class Course extends Person {
         this.sessions.add(ss);
     }
 
+    public void removeStudent(Student stu) {
+        for (Pair<Student, Grading> c : this.students) {
+            if (stu.toString().equals(c.getKey().toString())) {
+                var arr = this.students;
+                arr.remove(c);
+                this.setStudents(arr);
+                return;
+            }
+        }
+    }
+
     @Override
     public String toString() {
         String s = super.toString();

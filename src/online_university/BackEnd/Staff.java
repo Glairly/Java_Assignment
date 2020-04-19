@@ -12,7 +12,7 @@ import java.util.Arrays;
  *
  * @author USER
  */
-public class Staff extends Person {
+public class Staff extends Person implements Cloneable {
 
     final String role = "Staff";
     private ArrayList<Course> courses = new ArrayList<Course>();
@@ -48,6 +48,30 @@ public class Staff extends Person {
 
     public void setCourses(ArrayList<Course> courses) {
         this.courses = courses;
+    }
+
+    public void updateCourse() {
+        ArrayList<Course> allC = API.getAllCourse();
+        ArrayList removeC = new ArrayList();
+        for (Course c : this.courses) {
+            boolean isExist = false;
+            for (Course cc : allC) {
+                if (c.toString().equals(cc.toString())) {
+                    isExist = true;
+                    c.setStudents(cc.getStudents());
+                    break;
+                }
+            }
+        }
+    }
+
+    public void removeCourse(Course course) {
+        for (Course c : this.courses) {
+            if (c.toString().equals(course.toString())) {
+                this.courses.remove(c);
+                return;
+            }
+        }
     }
 
     public String getRole() {
