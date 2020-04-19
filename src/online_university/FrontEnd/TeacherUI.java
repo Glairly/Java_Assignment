@@ -208,11 +208,11 @@ public class TeacherUI extends Application {
             update_Student_Timer.cancel();
             update_Student_Timer.purge();
         });
-        SubPane.getStylesheets().add("hellofxx/newCascadeStyleSheet.css");
-        ViewPane.getStylesheets().add("hellofxx/newCascadeStyleSheet.css");
-        AddPane.getStylesheets().add("hellofxx/newCascadeStyleSheet.css");
-        SesPane.getStylesheets().add("hellofxx/newCascadeStyleSheet.css");
-        AsPane.getStylesheets().add("hellofxx/newCascadeStyleSheet.css");
+        SubPane.getStylesheets().add("css/newCascadeStyleSheet.css");
+        ViewPane.getStylesheets().add("css/newCascadeStyleSheet.css");
+        AddPane.getStylesheets().add("css/newCascadeStyleSheet.css");
+        SesPane.getStylesheets().add("css/newCascadeStyleSheet.css");
+        AsPane.getStylesheets().add("css/newCascadeStyleSheet.css");
         SubjectName.setSpacing(100.0);
         this.User = (Staff) Authority.login("Staff1", "12345");
         initData();

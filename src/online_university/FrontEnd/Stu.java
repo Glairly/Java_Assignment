@@ -407,7 +407,7 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         Pane rootPane = new Pane();
         rootPane.getChildren().addAll(Add, searchField);
         Scene Ac = new Scene(rootPane, 645, 500);
-        Ac.getStylesheets().add("online_university/TestAgain.css");
+        Ac.getStylesheets().add("css/TestAgain.css");
         AddCourse.setScene(Ac);
         AddCourse.show();
         DoneAddCourse.setOnAction(e -> AddCourse.close());
