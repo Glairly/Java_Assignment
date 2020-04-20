@@ -139,6 +139,7 @@ public class TeacherUI extends Application {
     AnchorPane AddPane = new AnchorPane();
     AnchorPane AsPane = new AnchorPane();
     AnchorPane ViewPane = new AnchorPane();
+    TextArea rect3 = new TextArea();
 
     Scene SubScene = new Scene(SubPane, 1280, 720);
     Scene SesScene = new Scene(SesPane, 1280, 720);
@@ -161,17 +162,17 @@ public class TeacherUI extends Application {
     VBox AddStudentsBtn = new VBox();
     VBox DeleteStudentsDel = new VBox();
     VBox vBoxButtons3 = new VBox();
-    
-     ChoiceBox<String> choiceBox = new ChoiceBox();
-      TextField textField = new TextField();
-      ChoiceBox<String> choiceBox2 = new ChoiceBox();
-      TextField textField2 = new TextField();
-       ChoiceBox<String> choiceBox3 = new ChoiceBox();
-      TextField textField3 = new TextField();
-      ChoiceBox<String> choiceBox1 = new ChoiceBox();
-      TextField textField1 = new TextField();
-      ChoiceBox<String> choiceBox4 = new ChoiceBox();
-      TextField textField4 = new TextField();
+
+    ChoiceBox<String> choiceBox = new ChoiceBox();
+    TextField textField = new TextField();
+    ChoiceBox<String> choiceBox2 = new ChoiceBox();
+    TextField textField2 = new TextField();
+    ChoiceBox<String> choiceBox3 = new ChoiceBox();
+    TextField textField3 = new TextField();
+    ChoiceBox<String> choiceBox1 = new ChoiceBox();
+    TextField textField1 = new TextField();
+    ChoiceBox<String> choiceBox4 = new ChoiceBox();
+    TextField textField4 = new TextField();
 
     //Checkbox[] cb;
     ScrollPane SubScrollPane = new ScrollPane(SubjectName);
@@ -199,8 +200,8 @@ public class TeacherUI extends Application {
     Button StartSes = new Button("Start Session");
     Button ConSes = new Button("Continue Session");
     Button anotSes = new Button("Not avaliable");
-     Button BckBtn2 = new Button("Back");
-        Button OKBt = new Button("Add");
+    Button BckBtn2 = new Button("Back");
+    Button OKBt = new Button("Add");
     final ObservableList<Persons> table1_Data = FXCollections.observableArrayList();
     final ObservableList<Persons> table2_Data = FXCollections.observableArrayList();
     final ObservableList<Persons> table3_Data = FXCollections.observableArrayList();
@@ -374,7 +375,7 @@ public class TeacherUI extends Application {
 
         AnchorPane.setRightAnchor(AddSub, 510d);
         AnchorPane.setBottomAnchor(AddSub, 30d);
-       
+
         //lbl5.getStyleClass().add("white-label");
         lbl5.getStyleClass().add("special-label");
         Ong.getStyleClass().add("going-label");
@@ -445,7 +446,7 @@ public class TeacherUI extends Application {
                         AnchorPane.setTopAnchor(Subname, 120d);
 
                         Label Subname2 = new Label(sn);
-                        Label Tusername2 = new Label(ts);
+                        Label Tusername2 = new Label(ts + " is Teaching");
                         Rectangle rect2 = new Rectangle(700, 80);
                         rect2.setFill(Color.rgb(63, 81, 181));
                         AnchorPane.setLeftAnchor(rect2, 0d);
@@ -458,23 +459,22 @@ public class TeacherUI extends Application {
                         Subname2.getStyleClass().add("special-label");
                         Subname2.setLayoutX(120d);
                         AnchorPane.setTopAnchor(Subname2, 60d);
-                        TextArea rect3 = new TextArea();
                         rect3.setStyle("-fx-font-size: 20pt;");
                         rect3.setPrefSize(450, 503);
-                        Session local_ss = getSession();
-                        rect3.setText(local_ss.getCourse().getClassDescription());
                         rect3.textProperty().addListener(new ChangeListener<String>() {
                             @Override
                             public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
                                 Session local_ss = getSession();
-                                local_ss.getCourse().setClassDescription(newValue);
+                                local_ss.setLecture(newValue);
                                 API.saveToDatabase(local_ss);
                             }
                         });
                         //rect3.setFill(Color.WHITE);
                         AnchorPane.setLeftAnchor(rect3, 20d);
                         AnchorPane.setTopAnchor(rect3, 130d);
-                        SesPane.getChildren().add(rect3);
+                        if (!SesPane.getChildren().contains(rect3)) {
+                            SesPane.getChildren().add(rect3);
+                        }
                         Tusername2.setLayoutX(950);
                         Tusername2.setScaleX(5);
                         Tusername2.setScaleY(5);
@@ -544,9 +544,8 @@ public class TeacherUI extends Application {
         Endses.setStyle("-fx-font-size: 15pt;");
         Listses.setStyle("-fx-font-size: 10pt;");
         Attses.setStyle("-fx-font-size: 10pt;");
-       
 
-     AnchorPane.setLeftAnchor(AddStu, 105d);
+        AnchorPane.setLeftAnchor(AddStu, 105d);
         AnchorPane.setBottomAnchor(AddStu, 105d);
         AnchorPane.setLeftAnchor(Logout, 30d);
         AnchorPane.setBottomAnchor(Logout, 30d);
@@ -563,10 +562,10 @@ public class TeacherUI extends Application {
         AnchorPane.setBottomAnchor(Listses, 515d);
         AnchorPane.setRightAnchor(Attses, 22d);
         AnchorPane.setBottomAnchor(Attses, 515d);
-        
+
         AnchorPane.setLeftAnchor(choiceBox, 635d);
         AnchorPane.setBottomAnchor(choiceBox, 105d);
-         AnchorPane.setLeftAnchor(textField, 852d);
+        AnchorPane.setLeftAnchor(textField, 852d);
         AnchorPane.setBottomAnchor(textField, 105d);
         AnchorPane.setLeftAnchor(choiceBox3, 940d);
         AnchorPane.setBottomAnchor(choiceBox3, 90d);
@@ -574,7 +573,7 @@ public class TeacherUI extends Application {
         AnchorPane.setBottomAnchor(choiceBox1, 90d);
         AnchorPane.setLeftAnchor(textField1, 1060d);
         AnchorPane.setBottomAnchor(textField1, 90d);
-         AnchorPane.setLeftAnchor(textField3, 1060d);
+        AnchorPane.setLeftAnchor(textField3, 1060d);
         AnchorPane.setBottomAnchor(textField3, 90d);
 
         StartSes.setStyle("-fx-font-size: 20pt;");
@@ -710,20 +709,19 @@ public class TeacherUI extends Application {
         SelectCol.setMinWidth(110);
         SelectCol.setCellValueFactory(
                 new PropertyValueFactory<Persons, String>("select"));
-        
-         FilteredList<Persons> flPerson = new FilteredList(table1_Data, p -> true);//Pass the data to a filtered list
+
+        FilteredList<Persons> flPerson = new FilteredList(table1_Data, p -> true);//Pass the data to a filtered list
         table.setItems(flPerson);//Set the table's items using the filtered list
         //table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
         //Adding ChoiceBox and TextField here!
-       
+
         choiceBox.getItems().addAll("First Name", "Student ID.");
         choiceBox.setValue("First Name");
         //choiceBox.getStyleClass().add(".choice-box .context-menu");
-     
-       
+
         textField.setPromptText("Search here!");
-        textField.setOnKeyReleased(keyEvent ->
-        {
+        textField.setOnKeyReleased(keyEvent
+                -> {
             switch (choiceBox.getValue())//Switch on choiceBox value
             {
                 case "First Name":
@@ -732,23 +730,23 @@ public class TeacherUI extends Application {
                 case "Student ID.":
                     flPerson.setPredicate(p -> p.getEmail().toLowerCase().contains(textField.getText().toLowerCase().trim()));//filter table by first name
                     break;
-                
+
             }
         });
-        
+
 //        AnchorPane.setRightAnchor(textField , 380d);
 //        AnchorPane.setBottomAnchor(textField , 105d);
 //        AnchorPane.setLeftAnchor(choiceBox, 300d);
 //        AnchorPane.setBottomAnchor(choiceBox, 105d);
-           choiceBox.setStyle("-fx-background-color: #3F51B5; -fx-font-size: 20pt; -fx-border-color: #FFFFFF;");
-           textField.setStyle("-fx-font-size: 20pt;");
-           textField3.setStyle("-fx-font-size: 10pt;");
-           textField1.setStyle("-fx-font-size: 10pt;");
+        choiceBox.setStyle("-fx-background-color: #3F51B5; -fx-font-size: 20pt; -fx-border-color: #FFFFFF;");
+        textField.setStyle("-fx-font-size: 20pt;");
+        textField3.setStyle("-fx-font-size: 10pt;");
+        textField1.setStyle("-fx-font-size: 10pt;");
         choiceBox2.setStyle("-fx-background-color: #3F51B5; -fx-border-color: #FFFFFF;");
-         choiceBox3.setStyle("-fx-background-color: #3F51B5; -fx-font-size: 10pt; -fx-border-color: #FFFFFF; ");
-         choiceBox1.setStyle("-fx-background-color: #3F51B5; -fx-font-size: 10pt; -fx-border-color: #FFFFFF; ");
+        choiceBox3.setStyle("-fx-background-color: #3F51B5; -fx-font-size: 10pt; -fx-border-color: #FFFFFF; ");
+        choiceBox1.setStyle("-fx-background-color: #3F51B5; -fx-font-size: 10pt; -fx-border-color: #FFFFFF; ");
         choiceBox4.setStyle("-fx-background-color: #3F51B5; -fx-border-color: #FFFFFF;");
-        
+
         ViewPane.getChildren().add(textField);
         ViewPane.getChildren().add(choiceBox);
 
@@ -775,20 +773,19 @@ public class TeacherUI extends Application {
         AddSelCol.setMinWidth(110);
         AddSelCol.setCellValueFactory(
                 new PropertyValueFactory<Persons, String>("select"));
-        
+
         FilteredList<Persons> f2Person = new FilteredList(table2_Data, p -> true);//Pass the data to a filtered list
         table2.setItems(f2Person);//Set the table's items using the filtered list
         //table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
         //Adding ChoiceBox and TextField here!
-       
+
         choiceBox2.getItems().addAll("First Name", "Student ID.");
         choiceBox2.setValue("First Name");
         //choiceBox.getStyleClass().add("Blue-label");
 
-       
         textField2.setPromptText("Search here!");
-        textField2.setOnKeyReleased(keyEvent ->
-        {
+        textField2.setOnKeyReleased(keyEvent
+                -> {
             switch (choiceBox2.getValue())//Switch on choiceBox value
             {
                 case "First Name":
@@ -797,10 +794,10 @@ public class TeacherUI extends Application {
                 case "Student ID.":
                     f2Person.setPredicate(p -> p.getEmail().toLowerCase().contains(textField2.getText().toLowerCase().trim()));//filter table by first name
                     break;
-                
+
             }
         });
-        
+
         AddPane.getChildren().add(textField2);
         AddPane.getChildren().add(choiceBox2);
 
@@ -821,20 +818,19 @@ public class TeacherUI extends Application {
         lastNameSesCol.setCellValueFactory(
                 new PropertyValueFactory<Persons, String>("email"));
         lastNameSesCol.getStyleClass().add("tablecolumn");
-        
-         FilteredList<Persons> f3Person = new FilteredList(table3_Data2, p -> true);//Pass the data to a filtered list
+
+        FilteredList<Persons> f3Person = new FilteredList(table3_Data2, p -> true);//Pass the data to a filtered list
         table3.setItems(f3Person);//Set the table's items using the filtered list
         //table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
         //Adding ChoiceBox and TextField here!
-       
+
         choiceBox3.getItems().addAll("First Name", "Student ID.");
         choiceBox3.setValue("First Name");
         //choiceBox.getStyleClass().add("Blue-label");
 
-       
         textField3.setPromptText("Search here!");
-        textField3.setOnKeyReleased(keyEvent ->
-        {
+        textField3.setOnKeyReleased(keyEvent
+                -> {
             switch (choiceBox3.getValue())//Switch on choiceBox value
             {
                 case "First Name":
@@ -843,23 +839,21 @@ public class TeacherUI extends Application {
                 case "Student ID.":
                     f3Person.setPredicate(p -> p.getEmail().toLowerCase().contains(textField3.getText().toLowerCase().trim()));//filter table by first name
                     break;
-                
+
             }
         });
-        
+
         FilteredList<Persons> f1Person = new FilteredList(table1_Data, p -> true);//Pass the data to a filtered list
         //table3.setItems(f3Person);//Set the table's items using the filtered list
         //table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
         //Adding ChoiceBox and TextField here!
-       
+
         choiceBox1.getItems().addAll("First Name", "Student ID.");
         choiceBox1.setValue("First Name");
         //choiceBox.getStyleClass().add("Blue-label");
 
-       
         textField1.setPromptText("Search here!");
-        textField1.setOnKeyReleased(keyEvent ->
-        {
+        textField1.setOnKeyReleased(keyEvent -> {
             switch (choiceBox1.getValue())//Switch on choiceBox value
             {
                 case "First Name":
@@ -868,11 +862,9 @@ public class TeacherUI extends Application {
                 case "Student ID.":
                     f1Person.setPredicate(p -> p.getEmail().toLowerCase().contains(textField1.getText().toLowerCase().trim()));//filter table by first name
                     break;
-                
+
             }
         });
-        
-        
 
         TableColumn NumCoCol = new TableColumn("No.");
         NumCoCol.setMinWidth(30);
@@ -903,20 +895,18 @@ public class TeacherUI extends Application {
         CorSelCol.setMinWidth(50);
         CorSelCol.setCellValueFactory(
                 new PropertyValueFactory<Persons, String>("select"));
-        
-         FilteredList<Persons> f4Person = new FilteredList(table5_Data, p -> true);//Pass the data to a filtered list
+
+        FilteredList<Persons> f4Person = new FilteredList(table5_Data, p -> true);//Pass the data to a filtered list
         table5.setItems(f4Person);//Set the table's items using the filtered list
         //table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
         //Adding ChoiceBox and TextField here!
-       
+
         choiceBox4.getItems().addAll("Course Name", "Description", "Co-Teach");
         choiceBox4.setValue("Course Name");
         //choiceBox.getStyleClass().add("Blue-label");
 
-       
         textField4.setPromptText("Search here!");
-        textField4.setOnKeyReleased(keyEvent ->
-        {
+        textField4.setOnKeyReleased(keyEvent -> {
             switch (choiceBox4.getValue())//Switch on choiceBox value
             {
                 case "Course Name":
@@ -925,13 +915,13 @@ public class TeacherUI extends Application {
                 case "Description":
                     f4Person.setPredicate(p -> p.getEmail().toLowerCase().contains(textField4.getText().toLowerCase().trim()));//filter table by first name
                     break;
-                 case "Co-Teach":
+                case "Co-Teach":
                     f4Person.setPredicate(p -> p.getTotalScore().toLowerCase().contains(textField4.getText().toLowerCase().trim()));//filter table by first name
                     break;
-                
+
             }
         });
-        
+
         AsPane.getChildren().add(textField4);
         AsPane.getChildren().add(choiceBox4);
 
@@ -943,21 +933,32 @@ public class TeacherUI extends Application {
         ViewScrollPane.setPrefSize(1180, 360);
         SesListScrollPane.setPrefSize(375, 380);
 
-        Attses.setOnAction(e -> {table3.setItems(f3Person);
-                                SesPane.getChildren().add(textField3);
-                                SesPane.getChildren().add(choiceBox3);
-                                SesPane.getChildren().remove(textField1);
-                                SesPane.getChildren().remove(choiceBox1);
-                                     Attses.setStyle("-fx-border-color: Red; -fx-font-size: 10pt;");
-                                      Listses.setStyle("-fx-border-color: White; -fx-font-size: 10pt;");
-                                                                    });
-        Listses.setOnAction(e -> {table3.setItems(f1Person);
-                                SesPane.getChildren().remove(textField3);
-                                SesPane.getChildren().remove(choiceBox3);
-                                SesPane.getChildren().add(textField1);
-                                SesPane.getChildren().add(choiceBox1);
-                                Attses.setStyle("-fx-border-color: White;-fx-font-size: 10pt;");
-                              Listses.setStyle("-fx-border-color: Red;-fx-font-size: 10pt;");});
+        Attses.setOnAction(e -> {
+            table3.setItems(f3Person);
+            if (!SesPane.getChildren().contains(textField3)) {
+                SesPane.getChildren().add(textField3);
+            }
+            if (!SesPane.getChildren().contains(choiceBox3)) {
+                SesPane.getChildren().add(choiceBox3);
+            }
+            SesPane.getChildren().remove(textField1);
+            SesPane.getChildren().remove(choiceBox1);
+            Attses.setStyle("-fx-border-color: Red; -fx-font-size: 10pt;");
+            Listses.setStyle("-fx-border-color: White; -fx-font-size: 10pt;");
+        });
+        Listses.setOnAction(e -> {
+            table3.setItems(f1Person);
+            SesPane.getChildren().remove(textField3);
+            SesPane.getChildren().remove(choiceBox3);
+            if (!SesPane.getChildren().contains(textField1)) {
+                SesPane.getChildren().add(textField1);
+            }
+            if (!SesPane.getChildren().contains(choiceBox1)) {
+                SesPane.getChildren().add(choiceBox1);
+            }
+            Attses.setStyle("-fx-border-color: White;-fx-font-size: 10pt;");
+            Listses.setStyle("-fx-border-color: Red;-fx-font-size: 10pt;");
+        });
 
         table.getColumns().addAll(NumCol, firstNameCol, lastNameCol, emailCol, midCol, fiCol, GradeCol, attCol, SelectCol);
         table2.getColumns().addAll(NumAddCol, firstAddNameCol, lastNameAddCol, AddSelCol);
@@ -967,7 +968,6 @@ public class TeacherUI extends Application {
         //table.setItems(table1_Data);
         //table2.setItems(table2_Data);
         //table4.setItems(table3_Data2);
-
         table.setPrefSize(1180, 600);
         // table5.setPrefWidth(NumCoCol.getMinWidth() + CourseNameCol.getMinWidth() + DescriptCol.getMinWidth() + CoteachCol.getMinWidth() +CorSelCol.getMinWidth());
         table2.setPrefWidth(NumCol.getMinWidth() + firstNameCol.getMinWidth() + lastNameCol.getMinWidth() + SelectCol.getMinWidth());
@@ -993,7 +993,7 @@ public class TeacherUI extends Application {
         choiceBox2.setLayoutY(360);
         textField2.setLayoutX(390);
         textField2.setLayoutY(360);
-        
+
         OKBt.setLayoutX(193);
         OKBt.setLayoutY(360);
         BckBtn2.setLayoutX(240);
@@ -1169,6 +1169,7 @@ public class TeacherUI extends Application {
             ss.setStatus(true);
             ss.setStaff(User);
             nowCourse.addSession(ss);
+            rect3.setText(ss.getLecture());
             Session.start_Session(ss);
             this.User.setOn_Session(true);
             // init data and timer
@@ -1194,11 +1195,16 @@ public class TeacherUI extends Application {
         });
 
         ConSes.setOnAction(e -> {
-            Session ss = nowCourse.getLastestSession();
+            Session ss = getSession();
             if (!ss.isStatus()) {
                 return;
             }
             // timer
+
+            rect3.setText(ss.getLecture());
+            if (!SesPane.getChildren().contains(Ong)) {
+                SesPane.getChildren().add(Ong);
+            }
             if (!update_Attend.isRun()) {
                 session_Timer.schedule(update_Attend, 0, 500);
             }

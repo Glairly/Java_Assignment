@@ -65,6 +65,14 @@ public class Session extends Person {
         return Status;
     }
 
+    public String getLecture() {
+        return lecture;
+    }
+
+    public void setLecture(String lecture) {
+        this.lecture = lecture;
+    }
+
     public void setStatus(boolean Status) {
         this.Status = Status;
     }
