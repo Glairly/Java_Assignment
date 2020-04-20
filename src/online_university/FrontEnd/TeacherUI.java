@@ -206,13 +206,13 @@ public class TeacherUI extends Application {
     final ObservableList<Persons> table2_Data = FXCollections.observableArrayList();
     final ObservableList<Persons> table3_Data = FXCollections.observableArrayList();
     final ObservableList<Persons> table3_Data2 = FXCollections.observableArrayList();
-    final ObservableList<Persons> table5_Data = FXCollections.observableArrayList();
+    final ObservableList<Persons> AddSubjectTable_Data = FXCollections.observableArrayList();
 
     TableView<Persons> table = new TableView<Persons>();
     TableView<Persons> table2 = new TableView<Persons>();
     TableView<Persons> table3 = new TableView<Persons>();
     TableView<Persons> table4 = new TableView<Persons>();
-    TableView<Persons> table5 = new TableView<Persons>();
+    TableView<Persons> AddSubjectTable = new TableView<Persons>();
 
     public static void main(String[] args) throws FileNotFoundException {
         launch(args);
@@ -232,7 +232,7 @@ public class TeacherUI extends Application {
         SesPane.getStylesheets().add("css/newCascadeStyleSheet.css");
         AsPane.getStylesheets().add("css/newCascadeStyleSheet.css");
         SubjectName.setSpacing(100.0);
-        this.User = (Staff) Authority.login("Staff1", "12345");
+        this.User = (Staff) Authority.login("Charoen", "c12345");
         initData();
 
         ts = this.User.getUserName();
@@ -394,10 +394,38 @@ public class TeacherUI extends Application {
         DelScrollPane.setLayoutY((AddPane.getHeight() / 2) - (DelScrollPane.getPrefHeight() / 2));
         Stage addsubstage = new Stage();
         AddSub.setOnAction(e -> {
+            var allC = API.getAllCourse();
+            if (allC != null) {
+                int i = 0;
+                for (Course c : allC) {
+                    boolean isExist = false;
+                    if (this.User.getCourses() != null) {
+                        for (Course myC : this.User.getCourses()) {
+                            if (myC.toString().equals(c.toString())) {
+                                isExist = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!isExist) {
+                        String allT = "";
+                        if (c.getStaffs() != null) {
+                            for (Staff t : c.getStaffs()) {
+                                allT += t.getFullName() + " ";
+                            }
+                        }
+                        allT = (allT.equals("") == true ? "No Co-Teacher" : allT);
+                        AddSubjectTable_Data.add(new Persons("" + i, c.getUserName(), allT, c.getClassDescription(), "", "", "", ""));
+                        i++;
+                        break;
+                    }
+                }
+            }
             addsubstage.setScene(AsScene);
             addsubstage.show();
         });
-        BckBtn2.setOnAction(e -> addsubstage.close());
+        BckBtn2.setOnAction(e
+                -> addsubstage.close());
 //        AnchorPane.setRightAnchor(BckBtn2, 350d);
 //        AnchorPane.setBottomAnchor(BckBtn2, 40d);
 //        AnchorPane.setRightAnchor(OKBt, 220d);
@@ -406,26 +434,43 @@ public class TeacherUI extends Application {
 //        OKBt.setLayoutY(360);
 //        BckBtn2.setLayoutX(370);
 //        BckBtn2.setLayoutY(360);
-        lbl2.setScaleX(2.5);
-        lbl2.setScaleY(2.5);
-        lbl2.setScaleZ(2.5);
-        AnchorPane.setRightAnchor(lbl2, 310d);
-        AnchorPane.setTopAnchor(lbl2, 10d);
-        AsPane.getChildren().add(BckBtn2);
-        AsPane.getChildren().add(OKBt);
-        AsPane.getChildren().add(lbl2);
+        lbl2.setScaleX(
+                2.5);
+        lbl2.setScaleY(
+                2.5);
+        lbl2.setScaleZ(
+                2.5);
+        AnchorPane.setRightAnchor(lbl2,
+                310d);
+        AnchorPane.setTopAnchor(lbl2,
+                10d);
+        AsPane.getChildren()
+                .add(BckBtn2);
+        AsPane.getChildren()
+                .add(OKBt);
+        AsPane.getChildren()
+                .add(lbl2);
         TextField namesub = new TextField();
-        namesub.setPrefSize(450, 80);
-        AnchorPane.setRightAnchor(namesub, 125d);
-        AnchorPane.setTopAnchor(namesub, 150d);
-        namesub.setStyle("-fx-font-size: 30pt;");
+
+        namesub.setPrefSize(
+                450, 80);
+        AnchorPane.setRightAnchor(namesub,
+                125d);
+        AnchorPane.setTopAnchor(namesub,
+                150d);
+        namesub.setStyle(
+                "-fx-font-size: 30pt;");
         //AsPane.getChildren().add(namesub);
 
-        SubPane.getChildren().add(SubScrollPane);
+        SubPane.getChildren()
+                .add(SubScrollPane);
         stage.setScene(SubScene);
+
         stage.show();
 
-        for (int i = 0; i < CourseArr.size(); i++) {
+        for (int i = 0;
+                i < CourseArr.size();
+                i++) {
             Sub.get(i).setOnAction(e -> {
                 for (int ii = 0; ii < CourseArr.size(); ii++) {
                     if (Sub.get(ii) != null && Sub.get(ii).toString().equals(e.getSource().toString())) {
@@ -601,7 +646,7 @@ public class TeacherUI extends Application {
         table2.setEditable(true);
         table3.setEditable(true);
         table4.setEditable(true);
-        table5.setEditable(true);
+        //AddSubjectTable.setEditable(true);
         TableColumn NumCol = new TableColumn("No.");
         NumCol.setMinWidth(50);
         NumCol.setCellValueFactory(
@@ -879,15 +924,15 @@ public class TeacherUI extends Application {
         CourseNameCol.getStyleClass().add("tablecolumn");
 
         TableColumn DescriptCol = new TableColumn("Description");
-        DescriptCol.setMinWidth(200);
+        DescriptCol.setMinWidth(250);
         DescriptCol.setCellValueFactory(
-                new PropertyValueFactory<Persons, String>("email"));
+                new PropertyValueFactory<Persons, String>("totalScore"));
         DescriptCol.getStyleClass().add("tablecolumn");
 
         TableColumn CoteachCol = new TableColumn("Co-Teach");
-        CoteachCol.setMinWidth(100);
+        CoteachCol.setMinWidth(150);
         CoteachCol.setCellValueFactory(
-                new PropertyValueFactory<Persons, String>("totalScore"));
+                new PropertyValueFactory<Persons, String>("email"));
         CoteachCol.getStyleClass().add("tablecolumn");
 
         TableColumn CorSelCol = new TableColumn("Select");
@@ -896,8 +941,8 @@ public class TeacherUI extends Application {
         CorSelCol.setCellValueFactory(
                 new PropertyValueFactory<Persons, String>("select"));
 
-        FilteredList<Persons> f4Person = new FilteredList(table5_Data, p -> true);//Pass the data to a filtered list
-        table5.setItems(f4Person);//Set the table's items using the filtered list
+        FilteredList<Persons> f4Person = new FilteredList(AddSubjectTable_Data, p -> true);//Pass the data to a filtered list
+        AddSubjectTable.setItems(f4Person);//Set the table's items using the filtered list
         //table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
         //Adding ChoiceBox and TextField here!
 
@@ -922,13 +967,14 @@ public class TeacherUI extends Application {
             }
         });
 
+        // Search
         AsPane.getChildren().add(textField4);
         AsPane.getChildren().add(choiceBox4);
 
         table.setStyle("-fx-font-size: 15pt;");
         table2.setStyle("-fx-font-size: 10pt;");
         table3.setStyle("-fx-font-size: 10pt;");
-        table5.setStyle("-fx-font-size: 10pt;");
+        AddSubjectTable.setStyle("-fx-font-size: 10pt;");
 
         ViewScrollPane.setPrefSize(1180, 360);
         SesListScrollPane.setPrefSize(375, 380);
@@ -963,13 +1009,13 @@ public class TeacherUI extends Application {
         table.getColumns().addAll(NumCol, firstNameCol, lastNameCol, emailCol, midCol, fiCol, GradeCol, attCol, SelectCol);
         table2.getColumns().addAll(NumAddCol, firstAddNameCol, lastNameAddCol, AddSelCol);
         table3.getColumns().addAll(NumSesCol, firstSesNameCol, lastNameSesCol);
-        table5.getColumns().addAll(NumCoCol, CourseNameCol, DescriptCol, CoteachCol, CorSelCol);
+        AddSubjectTable.getColumns().addAll(NumCoCol, CourseNameCol, DescriptCol, CoteachCol, CorSelCol);
 
         //table.setItems(table1_Data);
         //table2.setItems(table2_Data);
         //table4.setItems(table3_Data2);
         table.setPrefSize(1180, 600);
-        // table5.setPrefWidth(NumCoCol.getMinWidth() + CourseNameCol.getMinWidth() + DescriptCol.getMinWidth() + CoteachCol.getMinWidth() +CorSelCol.getMinWidth());
+        // AddSubjectTable.setPrefWidth(NumCoCol.getMinWidth() + CourseNameCol.getMinWidth() + DescriptCol.getMinWidth() + CoteachCol.getMinWidth() +CorSelCol.getMinWidth());
         table2.setPrefWidth(NumCol.getMinWidth() + firstNameCol.getMinWidth() + lastNameCol.getMinWidth() + SelectCol.getMinWidth());
         table3.setPrefWidth(370);
         //AddPane.getChildren().add(table2);
@@ -982,7 +1028,7 @@ public class TeacherUI extends Application {
         ViewPane.getChildren().add(table);
         SesListScrollPane.setContent(table3);
         AddScrollPane.setContent(table2);
-        AddCoScrollPane.setContent(table5);
+        AddCoScrollPane.setContent(AddSubjectTable);
         ViewScrollPane.setContent(table);
 
         BckBtn.setLayoutX(180);
@@ -1272,6 +1318,7 @@ public class TeacherUI extends Application {
             }
         }
         return null;
+
     }
 
     public class CancelHandlerClass implements EventHandler<ActionEvent> {

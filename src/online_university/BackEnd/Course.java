@@ -43,10 +43,6 @@ public class Course extends Person {
         this.classDescription = des;
     }
 
-    public void addStaff(Staff... staff) {
-        this.staffs.addAll(Arrays.asList(staff));
-    }
-
     public void addStudent(Student... student) {
         if (this.students == null) {
             this.setStudents(new ArrayList<Pair<Student, Grading>>());
@@ -70,9 +66,13 @@ public class Course extends Person {
     }
 
     public void addStaffs(Staff... staff) {
+        if (this.staffs == null) {
+            this.staffs = new ArrayList();
+        }
         for (Staff st : staff) {
             this.staffs.add(st);
         }
+
     }
 
     public ArrayList<Pair<Student, Grading>> getStudents() {
