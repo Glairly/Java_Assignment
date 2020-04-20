@@ -28,6 +28,8 @@ import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -65,6 +67,7 @@ public class TeacherUI extends Application {
     Staff User;
     Course nowCourse;
     Timer session_Timer = new Timer();
+
     coresTimerTask update_Attend = new coresTimerTask() {
         @Override
         public void run() {
@@ -76,6 +79,7 @@ public class TeacherUI extends Application {
                 for (Session SS : allSS) {
                     if (SS.toString().equals(ss.toString())) {
                         local_ss = SS;
+                        break;
                     }
                 }
             }
@@ -88,7 +92,6 @@ public class TeacherUI extends Application {
                                 "0", "0", "0", "X", nowCourse.getStudent(ii).getValue().getAttending_Count()));
                         i++;
                     }
-                    System.out.println(local_ss.getAttended_Students());
                 } else {
                     System.out.println("No student come yet");
                 }
@@ -211,7 +214,6 @@ public class TeacherUI extends Application {
     TableView<Persons> table5 = new TableView<Persons>();
 
     public static void main(String[] args) throws FileNotFoundException {
-
         launch(args);
     }
 
@@ -459,6 +461,16 @@ public class TeacherUI extends Application {
                         TextArea rect3 = new TextArea();
                         rect3.setStyle("-fx-font-size: 20pt;");
                         rect3.setPrefSize(450, 503);
+                        Session local_ss = getSession();
+                        rect3.setText(local_ss.getCourse().getClassDescription());
+                        rect3.textProperty().addListener(new ChangeListener<String>() {
+                            @Override
+                            public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
+                                Session local_ss = getSession();
+                                local_ss.getCourse().setClassDescription(newValue);
+                                API.saveToDatabase(local_ss);
+                            }
+                        });
                         //rect3.setFill(Color.WHITE);
                         AnchorPane.setLeftAnchor(rect3, 20d);
                         AnchorPane.setTopAnchor(rect3, 130d);
@@ -1241,6 +1253,19 @@ public class TeacherUI extends Application {
 
     void update() {
         API.saveToDatabase(this.nowCourse, this.User);
+    }
+
+    public Session getSession() {
+        var allSS = API.getAllSession();
+        Session ss = nowCourse.getLastestSession();
+        if (ss != null) {
+            for (Session SS : allSS) {
+                if (SS.toString().equals(ss.toString())) {
+                    return SS;
+                }
+            }
+        }
+        return null;
     }
 
     public class CancelHandlerClass implements EventHandler<ActionEvent> {

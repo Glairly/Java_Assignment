@@ -25,6 +25,7 @@ public class Session extends Person {
     private String sessionId = null;
     private Date date;
     private ArrayList<Student> attended_Student = new ArrayList();
+    private String lecture = "lecture...";
     private boolean Status = false;
     private Staff staff;
 
