@@ -232,7 +232,7 @@ public class TeacherUI extends Application {
         SesPane.getStylesheets().add("css/newCascadeStyleSheet.css");
         AsPane.getStylesheets().add("css/newCascadeStyleSheet.css");
         SubjectName.setSpacing(100.0);
-        this.User = (Staff) Authority.login("Charoen", "c12345");
+        this.User = (Staff) Authority.login("Staff1", "12345");
         initData();
 
         ts = this.User.getUserName();

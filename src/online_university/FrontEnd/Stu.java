@@ -54,6 +54,7 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
     TableView<Course> AddC;
     TableView<Course> JoinTableView;
     TableView<Student> AttendTableView;
+    TableView<Student> StudentListTableView;//----------------- Student List here
 
     private TextField tfName = new TextField();
     private TextField tfID = new TextField();
@@ -661,9 +662,10 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //-------------------------------- Simulation Display -------------------------------------------------------//
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        SimulationArea.setPrefSize(500, 240);
-        SimulationArea.setLayoutX(40);
-        SimulationArea.setLayoutY(20);
+        SimulationArea.setPrefSize(400, 400);
+        SimulationArea.setLayoutX(30);
+        SimulationArea.setLayoutY(130);
+        SimulationArea.setEditable(false);
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //-------------------------------- Class Description -------------------------------------------------------//
@@ -676,12 +678,12 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         ClassDescripVbox.setPrefSize(900, 150);
         ClassDescripVbox.setStyle("-fx-background-color:linear-gradient(rgba(255,255,255,1) 0%, #a7eeff 50%, rgba(255,255,255,1) 100%);");
 
-        Label ClassdescriptionLabel = new Label("Class Description here");
-        ClassdescriptionLabel.setStyle("-fx-text-fill:#00026b;-fx-font-weight: bold;-fx-font-size:20pt");
+        Label ClassdescriptionLabel = new Label("On-going Session");
+        ClassdescriptionLabel.setStyle("-fx-text-fill:#00026b;-fx-font-weight: bold;-fx-font-size:13pt");
 
         StackPane forClassdescriptionPane = new StackPane();
-        forClassdescriptionPane.setLayoutX(600);
-        forClassdescriptionPane.setLayoutY(100);
+        forClassdescriptionPane.setLayoutX(5);
+        forClassdescriptionPane.setLayoutY(0);
         forClassdescriptionPane.getChildren().addAll(ClassdescriptionLabel);
         BGClassdescriptionPane.getChildren().addAll(ClassDescripVbox);
 
@@ -690,8 +692,8 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         StackPane teachernamePane = new StackPane();
 
-        teachernamePane.setLayoutX(720);
-        teachernamePane.setLayoutY(150);
+        teachernamePane.setLayoutX(120);
+        teachernamePane.setLayoutY(80);
 
         Staff stff = ss.getStaff();
         Label teachernameLabel = new Label(stff.getFirstName() + " " + stff.getLastName() + " is Teaching");
@@ -703,11 +705,11 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         //------------------------------- Subject Name ---------------------------------------------------------------//
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         StackPane subjectnamePane = new StackPane();
-        subjectnamePane.setLayoutX(675);
-        subjectnamePane.setLayoutY(40);
+        subjectnamePane.setLayoutX(25);
+        subjectnamePane.setLayoutY(30);
 
         Label subjectnameLabel = new Label(ss.getCourse().getUserName());
-        subjectnameLabel.setStyle("-fx-text-fill:#00026b;-fx-font-weight: bold;-fx-font-size:17pt");
+        subjectnameLabel.setStyle("-fx-text-fill:#00026b;-fx-font-weight: bold;-fx-font-size:19pt");
 
         subjectnamePane.getChildren().addAll(subjectnameLabel);
 
@@ -715,18 +717,35 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         //------------------------------ Table View ------------------------------------------------------------------//
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         AttendTableView = new TableView<>();
-        AttendTableView.setPrefSize(600, 200);
+        AttendTableView.setPrefSize(350, 400);
 
         TableColumn<Student, String> AttendedColumn = new TableColumn<>("Attended Student");
-        AttendedColumn.setMinWidth(300);
-        AttendedColumn.setMaxWidth(300);
+        AttendedColumn.setMinWidth(350);
+        AttendedColumn.setMaxWidth(350);
         AttendedColumn.setCellValueFactory(new PropertyValueFactory<>("FullName"));
 
         AttendTableView.getColumns().addAll(AttendedColumn);
-        AttendTableView.setLayoutX(150);
-        AttendTableView.setLayoutY(280);
+        AttendTableView.setLayoutX(475);
+        AttendTableView.setLayoutY(130);
 
         AttendTableView.setItems(Attended_Student);
+        
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //------------------------------ Student List table view -----------------------------------------------------//
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        StudentListTableView = new TableView<>();
+        StudentListTableView.setPrefSize(350, 400);
+
+        TableColumn<Student, String> StudentListColumn = new TableColumn<>("Student List");
+        StudentListColumn.setMinWidth(350);
+        StudentListColumn.setMaxWidth(350);
+        StudentListColumn.setCellValueFactory(new PropertyValueFactory<>("FullName"));//------------ Here --------------------//
+
+        StudentListTableView.getColumns().addAll(StudentListColumn);
+        StudentListTableView.setLayoutX(475);
+        StudentListTableView.setLayoutY(130);
+
+        StudentListTableView.setItems(Attended_Student);
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
         //-------------------------------- Back Button -------------------------------------------------------//
@@ -747,8 +766,38 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         AttendedButton.setOnAction(eh -> {
             ss.addAtended_Student(Myself);
             API.saveToDatabase(ss);
+            AttendedButton.setStyle("-fx-background-color:#34cd33");
         });
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        //-------------------------------- Attended student Button ------------------------------------------//
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        Button AttendedListButton = new Button("Attended Student");
+        AttendedListButton.setPrefSize(130, 30);
+        AttendedListButton.setLayoutX(505);
+        AttendedListButton.setLayoutY(80);
+        
+        AttendedListButton.setOnAction(e ->
+        {
+            AttendTableView.setVisible(true);
+            StudentListTableView.setVisible(false);
+        });
+        
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        //-------------------------------- Student list Button ----------------------------------------------//
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        Button StudentListButton = new Button("List Student");
+        StudentListButton.setPrefSize(130, 30);
+        StudentListButton.setLayoutX(645);
+        StudentListButton.setLayoutY(80);
+        
+        StudentListButton.setOnAction(e ->{
+            AttendTableView.setVisible(false);
+            StudentListTableView.setVisible(true);
+        });
+        
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
         //-------------------------------- Background -------------------------------------------------------//
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -759,9 +808,10 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         //-------------------------------- rootpane -------------------------------------------------------//
         /////////////////////////////////////////////////////////////////////////////////////////////////////
         Pane rootPane = new Pane();
-        rootPane.setStyle("-fx-background-color:linear-gradient(#ffffff 40%,#bfbfbf 80%)");
+        rootPane.setStyle("-fx-background-color:linear-gradient(#ffffff 40%,#3e437d 80%)");
         rootPane.getChildren().addAll(DecoratePane, BGClassdescriptionPane, subjectnamePane, teachernamePane,
-                AttendTableView, AttendedButton, Backtosessionslist, forClassdescriptionPane, SimulationArea);
+                AttendTableView, AttendedButton, Backtosessionslist, forClassdescriptionPane, SimulationArea
+        ,StudentListButton,AttendedListButton,StudentListTableView);
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////
         //-------------------------------- Scene ----------------------------------------------------------//
