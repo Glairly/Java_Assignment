@@ -408,14 +408,7 @@ public class TeacherUI extends Application {
                         }
                     }
                     if (!isExist) {
-                        String allT = "";
-                        if (c.getStaffs() != null) {
-                            for (Staff t : c.getStaffs()) {
-                                allT += t.getFullName() + " ";
-                            }
-                        }
-                        allT = (allT.equals("") == true ? "No Co-Teacher" : allT);
-                        AddSubjectTable_Data.add(new Persons("" + i, c.getUserName(), allT, c.getClassDescription(), "", "", "", ""));
+                        AddSubjectTable_Data.add(new Persons("" + i, c.getUserName(), "", c.getClassDescription(), "", "", "", ""));
                         i++;
                     }
                 }
@@ -944,11 +937,6 @@ public class TeacherUI extends Application {
                 new PropertyValueFactory<Persons, String>("totalScore"));
         DescriptCol.getStyleClass().add("tablecolumn");
 
-        TableColumn CoteachCol = new TableColumn("Co-Teach");
-        CoteachCol.setMinWidth(150);
-        CoteachCol.setCellValueFactory(
-                new PropertyValueFactory<Persons, String>("email"));
-        CoteachCol.getStyleClass().add("tablecolumn");
 
         TableColumn CorSelCol = new TableColumn("Select");
         CorSelCol.getStyleClass().add("tablecolumn");
@@ -1024,7 +1012,7 @@ public class TeacherUI extends Application {
         table.getColumns().addAll(NumCol, firstNameCol, lastNameCol, emailCol, midCol, fiCol, GradeCol, attCol, SelectCol);
         table2.getColumns().addAll(NumAddCol, firstAddNameCol, lastNameAddCol, AddSelCol);
         table3.getColumns().addAll(NumSesCol, firstSesNameCol, lastNameSesCol);
-        AddSubjectTable.getColumns().addAll(NumCoCol, CourseNameCol, DescriptCol, CoteachCol, CorSelCol);
+        AddSubjectTable.getColumns().addAll(NumCoCol, CourseNameCol, DescriptCol, CorSelCol);
 
         //table.setItems(table1_Data);
         //table2.setItems(table2_Data);

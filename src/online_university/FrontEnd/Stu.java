@@ -195,7 +195,7 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         TableColumn<Course, ArrayList> TNameColumn = new TableColumn<>("Teacher Name");
         TNameColumn.setMinWidth(150);
         TNameColumn.setMaxWidth(250);
-        TNameColumn.setCellValueFactory(new PropertyValueFactory<>("staffs"));
+        TNameColumn.setCellValueFactory(new PropertyValueFactory<>("teacher_Name"));
 
         TableColumn<Course, ArrayList> ScoreColumn = new TableColumn<>("Grade");
         ScoreColumn.setMinWidth(100);
@@ -368,7 +368,7 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
 
         TableColumn<Course, ArrayList> TNameColumn = new TableColumn<>("Teacher Name");
         TNameColumn.setMinWidth(200);
-        TNameColumn.setCellValueFactory(new PropertyValueFactory<>("staffs"));
+        TNameColumn.setCellValueFactory(new PropertyValueFactory<>("teacher_Name"));
 
         AddC = new TableView<>();
         addCourse_Data = getCourse();
@@ -549,10 +549,10 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         CourseColumn.setMaxWidth(250);
         CourseColumn.setCellValueFactory(new PropertyValueFactory<>("classDescription"));
 
-        TableColumn<Course, ArrayList> NameColumn = new TableColumn<>("Teacher Name");
+        TableColumn<Course, String> NameColumn = new TableColumn<>("Teacher Name");
         NameColumn.setMinWidth(350);
         NameColumn.setMaxWidth(350);
-        NameColumn.setCellValueFactory(new PropertyValueFactory<>("sessions"));
+        NameColumn.setCellValueFactory(new PropertyValueFactory<>("teacher_Name"));
 
         JoinTableView.getColumns().addAll(CourseColumn, NameColumn);
         ////////////////////////////////////

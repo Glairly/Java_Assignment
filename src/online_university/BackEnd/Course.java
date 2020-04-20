@@ -25,18 +25,22 @@ public class Course extends Person {
     final String role = "Course";
     private ArrayList<Pair<Student, Grading>> students = new ArrayList<Pair<Student, Grading>>();
     private String classDescription = "";
-    private ArrayList<Staff> staffs = new ArrayList<Staff>();
+    private Staff staffs = new Staff();
     private ArrayList<Session> sessions;
+    private String teacher_Name = "";
 
     public Course() {
         super();
     }
 
-    public Course(String className, ArrayList<Staff> stffs, ArrayList<Pair<Student, Grading>> students) {
+    public Course(String className, Staff stffs, ArrayList<Pair<Student, Grading>> students) {
         this.students = students;
         this.classDescription = className + " Description is Empty";
         this.setUserName(className);
         this.staffs = stffs;
+        if (this.staffs != null) {
+            this.teacher_Name = this.staffs.getFullName();
+        }
     }
 
     public Course(String des) {
@@ -51,6 +55,7 @@ public class Course extends Person {
             for (Student st : student) {
                 if (st != null) {
                     this.students.add(new Pair<>(st, new Grading()));
+                    this.setAge("" + this.students.size());
                 }
             }
         }
@@ -65,14 +70,12 @@ public class Course extends Person {
         }
     }
 
-    public void addStaffs(Staff... staff) {
+    public void addStaffs(Staff staff) {
         if (this.staffs == null) {
-            this.staffs = new ArrayList();
+            this.staffs = new Staff();
         }
-        for (Staff st : staff) {
-            this.staffs.add(st);
-        }
-
+        this.staffs = staff;
+        this.teacher_Name = this.staffs.getFullName();
     }
 
     public ArrayList<Pair<Student, Grading>> getStudents() {
@@ -83,7 +86,7 @@ public class Course extends Person {
         return classDescription;
     }
 
-    public ArrayList<Staff> getStaffs() {
+    public Staff getStaffs() {
         return staffs;
     }
 
@@ -95,8 +98,11 @@ public class Course extends Person {
         this.classDescription = classDescription;
     }
 
-    public void setStaffs(ArrayList<Staff> staffs) {
+    public void setStaffs(Staff staffs) {
         this.staffs = staffs;
+        if (this.staffs != null) {
+            this.teacher_Name = this.staffs.getFullName();
+        }
     }
 
     public static Course getById(String id) {
@@ -128,6 +134,14 @@ public class Course extends Person {
         }
 
         return false;
+    }
+
+    public String getTeacher_Name() {
+        return teacher_Name;
+    }
+
+    public void setTeacher_Name(String teacher_Name) {
+        this.teacher_Name = teacher_Name;
     }
 
     public void upDateLastestSession() {
@@ -207,6 +221,7 @@ public class Course extends Person {
                 var arr = this.students;
                 arr.remove(c);
                 this.setStudents(arr);
+                this.setAge("" + this.students.size());
                 return;
             }
         }
