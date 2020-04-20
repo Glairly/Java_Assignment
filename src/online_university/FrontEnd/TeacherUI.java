@@ -417,7 +417,6 @@ public class TeacherUI extends Application {
                         allT = (allT.equals("") == true ? "No Co-Teacher" : allT);
                         AddSubjectTable_Data.add(new Persons("" + i, c.getUserName(), allT, c.getClassDescription(), "", "", "", ""));
                         i++;
-                        break;
                     }
                 }
             }
@@ -444,12 +443,28 @@ public class TeacherUI extends Application {
                 310d);
         AnchorPane.setTopAnchor(lbl2,
                 10d);
-        AsPane.getChildren()
-                .add(BckBtn2);
-        AsPane.getChildren()
-                .add(OKBt);
-        AsPane.getChildren()
-                .add(lbl2);
+        AsPane.getChildren().add(BckBtn2);
+        OKBt.setOnAction(e -> {
+            ArrayList<Persons> arr = new ArrayList<>();
+            for (var i : AddSubjectTable_Data) {
+                if (i.getSelect().isSelected()) {
+                    this.addCourse(i.getFullName());
+                    arr.add(i);
+                }
+            }
+            if (arr != null) {
+                for (Persons i : arr) {
+                    i.getSelect().setSelected(false);
+                    AddSubjectTable_Data.remove(i);
+                }
+            }
+            for (int i = 0; i < table2_Data.size(); i++) {
+                AddSubjectTable_Data.get(i).setNum("" + (i + 1));
+            }
+            // this.User.addCourses(course);
+        });
+        AsPane.getChildren().add(OKBt);
+        AsPane.getChildren().add(lbl2);
         TextField namesub = new TextField();
 
         namesub.setPrefSize(
@@ -1303,6 +1318,18 @@ public class TeacherUI extends Application {
         update();
     }
 
+    void addCourse(String courseUsername) {
+        var allC = API.getAllCourse();
+        for (Course c : allC) {
+            if (c.getUserName().equals(courseUsername)) {
+                c.addStaffs(this.User);
+                this.User.addCourses(c);
+                API.saveToDatabase(c);
+            }
+        }
+        API.saveToDatabase(this.User);
+    }
+
     void update() {
         API.saveToDatabase(this.nowCourse, this.User);
     }
@@ -1310,7 +1337,7 @@ public class TeacherUI extends Application {
     public Session getSession() {
         var allSS = API.getAllSession();
         Session ss = nowCourse.getLastestSession();
-        if (ss != null) {
+        if (ss != null && allSS != null) {
             for (Session SS : allSS) {
                 if (SS.toString().equals(ss.toString())) {
                     return SS;

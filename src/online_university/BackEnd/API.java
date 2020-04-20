@@ -22,8 +22,9 @@ public class API {
 //        Authority.registor(new Staff("Gai","g12345"));
 //        System.out.println(Authority.login("Gai", "g12345"));
 //        System.out.println(API.getCustom("Register"));
-        Staff user = (Staff) Authority.login("Staff1", "12345");
-        System.out.println(API.getAllCourse().get(1).getStudents());
+//        Staff user = (Staff) Authority.login("Staff1", "12345");
+//        System.out.println(API.getAllCourse().get(1).getStudents());
+        System.out.println(API.getAllSession());
         //      System.out.println(API.getAllCourse().get(0).getStudents());
         //       API._INIT_DATABASE_();
         //       System.out.println(API.getAllSession());
@@ -141,6 +142,14 @@ public class API {
         return E.submit(o);
     }
 
+    public static <E extends Person> boolean saveToDatabase(boolean checkDuplicate, E... o) {
+        if (checkDuplicate) {
+            return E.submit(o);
+        } else {
+            return E.submit(false, o);
+        }
+    }
+
     public static <E> boolean RemoveFromDatabase(String file, E data) {
         Database db = new Database(file);
         ArrayList<E> arr = (ArrayList<E>) db.get();
@@ -172,6 +181,38 @@ public class API {
                 int isExist = Person.search(null, c.getUserName(), cs);
                 if (isExist != -1) {
                     cs.set(isExist, c);
+                } else {
+                    if (cs == null) {
+                        cs = new ArrayList<>();
+                    }
+                    cs.add(c);
+                }
+                if (!db.write(cs)) {
+                    System.out.println("Submit Falied.");
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static <E extends Person> boolean saveToCustom(boolean checkDuplicate, String file, E... data) {
+        Database db = new Database(file);
+        ArrayList<Person> cs;
+        if (data != null) {
+            for (Person c : data) {
+                cs = (ArrayList<Person>) db.get();
+                if (checkDuplicate) {
+                    int isExist = Person.search(null, c.getUserName(), cs);
+                    if (isExist != -1) {
+                        cs.set(isExist, c);
+                    } else {
+                        if (cs == null) {
+                            cs = new ArrayList<>();
+                        }
+                        cs.add(c);
+                    }
+
                 } else {
                     if (cs == null) {
                         cs = new ArrayList<>();

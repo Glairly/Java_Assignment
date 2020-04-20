@@ -26,6 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
+import javafx.util.Pair;
 import online_university.BackEnd.*;
 
 public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
@@ -579,7 +580,6 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
             if (allSS != null) {
                 for (Session s : allSS) {
                     if (s.getCourse().toString().equals(JoinTableView.getSelectionModel().getSelectedItem().toString())) {
-
                         joined(s);
                     }
                 }
@@ -729,7 +729,7 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         AttendTableView.setLayoutY(130);
 
         AttendTableView.setItems(Attended_Student);
-        
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //------------------------------ Student List table view -----------------------------------------------------//
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -772,32 +772,30 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
         //-------------------------------- Attended student Button ------------------------------------------//
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
-        
         Button AttendedListButton = new Button("Attended Student");
         AttendedListButton.setPrefSize(130, 30);
         AttendedListButton.setLayoutX(505);
         AttendedListButton.setLayoutY(80);
-        
-        AttendedListButton.setOnAction(e ->
-        {
+
+        AttendedListButton.setOnAction(e
+                -> {
             AttendTableView.setVisible(true);
             StudentListTableView.setVisible(false);
         });
-        
+
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
         //-------------------------------- Student list Button ----------------------------------------------//
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
-        
         Button StudentListButton = new Button("List Student");
         StudentListButton.setPrefSize(130, 30);
         StudentListButton.setLayoutX(645);
         StudentListButton.setLayoutY(80);
-        
-        StudentListButton.setOnAction(e ->{
+
+        StudentListButton.setOnAction(e -> {
             AttendTableView.setVisible(false);
             StudentListTableView.setVisible(true);
         });
-        
+
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
         //-------------------------------- Background -------------------------------------------------------//
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -810,8 +808,8 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         Pane rootPane = new Pane();
         rootPane.setStyle("-fx-background-color:linear-gradient(#ffffff 40%,#3e437d 80%)");
         rootPane.getChildren().addAll(DecoratePane, BGClassdescriptionPane, subjectnamePane, teachernamePane,
-                AttendTableView, AttendedButton, Backtosessionslist, forClassdescriptionPane, SimulationArea
-        ,StudentListButton,AttendedListButton,StudentListTableView);
+                AttendTableView, AttendedButton, Backtosessionslist, forClassdescriptionPane, SimulationArea,
+                StudentListButton, AttendedListButton, StudentListTableView);
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////
         //-------------------------------- Scene ----------------------------------------------------------//

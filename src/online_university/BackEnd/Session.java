@@ -42,7 +42,7 @@ public class Session extends Person {
         if (ss.sessionId == null) {
             ss.sessionId = ss.course.getUserName() + ss.date;
         }
-        return API.saveToCustom("Sessions", ss);
+        return API.saveToCustom(false,"Sessions", ss);
     }
 
     public String getSessionId() {

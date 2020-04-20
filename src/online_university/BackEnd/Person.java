@@ -181,7 +181,6 @@ public class Person implements Serializable {
         } else {
             return -1;
         }
-
     }
 
     public static <T> List<T> intersection(List<T> list1, List<T> list2) {
@@ -229,6 +228,36 @@ public class Person implements Serializable {
             int isExist = Person.search(null, c.getUserName(), cs);
             if (isExist != -1) {
                 cs.set(isExist, c);
+            } else {
+                if (cs == null) {
+                    cs = new ArrayList<>();
+                }
+                cs.add(c);
+            }
+            if (!db.write(cs)) {
+                System.out.println("Submit Falied.");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    protected static boolean submit(boolean checkDuplicate, Person... C) {
+        ArrayList<Person> cs;
+        Database db;
+        for (Person c : C) {
+            db = c.getDbPath();
+            cs = (ArrayList<Person>) db.get();
+            if (checkDuplicate) {
+                int isExist = Person.search(null, c.getUserName(), cs);
+                if (isExist != -1) {
+                    cs.set(isExist, c);
+                } else {
+                    if (cs == null) {
+                        cs = new ArrayList<>();
+                    }
+                    cs.add(c);
+                }
             } else {
                 if (cs == null) {
                     cs = new ArrayList<>();
