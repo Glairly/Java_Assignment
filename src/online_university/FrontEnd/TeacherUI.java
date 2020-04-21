@@ -214,7 +214,7 @@ public class TeacherUI extends Application {
     TableView<Persons> table4 = new TableView<Persons>();
     TableView<Persons> AddSubjectTable = new TableView<Persons>();
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args){
         launch(args);
     }
 
