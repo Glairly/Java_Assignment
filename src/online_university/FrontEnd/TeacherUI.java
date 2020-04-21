@@ -139,12 +139,14 @@ public class TeacherUI extends Application {
     AnchorPane AddPane = new AnchorPane();
     AnchorPane AsPane = new AnchorPane();
     AnchorPane ViewPane = new AnchorPane();
+    AnchorPane ViewpPane = new AnchorPane();
     TextArea rect3 = new TextArea();
 
     Scene SubScene = new Scene(SubPane, 1280, 720);
     Scene SesScene = new Scene(SesPane, 1280, 720);
     Scene AddScene = new Scene(AddPane, 700, 400);
     Scene AsScene = new Scene(AsPane, 700, 400);
+     Scene ViewpScene = new Scene(ViewpPane, 700, 400);
     Scene ViewScene = new Scene(ViewPane, 1280, 720);
 
     Button AddStu = new Button("Add Students");
@@ -192,6 +194,7 @@ public class TeacherUI extends Application {
     Label lbl5 = new Label("Select Courses");
     Label lbl = new Label("Add Students");
     Label lbl2 = new Label("Add Courses");
+    Label lbl11 = new Label("Personal Profile");
     Label lbl3 = new Label("Students List");
     Label Ong = new Label("On-Going Session");
 
@@ -201,6 +204,7 @@ public class TeacherUI extends Application {
     Button ConSes = new Button("Continue Session");
     Button anotSes = new Button("Not avaliable");
     Button BckBtn2 = new Button("Back");
+    Button BckBtn4 = new Button("Close");
     Button OKBt = new Button("Add");
     final ObservableList<Persons> table1_Data = FXCollections.observableArrayList();
     final ObservableList<Persons> table2_Data = FXCollections.observableArrayList();
@@ -231,6 +235,7 @@ public class TeacherUI extends Application {
         AddPane.getStylesheets().add("css/newCascadeStyleSheet.css");
         SesPane.getStylesheets().add("css/newCascadeStyleSheet.css");
         AsPane.getStylesheets().add("css/newCascadeStyleSheet.css");
+         ViewpPane.getStylesheets().add("css/newCascadeStyleSheet.css");
         SubjectName.setSpacing(100.0);
         this.User = (Staff) Authority.login("Staff1", "12345");
         initData();
@@ -265,7 +270,7 @@ public class TeacherUI extends Application {
             }
         }
         SubjectName.setStyle("-fx-font-size: 20pt;");
-
+        BckBtn4.setStyle("-fx-font-size: 15pt;");
         Tusername.setScaleX(3);
         Tusername.setScaleY(3);
         Tusername.setScaleZ(3);
@@ -312,17 +317,17 @@ public class TeacherUI extends Application {
 
         lbl3.getStyleClass().add("special-label");
         AnchorPane.setLeftAnchor(lbl4, 80d);
-        AnchorPane.setTopAnchor(lbl4, 10d);
+        AnchorPane.setBottomAnchor(lbl4, 280d);
         AnchorPane.setLeftAnchor(lbl6, 83d);
-        AnchorPane.setTopAnchor(lbl6, 50d);
+        AnchorPane.setBottomAnchor(lbl6, 230d);
         AnchorPane.setLeftAnchor(lbl7, 87d);
-        AnchorPane.setTopAnchor(lbl7, 90d);
+        AnchorPane.setBottomAnchor(lbl7, 180d);
         AnchorPane.setLeftAnchor(lbl8, 145d);
-        AnchorPane.setTopAnchor(lbl8, 130d);
+        AnchorPane.setBottomAnchor(lbl8, 130d);
         AnchorPane.setLeftAnchor(lbl9, 163d);
-        AnchorPane.setTopAnchor(lbl9, 170d);
+        AnchorPane.setBottomAnchor(lbl9, 80d);
         AnchorPane.setLeftAnchor(lbl10, 130d);
-        AnchorPane.setTopAnchor(lbl10, 210d);
+        AnchorPane.setBottomAnchor(lbl10, 30d);
         AnchorPane.setRightAnchor(lbl5, 590d);
         AnchorPane.setTopAnchor(lbl5, 50d);
 
@@ -330,17 +335,17 @@ public class TeacherUI extends Application {
         AnchorPane.setTopAnchor(Ong, 50d);
 
         AnchorPane.setLeftAnchor(Tusername, 250d);
-        AnchorPane.setTopAnchor(Tusername, 10d);
+        AnchorPane.setBottomAnchor(Tusername, 280d);
         AnchorPane.setLeftAnchor(Tfirstname, 250d);
-        AnchorPane.setTopAnchor(Tfirstname, 50d);
+        AnchorPane.setBottomAnchor(Tfirstname,230d);
         AnchorPane.setLeftAnchor(Tlastname, 250d);
-        AnchorPane.setTopAnchor(Tlastname, 90d);
+        AnchorPane.setBottomAnchor(Tlastname,180d);
         AnchorPane.setLeftAnchor(Tage, 250d);
-        AnchorPane.setTopAnchor(Tage, 130d);
+        AnchorPane.setBottomAnchor(Tage, 130d);
         AnchorPane.setLeftAnchor(Tid, 250d);
-        AnchorPane.setTopAnchor(Tid, 170d);
+        AnchorPane.setBottomAnchor(Tid, 80d);
         AnchorPane.setLeftAnchor(Temail, 250d);
-        AnchorPane.setTopAnchor(Temail, 210d);
+        AnchorPane.setBottomAnchor(Temail, 30d);
 
         SubScrollPane.setPrefSize(500, 400);
 
@@ -369,12 +374,19 @@ public class TeacherUI extends Application {
         //SesPane.getChildren().add(Ong);
         SubScrollPane.setPrefSize(500, 450);
         Button AddSub = new Button("Add Courses");
+        Button ViewP = new Button("View Profile");
         SubPane.getChildren().add(AddSub);
+         SubPane.getChildren().add(ViewP);
         AddSub.setPrefSize(250, 50);
         AddSub.setStyle("-fx-font-size: 20pt;");
+        ViewP.setPrefSize(250, 50);
+        ViewP.setStyle("-fx-font-size: 20pt;");
 
         AnchorPane.setRightAnchor(AddSub, 510d);
         AnchorPane.setBottomAnchor(AddSub, 30d);
+        
+        AnchorPane.setRightAnchor(ViewP, 40d);
+        AnchorPane.setBottomAnchor(ViewP, 30d);
 
         //lbl5.getStyleClass().add("white-label");
         lbl5.getStyleClass().add("special-label");
@@ -392,6 +404,12 @@ public class TeacherUI extends Application {
 //        DelScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         DelScrollPane.setLayoutX((AddPane.getWidth() / 2) - (DelScrollPane.getPrefWidth() / 2));
         DelScrollPane.setLayoutY((AddPane.getHeight() / 2) - (DelScrollPane.getPrefHeight() / 2));
+        Stage viewpstage = new Stage();
+        ViewP.setOnAction(e -> {
+            viewpstage.setScene(ViewpScene);
+            viewpstage.setResizable(false);
+            viewpstage.show();
+        });
         Stage addsubstage = new Stage();
         AddSub.setOnAction(e -> {
             var allC = API.getAllCourse();
@@ -414,10 +432,15 @@ public class TeacherUI extends Application {
                 }
             }
             addsubstage.setScene(AsScene);
+            addsubstage.setResizable(false);
             addsubstage.show();
         });
         BckBtn2.setOnAction(e
                 -> addsubstage.close());
+        BckBtn4.setOnAction(e
+                -> addsubstage.close());
+        AnchorPane.setRightAnchor(BckBtn4, 10d);
+        AnchorPane.setBottomAnchor(BckBtn4, 10d);
 //        AnchorPane.setRightAnchor(BckBtn2, 350d);
 //        AnchorPane.setBottomAnchor(BckBtn2, 40d);
 //        AnchorPane.setRightAnchor(OKBt, 220d);
@@ -432,11 +455,29 @@ public class TeacherUI extends Application {
                 2.5);
         lbl2.setScaleZ(
                 2.5);
+        lbl11.setScaleX(
+                5);
+        lbl11.setScaleY(
+                5);
+        lbl11.setScaleZ(
+                5);
         AnchorPane.setRightAnchor(lbl2,
                 310d);
         AnchorPane.setTopAnchor(lbl2,
                 10d);
+        AnchorPane.setRightAnchor(lbl11,
+                310d);
+        AnchorPane.setTopAnchor(lbl11,
+                25d);
         AsPane.getChildren().add(BckBtn2);
+        ViewpPane.getChildren().add(BckBtn4);
+        ViewpPane.getChildren().add(lbl4);
+        ViewpPane.getChildren().add(lbl6);
+        ViewpPane.getChildren().add(lbl7);
+        ViewpPane.getChildren().add(lbl8);
+        ViewpPane.getChildren().add(lbl9);
+        ViewpPane.getChildren().add(lbl10);
+        ViewpPane.getChildren().add(Tusername);
         OKBt.setOnAction(e -> {
             ArrayList<Persons> arr = new ArrayList<>();
             for (var i : AddSubjectTable_Data) {
@@ -458,22 +499,19 @@ public class TeacherUI extends Application {
         });
         AsPane.getChildren().add(OKBt);
         AsPane.getChildren().add(lbl2);
+        ViewpPane.getChildren().add(lbl11);
         TextField namesub = new TextField();
 
-        namesub.setPrefSize(
-                450, 80);
-        AnchorPane.setRightAnchor(namesub,
-                125d);
-        AnchorPane.setTopAnchor(namesub,
-                150d);
-        namesub.setStyle(
-                "-fx-font-size: 30pt;");
+        namesub.setPrefSize(450, 80);
+        AnchorPane.setRightAnchor(namesub,125d);
+        AnchorPane.setTopAnchor(namesub,150d);
+        namesub.setStyle("-fx-font-size: 30pt;");
         //AsPane.getChildren().add(namesub);
 
         SubPane.getChildren()
                 .add(SubScrollPane);
         stage.setScene(SubScene);
-
+        stage.setResizable(false);
         stage.show();
 
         for (int i = 0;
@@ -513,7 +551,7 @@ public class TeacherUI extends Application {
                         Subname2.setLayoutX(120d);
                         AnchorPane.setTopAnchor(Subname2, 60d);
                         rect3.setStyle("-fx-font-size: 20pt;");
-                        rect3.setPrefSize(450, 503);
+                        rect3.setPrefSize(650, 503);
                         rect3.textProperty().addListener(new ChangeListener<String>() {
                             @Override
                             public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
@@ -554,7 +592,7 @@ public class TeacherUI extends Application {
 
     Button BckBtn3 = new Button("Back to MainMenu");
     Button AddBtn = new Button("Add");
-
+    
     Button BckBtn = new Button("Close");
 
     void setUI() {
@@ -611,9 +649,9 @@ public class TeacherUI extends Application {
         AnchorPane.setBottomAnchor(Bctsub, 20d);
         AnchorPane.setRightAnchor(Endses, 20d);
         AnchorPane.setBottomAnchor(Endses, 20d);
-        AnchorPane.setRightAnchor(Listses, 240d);
+        AnchorPane.setRightAnchor(Listses, 340d);
         AnchorPane.setBottomAnchor(Listses, 515d);
-        AnchorPane.setRightAnchor(Attses, 22d);
+        AnchorPane.setRightAnchor(Attses, 118d);
         AnchorPane.setBottomAnchor(Attses, 515d);
 
         AnchorPane.setLeftAnchor(choiceBox, 635d);
@@ -861,13 +899,13 @@ public class TeacherUI extends Application {
         NumSesCol.getStyleClass().add("tablecolumn");
 
         TableColumn firstSesNameCol = new TableColumn("FullName");
-        firstSesNameCol.setMinWidth(190);
+        firstSesNameCol.setMinWidth(300);
         firstSesNameCol.setCellValueFactory(
                 new PropertyValueFactory<Persons, String>("FullName"));
         firstSesNameCol.getStyleClass().add("tablecolumn");
 
         TableColumn lastNameSesCol = new TableColumn("Student Id.");
-        lastNameSesCol.setMinWidth(100);
+        lastNameSesCol.setMinWidth(150);
         lastNameSesCol.setCellValueFactory(
                 new PropertyValueFactory<Persons, String>("email"));
         lastNameSesCol.getStyleClass().add("tablecolumn");
@@ -926,7 +964,7 @@ public class TeacherUI extends Application {
         NumCoCol.getStyleClass().add("tablecolumn");
 
         TableColumn CourseNameCol = new TableColumn("Course Name");
-        CourseNameCol.setMinWidth(150);
+        CourseNameCol.setMinWidth(200);
         CourseNameCol.setCellValueFactory(
                 new PropertyValueFactory<Persons, String>("FullName"));
         CourseNameCol.getStyleClass().add("tablecolumn");
@@ -980,7 +1018,7 @@ public class TeacherUI extends Application {
         AddSubjectTable.setStyle("-fx-font-size: 10pt;");
 
         ViewScrollPane.setPrefSize(1180, 360);
-        SesListScrollPane.setPrefSize(375, 380);
+        SesListScrollPane.setPrefSize(500, 380);
 
         Attses.setOnAction(e -> {
             table3.setItems(f3Person);
@@ -1020,7 +1058,7 @@ public class TeacherUI extends Application {
         table.setPrefSize(1180, 600);
         // AddSubjectTable.setPrefWidth(NumCoCol.getMinWidth() + CourseNameCol.getMinWidth() + DescriptCol.getMinWidth() + CoteachCol.getMinWidth() +CorSelCol.getMinWidth());
         table2.setPrefWidth(NumCol.getMinWidth() + firstNameCol.getMinWidth() + lastNameCol.getMinWidth() + SelectCol.getMinWidth());
-        table3.setPrefWidth(370);
+        table3.setPrefWidth(NumSesCol.getMinWidth() + firstSesNameCol.getMinWidth()+ lastNameSesCol.getMinWidth());
         //AddPane.getChildren().add(table2);
 
         AddPane.getChildren().add(AddScrollPane);
@@ -1047,6 +1085,7 @@ public class TeacherUI extends Application {
         OKBt.setLayoutY(360);
         BckBtn2.setLayoutX(240);
         BckBtn2.setLayoutY(360);
+        
         choiceBox4.setLayoutX(290);
         choiceBox4.setLayoutY(360);
         textField4.setLayoutX(405);
@@ -1096,7 +1135,7 @@ public class TeacherUI extends Application {
         SesListScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         SesListScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
-        SesListScrollPane.setLayoutX((SesPane.getWidth() / 4) + (SesListScrollPane.getPrefWidth() / 2 + 382));
+        SesListScrollPane.setLayoutX((SesPane.getWidth() / 2) + (SesListScrollPane.getPrefWidth() / 2-160));
         SesListScrollPane.setLayoutY((SesPane.getHeight() / 2) - (SesListScrollPane.getPrefHeight() / 2 - 40));
 
     }
@@ -1197,6 +1236,7 @@ public class TeacherUI extends Application {
                 }
             }
             addstage.setScene(AddScene);
+            addstage.setResizable(false);
             addstage.show();
 
         });
