@@ -63,6 +63,8 @@ import online_university.BackEnd.*;
 
 public class TeacherUI extends Application {
 
+    Stage stage;
+
     @Override
     public void start(Stage stage) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -229,11 +231,9 @@ public class TeacherUI extends Application {
     }
 
     public Stage Start(Stage stage, Staff st) {
+        this.stage = stage;
         stage.setOnCloseRequest(eh -> {
-            session_Timer.cancel();
-            session_Timer.purge();
-            update_Student_Timer.cancel();
-            update_Student_Timer.purge();
+            cancelTimer();
         });
         SubPane.getStylesheets().add("css/newCascadeStyleSheet.css");
         ViewPane.getStylesheets().add("css/newCascadeStyleSheet.css");
@@ -432,7 +432,9 @@ public class TeacherUI extends Application {
             if (allC != null) {
                 int i = 0;
                 for (Course c : allC) {
-                    if(c.getStaffs() != null) continue;
+                    if (c.getStaffs() != null) {
+                        continue;
+                    }
                     boolean isExist = false;
                     if (this.User.getCourses() != null) {
                         for (Course myC : this.User.getCourses()) {
@@ -1157,6 +1159,9 @@ public class TeacherUI extends Application {
         SesListScrollPane.setLayoutX((SesPane.getWidth() / 2) + (SesListScrollPane.getPrefWidth() / 2-160));
         SesListScrollPane.setLayoutY((SesPane.getHeight() / 2) - (SesListScrollPane.getPrefHeight() / 2 - 40));
 
+        CancelHandlerClass h2 = new CancelHandlerClass();
+        Logout.setOnAction(h2);
+
     }
 
     void initUI(Stage stage) throws FileNotFoundException {
@@ -1239,9 +1244,6 @@ public class TeacherUI extends Application {
         });
 
         Stage addstage = new Stage();
-
-        CancelHandlerClass h2 = new CancelHandlerClass();
-        Logout.setOnAction(h2);
 
         AddStu.setOnAction(e -> {
             // init data
@@ -1395,12 +1397,21 @@ public class TeacherUI extends Application {
 
     }
 
+    void cancelTimer() {
+        session_Timer.cancel();
+        session_Timer.purge();
+        update_Student_Timer.cancel();
+        update_Student_Timer.purge();
+    }
+
     public class CancelHandlerClass implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent t) {
-            Stage stage = (Stage) Logout.getScene().getWindow();
-            stage.close();
+            cancelTimer();
+            Register s = new Register(stage);
+            stage.setScene(s.scene[1]);
+            stage.show();
         }
     }
 
