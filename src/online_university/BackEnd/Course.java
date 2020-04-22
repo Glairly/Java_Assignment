@@ -28,9 +28,18 @@ public class Course extends Person {
     private Staff staffs = new Staff();
     private ArrayList<Session> sessions;
     private String teacher_Name = "";
+    private String Mark = "X";
 
     public Course() {
         super();
+    }
+
+    public String getMark() {
+        return Mark;
+    }
+
+    public void setMark(String Mark) {
+        this.Mark = Mark;
     }
 
     public Course(String className, Staff stffs, ArrayList<Pair<Student, Grading>> students) {
