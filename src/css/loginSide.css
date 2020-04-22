@@ -1,0 +1,61 @@
+
+.root{
+    -fx-background-color: #ffffff;
+}
+
+.university-background{
+    -fx-background-color: linear-gradient(to bottom left,#0A60C8,#072F5F);
+}
+.login-background{
+    -fx-background-color: #FFFFFF;
+}
+
+.u-name-label{
+    -fx-text-fill:#FFFFFF;
+    -fx-font-size: 100;
+    -fx-font-weight: bold;
+}
+
+.topic-label{
+    -fx-text-fill:#3E4246;
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
+}
+.sign-up-topic{
+    -fx-text-fill:#545A60;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+.sign-up-label{
+    -fx-text-fill:#3E4246;
+    -fx-font-size: 40;
+    -fx-font-weight: bold;
+}
+
+.login-text-field{
+    -fx-font-size: 20;
+    -fx-alignment: center;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.login-button{
+    -fx-font-size: 20;
+}
+.sign-up-button{
+    -fx-font-size: 20;
+}
+
+.sign-up-text-field{
+    -fx-font-size: 20;
+    -fx-border-color: #2E6EB6;
+}
+.sign-up-text-field-error{
+    -fx-font-size: 20;
+    -fx-border-color: #FF0000;
+}
+
+
+
+

@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class Authority {
 
     public static <E extends Person> Person login(String id, String password) {
-        ArrayList<Person> arr = Database.getPerson();
+        ArrayList<Person> arr = Database.getPerson2(); // include register
+        
         int res = Person.search(null, id, arr);
         if (res != -1) {
             if (arr.get(res).getPassWord().equals(password)) {

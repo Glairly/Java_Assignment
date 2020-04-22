@@ -221,6 +221,28 @@ public class Database implements Serializable {
         }
         return arr;
     }
+    
+    public static ArrayList<Person> getPerson2() {
+        ArrayList<Person> arr = new ArrayList<>();
+        Database db = new Database();
+        db.setPath_Students();
+        var t = db.get();
+        if (t != null) {
+            arr.addAll((ArrayList<Person>) t);
+        }
+        db.setPath_Admins();
+        t = db.get();
+        if (t != null) {
+            arr.addAll((ArrayList<Person>) t);
+        }
+        db.setPath_Staffs();
+        t = db.get();
+        if (t != null) {
+            arr.addAll((ArrayList<Person>) t);
+        }
+        
+        return arr;
+    }
 
     protected ArrayList<String> getDatabaseList() {
         Database db = new Database("Lists");

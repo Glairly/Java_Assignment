@@ -1420,9 +1420,8 @@ public class TeacherUI extends Application {
 
         @Override
         public void handle(ActionEvent t) {
+            LoginAndSignUp loginAndSignUp = new LoginAndSignUp(stage);
             cancelTimer();
-            Register s = new Register(stage);
-            stage.setScene(s.scene[1]);
             stage.show();
         }
     }

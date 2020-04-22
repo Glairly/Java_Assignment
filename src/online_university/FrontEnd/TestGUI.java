@@ -26,7 +26,7 @@ public class TestGUI {
         API._INIT_DATABASE_();
         Admin am = new Admin("admin", "admin");
         API.saveToDatabase(am);
-        Staff st = new Staff("Staff1", "12345");
+        /*Staff st = new Staff("Staff1", "12345");
         st.setFullName("Glairly");
         Staff st2 = new Staff("Charoen", "c12345");
         st2.setFullName("AJ Charoen");
@@ -34,9 +34,11 @@ public class TestGUI {
         c = new Course("Calculus", null, null);
         c.setClassDescription("Cal for your mom");
         c.setFirstName("Calculus");
+        c.setAge("0");
         c1 = new Course("CalculusII", null, null);
         c1.setClassDescription("CalII for your mom");
         c1.setFirstName("CalculusII");
+        c1.setAge("0");
         var arrC = st.getCourses();
         arrC = new ArrayList<>();
         arrC.addAll(Arrays.asList(c, c1));
@@ -50,6 +52,6 @@ public class TestGUI {
         s1 = new Student("Drgn", "2", "21", "62010002", "Drgn2", "123", "test@mail");
         s2 = new Student("Drgn", "3", "22", "62010003", "Drgn3", "123", "test@mail");
         API.saveToDatabase(c, c1, s, s1, s2);
-        API.saveToDatabase(st, st2);
+        API.saveToDatabase(st, st2);*/
     }
 }

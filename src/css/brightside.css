@@ -50,17 +50,22 @@
     -fx-font-weight: bold;
     -fx-text-fill: #4F535A;
 }
+.table-choice-selected{
+    -fx-font-size: 20pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+}
 
 .table-choice-background{
     -fx-border-color: #4F535A;
     -fx-background-color: #7CADE4;
-
-
+}
+.table-choice-background-selected{
+    -fx-border-color: #4F535A;
+    -fx-background-color: #0D4485;
 }
 .table-choice-background:hover{
-    /* -fx-background-color: linear-gradient(to bottom left,#7CADE4,#FFB86A); */
-    -fx-background-color: white;
-    -fx-color: black;
+    -fx-background-color: #0D4485;
     -fx-border-color: black;
 }
 
@@ -81,6 +86,10 @@
 
 .add-user-text-field{
     -fx-border-color: #2E6EB6;
+    -fx-font-fill: #000000;
+}
+.add-user-text-field-error{
+    -fx-border-color: #FF0000;
     -fx-font-fill: #000000;
 }
 .add-user-rect{

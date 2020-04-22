@@ -21,9 +21,11 @@ public class GUI extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        Register s = new Register(stage);
-        stage.setScene(s.scene[1]);
-        stage.show();
+        LoginAndSignUp s = new LoginAndSignUp(stage);
+        
+//        Register s = new Register(stage);
+//        stage.setScene(s.scene[1]);
+//        stage.show();
 //        stage = new TeacherUI().Start(stage, (Staff) Authority.login("Staff1", "12345"));
 //        stage.show();
 //        stage = new Stu().Start(stage, (Student) Authority.login("Drgn", "123"));

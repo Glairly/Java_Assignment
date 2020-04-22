@@ -571,9 +571,8 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         text.getChildren().add(conf);
 
         yesButton.setOnAction(e -> {
-            Register s = new Register(this.stage);
+            LoginAndSignUp loginAndSignUp = new LoginAndSignUp(this.stage);
             cancelTimer();
-            this.stage.setScene(s.scene[1]);
             this.stage.show();
         });
         noButton.setOnAction(e -> {
