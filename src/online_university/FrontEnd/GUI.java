@@ -7,10 +7,8 @@ package online_university.FrontEnd;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.event.ActionEvent;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import online_university.BackEnd.*;
 
 /**
  *
@@ -20,11 +18,15 @@ public class GUI extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Register a = new Register(stage);
-        stage.setScene(a.scene[1]);
-        stage.setTitle("LOGIN_PAGE");
+//        stage.setScene(a.scene[1]);
+//        stage.setTitle("LOGIN_PAGE");
+//        stage.show();
+        stage = new TeacherUI().Start(stage, (Staff) Authority.login("Staff1", "12345"));
         stage.show();
-
+//        stage = new Stu().Start(stage, (Student) Authority.login("Drgn", "123"));
+//        stage.show();
+//        stage = new Stu().Start(stage, (Student) Authority.login("Drgn2", "123"));
+//        stage.show();
     }
 
     public static void main(String[] args) {

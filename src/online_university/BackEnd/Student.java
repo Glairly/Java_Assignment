@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Student extends Person {
 
     final String role = "Student";
-    private char Mark = 'X';
+    private String Mark = "X";
     private String Score = "";
     protected ArrayList<Course> course = new ArrayList<Course>();
 
@@ -30,7 +30,7 @@ public class Student extends Person {
         super(name, lname, age, stuId, id, password, email);
     }
 
-    public char getMark() {
+    public String getMark() {
         return Mark;
     }
 
@@ -38,7 +38,7 @@ public class Student extends Person {
         return course;
     }
 
-    public void setMark(char Mark) {
+    public void setMark(String Mark) {
         this.Mark = Mark;
     }
 
@@ -73,6 +73,16 @@ public class Student extends Person {
         for (Course c : this.course) {
             if (c.toString().equals(course.toString())) {
                 this.course.remove(c);
+                return;
+            }
+        }
+    }
+
+    public void setMarkByCourse(Course course) {
+        for (Course c : this.course) {
+            if (c.toString().equals(course.toString())) {
+                var st = c.getStudent(this);
+                this.setMark(st.getValue().getGrade());
                 return;
             }
         }
