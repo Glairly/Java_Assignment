@@ -3,7 +3,6 @@ package online_university.FrontEnd;
 import java.util.ArrayList;
 import java.util.Timer;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -34,6 +33,11 @@ import online_university.BackEnd.*;
 
 public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
 
+    @Override
+    public void start(Stage stage) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     Button Im, Vf, Cs, DCs, Score, Join;
     Button check;
     Button Logout, testButton;
@@ -54,7 +58,7 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
     Label Age = new Label();
     Label Email = new Label();
     Label CourseAdded = new Label();
-    TableView<Course> Course;
+    TableView<Course> Courses;
     TableView<Course> AddC;
     TableView<Course> JoinTableView;
     TableView<Student> AttendTableView;
@@ -75,17 +79,24 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         launch(args);
     }
 
+    Stage stage;
+
+    void cancelTimer() {
+        session_Timer.cancel();
+        session_Timer.purge();
+    }
+
+    ;
     /////////////////////////////////////////////// Main ////////////////////////////////////////////////////////////////////////////////////
-    @Override
-    public void start(Stage stage) throws Exception {
+    public Stage Start(Stage stage, Student stu) {
+        this.stage = stage;
+        Myself = stu;
         // stop query
         stage.setOnCloseRequest(e -> {
-            session_Timer.cancel();
-            session_Timer.purge();
+            cancelTimer();
         });
 
-        Myself = (Student) Authority.login("FoyFoy", "yoFyoF");
-
+        //Myself = (Student) Authority.login("FoyFoy", "yoFyoF");
         stage.setTitle("Student");
         stage.setResizable(false);
         Vf = new Button("   Edit Profile here  ");
@@ -158,11 +169,15 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         fortest.getChildren().add(StuInfo);
         gp.add(Nametext, 2, 2);
         gp.add(name, 3, 2);
-        name.setText(Myself.getFirstName());
+        if (Myself.getFirstName() != null) {
+            name.setText(Myself.getFirstName());
+        }
 
         gp.add(LNametext, 2, 3);
         gp.add(lastname, 3, 3);
-        lastname.setText(Myself.getLastName());
+        if (Myself.getLastName() != null) {
+            lastname.setText(Myself.getLastName());
+        }
 
         gp.add(Agetext, 2, 4);
         gp.add(Age, 3, 4);
@@ -179,8 +194,8 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         lb2 = new Label("Student Profile Information");
         lb2.setLayoutX(0);
         lb2.setLayoutY(0);
-        Course = new TableView<>();
-        Course.setPrefSize(700, 550);
+        Courses = new TableView<>();
+        Courses.setPrefSize(700, 550);
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //-------------------------------- TableColumn --------------------------------------------------------------//
@@ -203,15 +218,17 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         TableColumn<Course, ArrayList> ScoreColumn = new TableColumn<>("Grade");
         ScoreColumn.setMinWidth(100);
         ScoreColumn.setMaxWidth(100);
-        ScoreColumn.setCellValueFactory(new PropertyValueFactory<>("students"));
+        ScoreColumn.setCellValueFactory(new PropertyValueFactory<>("Mark"));
 
-        Course.getColumns().addAll(CourseNameColumn, CourseColumn, TNameColumn, ScoreColumn);
+        Courses.getColumns().addAll(CourseNameColumn, CourseColumn, TNameColumn, ScoreColumn);
+        Myself.updateCourse();
         for (Course c : Myself.getCourse()) {
-            Course.getItems().add(c);
+            c.setMark(c.getStudent(Myself).getValue().getGrade());
+            Courses.getItems().add(c);
         }
 
-        Course.setLayoutX(375);
-        Course.setLayoutY(100);
+        Courses.setLayoutX(375);
+        Courses.setLayoutY(100);
 
         CurrentCourse.setLayoutX(350);
         CurrentCourse.setLayoutY(0);
@@ -266,7 +283,7 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
             });
 
         });
-        ///////////////////////////////         Add Course Button      //////////////////////////////////////////////////////////
+        ///////////////////////////////         Add Courses Button      //////////////////////////////////////////////////////////
         Cs.setOnAction(e -> {
             Add();
         });
@@ -274,9 +291,11 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         DCs.setOnAction(e -> {
             Remove();
         });
+
         Join.setOnAction(e -> {
             Joinclass();
         });
+
         Logout.setOnAction(e -> {
             LogO();
         });
@@ -297,7 +316,7 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         StackPane Background = new StackPane();
         Background.getChildren().add(Backgroundleft);
 
-        rootPane.getChildren().addAll(CurrentcourseText, Backgroundleft, editPane, fortest, Logout, gp, Course, Cs, DCs, Join, CurrentCourse,
+        rootPane.getChildren().addAll(CurrentcourseText, Backgroundleft, editPane, fortest, Logout, gp, Courses, Cs, DCs, Join, CurrentCourse,
                 EditButtonPane, editTextPane, ConfAndCancelHBox, forEditButton);
 
         rootPane.setStyle("-fx-background-color:linear-gradient(to bottom right,#0A60C8,#072F5F)");
@@ -305,6 +324,7 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         stage.setTitle("Student : Home");
         stage.setScene(scene);
         stage.show();
+        return stage;
     }
 
     public void update(Course c) {
@@ -325,7 +345,7 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
             for (Course c : allC) {
 /////////////////// make all course in main stage is not exist -------------------------------------------------                
                 boolean isExist = false;
-                /////    check if Course table on main stage is not blank ---------------------------------------
+                /////    check if Courses table on main stage is not blank ---------------------------------------
                 if (Myself.getCourse() != null) {
                     for (Course cc : Myself.getCourse()) {
                         if (c.toString().equals(cc.toString())) {
@@ -388,7 +408,7 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         AddC.getColumns().addAll(CourseNameColumn, CourseColumn, TNameColumn);
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //-------------------------------- Text Field  --------------------------------------------------------------//
+        //-------------------------------- Text Field (Can't do it) -------------------------------------------------//
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         TextField searchField;
 
@@ -457,17 +477,37 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         Button yesButton = new Button("Yes");
         Button noButton = new Button("No");
 
-        yesButton.setOnAction(e
-                -> {
-            name.setText(tfName.getText());
-            lastname.setText(tfLastname.getText());
-            Age.setText(tfAge.getText());
-            Email.setText(tfEm.getText());
+        yesButton.setOnAction(e -> {
+            if (!" ".equals(tfName.getText()) && !"".equals(tfName.getText())) {
+                name.setText(tfName.getText());
+                Myself.setFirstName(tfName.getText());
+            }
+
+            if (!" ".equals(tfLastname.getText()) && !"".equals(tfLastname.getText())) {
+                lastname.setText(tfLastname.getText());
+                Myself.setLastName(tfLastname.getText());
+            }
+
+            if (!" ".equals(tfAge.getText()) && !"".equals(tfAge.getText())) {
+                Age.setText(tfAge.getText());
+                Myself.setAge(tfAge.getText());
+            }
+
+            if (!" ".equals(tfEm.getText()) && !"".equals(tfEm.getText())) {
+                Email.setText(tfEm.getText());
+                Myself.setEmail(tfEm.getText());
+            }
+
+            update(null);
+            var allStuCourse = Course.getCouresByStudent(Myself);
+            for (var c : allStuCourse) {
+                c.upDateStudent();
+                API.saveToDatabase(c);
+            }
             CFST.close();
         });
 
-        noButton.setOnAction(e
-                -> {
+        noButton.setOnAction(e -> {
             CFST.close();
         });
         Scene confirm = new Scene(cfEdit, 250, 100);
@@ -481,13 +521,16 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
     //-------------------------------- Add pressed --------------------------------------------------------------//
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void ANC() {
+        //AddC.setItems(FXCollections.observableSet(new HashSet<T>()));  
+        // course AddC.getSelectionModel().getSelectedItem()
+        AddC.getSelectionModel().selectFirst();
+
         if (AddC.getSelectionModel().getSelectedItem() != null) {
-            Course.getItems().add(AddC.getSelectionModel().getSelectedItem());
+            Courses.getItems().add(AddC.getSelectionModel().getSelectedItem());
             Myself.addCourse(AddC.getSelectionModel().getSelectedItem());
             AddC.getSelectionModel().getSelectedItem().addStudent(Myself);
             update(AddC.getSelectionModel().getSelectedItem());
-            //AddC.getItems().remove(AddC.getSelectionModel().getSelectedItem());
-            addCourse_Data.removeAll(AddC.getSelectionModel().getSelectedItem());
+            AddC.getItems().remove(AddC.getSelectionModel().getSelectedItem());
         }
         AddC.setItems(addCourse_Data);
     }
@@ -497,13 +540,13 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void Remove() {
         //Course.getSelectionModel().selectFirst();
-        if (Course.getSelectionModel().getSelectedItem() != null) {
+        if (Courses.getSelectionModel().getSelectedItem() != null) {
 //            AddC.getItems().add(Course.getSelectionModel().getSelectedItem());
-            Course.getSelectionModel().getSelectedItem().removeStudent(Myself);
-            Myself.removeCourse(Course.getSelectionModel().getSelectedItem());
-            System.out.println(Course.getSelectionModel().getSelectedItem().getStudents());
-            update(Course.getSelectionModel().getSelectedItem());
-            Course.getItems().remove(Course.getSelectionModel().getSelectedItem());
+            Courses.getSelectionModel().getSelectedItem().removeStudent(Myself);
+            Myself.removeCourse(Courses.getSelectionModel().getSelectedItem());
+            System.out.println(Courses.getSelectionModel().getSelectedItem().getStudents());
+            update(Courses.getSelectionModel().getSelectedItem());
+            Courses.getItems().remove(Courses.getSelectionModel().getSelectedItem());
         }
     }
 
@@ -528,7 +571,10 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         text.getChildren().add(conf);
 
         yesButton.setOnAction(e -> {
-            Platform.exit();
+            Register s = new Register(this.stage);
+            cancelTimer();
+            this.stage.setScene(s.scene[1]);
+            this.stage.show();
         });
         noButton.setOnAction(e -> {
             Logoutstage.close();
@@ -560,7 +606,7 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         JoinTableView.setPrefSize(700, 500);
         JoinTableView.setLayoutX(50);
         JoinTableView.setLayoutY(50);
-        //JoinTableView.getItems().add(Course);
+        //JoinTableView.getItems().add(Courses);
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //-------------------------------- TableColumn --------------------------------------------------------------//
@@ -642,20 +688,35 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
     Timer session_Timer = new Timer();
     Session nowSession;
     ObservableList<Student> Attended_Student = FXCollections.observableArrayList();
+    ObservableList<Student> List_Student = FXCollections.observableArrayList();
+
+    void test() {
+        ClassdescriptionLabel.setText("Session Has Ended");
+    }
     coresTimerTask update_Attend = new coresTimerTask() {
         @Override
         public void run() {
             this.setRun(true);
             ArrayList<Session> allSS = Session.getSessionByStudent(Myself);
+            boolean isOnsession = false;
             if (allSS != null) {
                 for (Session s : allSS) {
-                    if (s.toString().equals(nowSession)) {
+                    if (s.toString().equals(nowSession.toString())) {
                         nowSession = s;
+                        isOnsession = true;
                         break;
                     }
                 }
             }
+            if (!isOnsession) {
+//                this.setRun(false);
+//                this.cancel();
+                return;
+            }
             if (nowSession.getAttended_Students() != null) {
+
+                SimulationArea.setText(nowSession.getLecture());
+
                 if (Attended_Student != null) {
                     Attended_Student.clear();
                 }
@@ -668,11 +729,21 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         }
     };
 
+    TextArea SimulationArea = new TextArea();
+    Label ClassdescriptionLabel = new Label("On-going Session");
+    StackPane forClassdescriptionPane = new StackPane();
+
     private void joined(Session ss) {
+
         nowSession = ss;
 
         if (!update_Attend.isRun()) {
             session_Timer.schedule(update_Attend, 0, 500);
+        }
+        // set List student
+        List_Student.clear();
+        for (Pair<Student, Grading> st : nowSession.getCourse().getStudents()) {
+            List_Student.add(st.getKey());
         }
 
         Stage joinedStage = new Stage();
@@ -705,8 +776,12 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         StackPane forClassdescriptionPane = new StackPane();
         forClassdescriptionPane.setLayoutX(5);
         forClassdescriptionPane.setLayoutY(0);
-        forClassdescriptionPane.getChildren().addAll(ClassdescriptionLabel);
-        BGClassdescriptionPane.getChildren().addAll(ClassDescripVbox);
+        if (!forClassdescriptionPane.getChildren().contains(ClassdescriptionLabel)) {
+            forClassdescriptionPane.getChildren().addAll(ClassdescriptionLabel);
+        }
+        if (!BGClassdescriptionPane.getChildren().contains(ClassDescripVbox)) {
+            BGClassdescriptionPane.getChildren().addAll(ClassDescripVbox);
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //----------------------------------- Teachere Name ---------------------------------------------------------//
@@ -724,8 +799,8 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         teachernamePane.setLayoutY(80);
 
         Staff stff = ss.getStaff();
-        Label teachernameLabel = new Label(stff.getFirstName() + " " + stff.getLastName() + " is Teaching");
-        teachernameLabel.setStyle("-fx-text-fill:#ffffff;-fx-font-weight: bold;-fx-font-size:12pt");
+        Label teachernameLabel = new Label(stff.getFullName() + " is Teaching");
+        teachernameLabel.setStyle("-fx-text-fill:#00026b;-fx-font-weight: bold;-fx-font-size:12pt");
 
         teachernamePane.getChildren().add(teachernameLabel);
 
@@ -773,7 +848,7 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         StudentListTableView.setLayoutX(475);
         StudentListTableView.setLayoutY(130);
 
-        StudentListTableView.setItems(Attended_Student);
+        StudentListTableView.setItems(List_Student);
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
         //-------------------------------- Back Button -------------------------------------------------------//
@@ -787,14 +862,28 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
         //-------------------------------- Attend Button-------------------------------------------------------//
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Button AttendedButton = new Button("Attended");
+        Button AttendedButton = new Button("Attending");
         AttendedButton.setPrefSize(300, 50);
         AttendedButton.setLayoutX(480);
         AttendedButton.setLayoutY(550);
+        boolean isAttend = false;
+        if (nowSession.getAttended_Students() != null) {
+            for (Student st : nowSession.getAttended_Students()) {
+                if (st.toString().equals(Myself.toString())) {
+                    isAttend = true;
+                    AttendedButton.setStyle("-fx-background-color:#34cd33");
+                    AttendedButton.setText("You're Attended");
+                    AttendedButton.setOnAction(null);
+                }
+            }
+        }
         AttendedButton.setOnAction(eh -> {
-            ss.addAtended_Student(Myself);
-            API.saveToDatabase(ss);
+            nowSession = Session.updateLocalSession(nowSession);
+            nowSession.addAtended_Student(Myself);
+            API.saveToDatabase(nowSession);
+            AttendedButton.setText("You're Attended");
             AttendedButton.setStyle("-fx-background-color:#34cd33");
+            AttendedButton.setOnAction(null);
         });
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -805,10 +894,10 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         AttendedListButton.setLayoutX(505);
         AttendedListButton.setLayoutY(80);
 
-        AttendedListButton.setOnAction(e
-                -> {
+        AttendedListButton.setOnAction(e -> {
             AttendTableView.setVisible(true);
             StudentListTableView.setVisible(false);
+
         });
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -834,8 +923,8 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         //-------------------------------- rootpane -------------------------------------------------------//
         /////////////////////////////////////////////////////////////////////////////////////////////////////
         Pane rootPane = new Pane();
-        rootPane.setStyle("-fx-background-color:linear-gradient(#e1e2ff 40%,#14007d 75%)");
-        rootPane.getChildren().addAll(DecoratePane, BGClassdescriptionPane, SmallBox, subjectnamePane, teachernamePane,
+        rootPane.setStyle("-fx-background-color:linear-gradient(#ffffff 40%,#3e437d 80%)");
+        rootPane.getChildren().addAll(DecoratePane, BGClassdescriptionPane, subjectnamePane, teachernamePane,
                 AttendTableView, AttendedButton, Backtosessionslist, forClassdescriptionPane, SimulationArea,
                 StudentListButton, AttendedListButton, StudentListTableView);
 
@@ -846,4 +935,5 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         joinedStage.setScene(OngoingScene);
         joinedStage.showAndWait();
     }
+
 }
