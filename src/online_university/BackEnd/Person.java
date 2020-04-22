@@ -276,7 +276,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "{Name : " + this.FirstName + " Id : " + this.UserName + "}";
+        return "{Id : " + this.UserName + "}";
     }
 
 }

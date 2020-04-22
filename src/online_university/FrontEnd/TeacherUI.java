@@ -63,6 +63,11 @@ import online_university.BackEnd.*;
 
 public class TeacherUI extends Application {
 
+    @Override
+    public void start(Stage stage) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     String userName, passWord;
     Staff User;
     Course nowCourse;
@@ -214,12 +219,11 @@ public class TeacherUI extends Application {
     TableView<Persons> table4 = new TableView<Persons>();
     TableView<Persons> AddSubjectTable = new TableView<Persons>();
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         launch(args);
     }
 
-    @Override
-    public void start(Stage stage) throws FileNotFoundException {
+    public Stage Start(Stage stage, Staff st) {
         stage.setOnCloseRequest(eh -> {
             session_Timer.cancel();
             session_Timer.purge();
@@ -232,7 +236,7 @@ public class TeacherUI extends Application {
         SesPane.getStylesheets().add("css/newCascadeStyleSheet.css");
         AsPane.getStylesheets().add("css/newCascadeStyleSheet.css");
         SubjectName.setSpacing(100.0);
-        this.User = (Staff) Authority.login("Staff1", "12345");
+        this.User = st;
         initData();
 
         ts = this.User.getUserName();
@@ -398,6 +402,7 @@ public class TeacherUI extends Application {
             if (allC != null) {
                 int i = 0;
                 for (Course c : allC) {
+                    if(c.getStaffs() != null) continue;
                     boolean isExist = false;
                     if (this.User.getCourses() != null) {
                         for (Course myC : this.User.getCourses()) {
@@ -518,8 +523,10 @@ public class TeacherUI extends Application {
                             @Override
                             public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
                                 Session local_ss = getSession();
-                                local_ss.setLecture(newValue);
-                                API.saveToDatabase(local_ss);
+                                if (local_ss != null) {
+                                    local_ss.setLecture(newValue);
+                                    API.saveToDatabase(local_ss);
+                                }
                             }
                         });
                         //rect3.setFill(Color.WHITE);
@@ -550,6 +557,7 @@ public class TeacherUI extends Application {
         }
 
         initData();
+        return stage;
     }
 
     Button BckBtn3 = new Button("Back to MainMenu");
@@ -936,7 +944,6 @@ public class TeacherUI extends Application {
         DescriptCol.setCellValueFactory(
                 new PropertyValueFactory<Persons, String>("totalScore"));
         DescriptCol.getStyleClass().add("tablecolumn");
-
 
         TableColumn CorSelCol = new TableColumn("Select");
         CorSelCol.getStyleClass().add("tablecolumn");

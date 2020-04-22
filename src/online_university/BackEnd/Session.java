@@ -127,6 +127,18 @@ public class Session extends Person {
         return result;
     }
 
+    public static Session updateLocalSession(Session ss){
+        var allSS = API.getAllSession();
+        if (ss != null && allSS != null) {
+            for (Session SS : allSS) {
+                if (SS.toString().equals(ss.toString())) {
+                    return SS;
+                }
+            }
+        }
+        return null;
+    }
+    
     @Override
     public String toString() {
         return "Session : " + this.course.toString() + " Attend at : " + this.date; //To change body of generated methods, choose Tools | Templates.

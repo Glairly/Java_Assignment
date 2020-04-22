@@ -227,6 +227,34 @@ public class Course extends Person {
         }
     }
 
+    public void upDateStudent() {
+        var allSt = API.getAllStudent();
+        ArrayList<Pair<Student, Grading>> arr = new ArrayList();
+        ArrayList<Pair<Student, Grading>> arrA = new ArrayList();
+        if (this.students != null) {
+            for (Pair<Student, Grading> s : this.students) {
+                if (allSt != null) {
+                    for (Student ss : allSt) {
+                        if (s.getKey().toString().equals(ss.toString())) {
+                            arr.add(s);
+                            arrA.add(new Pair<>(ss, s.getValue()));
+                        }
+                    }
+                }
+            }
+        }
+        if (arr != null) {
+            for (var i : arr) {
+                this.students.remove(i);
+            }
+        }
+        if (arrA != null) {
+            for (var i : arrA) {
+                this.students.add(i);
+            }
+        }
+    }
+
     @Override
     public String toString() {
         String s = super.toString();
