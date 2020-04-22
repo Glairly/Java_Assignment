@@ -24,8 +24,8 @@ public class API {
 //        System.out.println(API.getCustom("Register"));
 //        Staff user = (Staff) Authority.login("Staff1", "12345");
 //        System.out.println(API.getAllCourse().get(1).getStudents());
-        for(Course c : API.getAllCourse()){
-            System.out.println(c.getStudents().get(0).getKey().getFullName());
+        for (Course c : API.getAllCourse()) {
+            System.out.println(c.getStudents());
         }
         //      System.out.println(API.getAllCourse().get(0).getStudents());
         //       API._INIT_DATABASE_();
@@ -120,7 +120,6 @@ public class API {
      * @param o
      * @return Index
      */
-
     public static <E extends Person> boolean saveToDatabase(E... o) {
         return E.submit(o);
     }

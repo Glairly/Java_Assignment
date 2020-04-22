@@ -220,10 +220,12 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         TableColumn<Course, ArrayList> ScoreColumn = new TableColumn<>("Grade");
         ScoreColumn.setMinWidth(100);
         ScoreColumn.setMaxWidth(100);
-        ScoreColumn.setCellValueFactory(new PropertyValueFactory<>("students"));
+        ScoreColumn.setCellValueFactory(new PropertyValueFactory<>("Mark"));
 
         Courses.getColumns().addAll(CourseNameColumn, CourseColumn, TNameColumn, ScoreColumn);
+        Myself.updateCourse();
         for (Course c : Myself.getCourse()) {
+            c.setMark(c.getStudent(Myself).getValue().getGrade());
             Courses.getItems().add(c);
         }
 
@@ -545,7 +547,6 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         StackPane text = new StackPane();
         text.getChildren().add(conf);
 
-        // Changed //
         yesButton.setOnAction(e -> {
             Register s = new Register(this.stage);
             cancelTimer();

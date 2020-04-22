@@ -729,8 +729,7 @@ public class TeacherUI extends Application {
         fiCol.setCellValueFactory(
                 new PropertyValueFactory<Persons, String>("finals"));
         fiCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        fiCol.setOnEditCommit(
-                new EventHandler<CellEditEvent<Persons, String>>() {
+        fiCol.setOnEditCommit(new EventHandler<CellEditEvent<Persons, String>>() {
             @Override
             public void handle(CellEditEvent<Persons, String> t) {
                 if (API.isNumeric(t.getNewValue())) {
@@ -745,8 +744,21 @@ public class TeacherUI extends Application {
         TableColumn GradeCol = new TableColumn("Grade");
         GradeCol.getStyleClass().add("tablecolumn");
         GradeCol.setMinWidth(100);
+        GradeCol.setCellFactory(TextFieldTableCell.forTableColumn());
         GradeCol.setCellValueFactory(
                 new PropertyValueFactory<Persons, String>("grade"));
+        GradeCol.setOnEditCommit(
+                new EventHandler<CellEditEvent<Persons, String>>() {
+            @Override
+            public void handle(CellEditEvent<Persons, String> t) {
+                if (!API.isNumeric(t.getNewValue())) {
+                    ((Persons) t.getTableView().getItems().get(
+                            t.getTablePosition().getRow())).setTotalAttend(t.getNewValue());
+                    nowCourse.getStudent(t.getTableView().getItems().get(t.getTablePosition().getRow()).getEmail()).getValue().setGrade(t.getNewValue());
+                    update();
+                }
+            }
+        });
 
         TableColumn attCol = new TableColumn("Attended");
         attCol.getStyleClass().add("tablecolumn");
