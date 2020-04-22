@@ -120,25 +120,6 @@ public class API {
      * @param o
      * @return Index
      */
-    public static <E extends Person> int searchByObject(E object) {
-        Database db = object.getDbPath();
-        return Person.search(object.getFirstName(), object.getUserName(), (ArrayList<Person>) db.get());
-    }
-
-    public static Person searchById(String id) {
-        ArrayList<Person> arr = Database.getPerson();
-        if (arr != null) {
-            int res = Person.search("", id, arr);
-            if (res != -1) {
-                return arr.get(res);
-            } else {
-                return null;
-            }
-        } else {
-            System.out.println("Get Data Falied.");
-            return null;
-        }
-    }
 
     public static <E extends Person> boolean saveToDatabase(E... o) {
         return E.submit(o);

@@ -33,6 +33,12 @@ public class Admin extends Person {
         return Person.getIndex(id, new Admin(), new Database("admins"));
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    
+    
     @Override
     public String toString() {
         String s = super.toString();

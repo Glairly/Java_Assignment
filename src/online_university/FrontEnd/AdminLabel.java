@@ -128,20 +128,6 @@ public class AdminLabel extends Application {
     /// Create ConfirmBoxs ///
     ConfirmBox confirmBox = new ConfirmBox();
 
-    /// Create ArrayList of Student ///
-    /*ObservableList<Student> studentData = FXCollections.observableArrayList(
-         new Student("Siwakon","Phetnoi","18","62010882","pokpok","pokpok_pass","pokpok@hotmail.com"),
-         new Student("Veerakon","Phetnoi","9","62010882.1","palmpalm","palmpalm_pass","palmpalm@hotmail.com"),
-         new Student("Boonyakon","Phetnoi","17","62010882.2","ponpon","ponpon_pass","ponpon@hotmail.com")
-     );   
-     /// Create ArrayList of Teacher ///
-     ObservableList<Staff> teacherData = FXCollections.observableArrayList(
-         new Staff("Rapeepat","don't know","19","62010881","peepee","peepee_pass","peepee@hotmail.com"),
-         new Staff("Siwakon","Phetnoi","18","62010882","pokpok","pokpok_pass","pokpok@hotmail.com"),
-         new Staff("Siwat","Promak","19","62010883","foyfoy","foyfoy_pass","foyfoy@hotmail.com"),
-         new Staff("Wongvarit","Panjaruen","19","62010884","oakoak","oakoak_pass","oakoak@hotmail.com")
-     );*/
-    /// Create ArrayList of Teacher ///
      ObservableList<Person> registerData = FXCollections.observableArrayList(
          new Staff("Rapeepat","don't know","19","62010881","peepee","peepee_pass","peepee@hotmail.com"),
          new Student("Siwakon","Phetnoi","18","62010882","pokpok","pokpok_pass","pokpok@hotmail.com"),
@@ -153,8 +139,7 @@ public class AdminLabel extends Application {
     //ObservableList<Person> registerData = FXCollections.observableArrayList();
     ObservableList<Course> courseData = FXCollections.observableArrayList();
 
-    @Override
-    public void start(Stage stage) throws Exception {
+    public Stage Start(Stage stage,Admin user){
         /// Read Data Base //
         readDataBaseStudents();
         readDataBaseTeachers();
@@ -1030,8 +1015,12 @@ public class AdminLabel extends Application {
         stage.setTitle("Admin Label");
         stage.setScene(adminScene);
         stage.show();
+        return stage;
     }
 
+    
+    @Override
+    public void start(Stage stage) throws Exception {}
     /// Main Function ///
     public static void main(String[] args) {
         Database db = new Database();

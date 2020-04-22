@@ -24,6 +24,8 @@ public class TestGUI {
 //    API.saveToCustom("Sessions", new Session(new Course("test3",null,null)));
         //           Session.end_Session( new Session(new Course("test",null,null)));
         API._INIT_DATABASE_();
+        Admin am = new Admin("admin", "admin");
+        API.saveToDatabase(am);
         Staff st = new Staff("Staff1", "12345");
         st.setFullName("Glairly");
         Staff st2 = new Staff("Charoen", "c12345");
@@ -48,6 +50,6 @@ public class TestGUI {
         s1 = new Student("Drgn", "2", "21", "62010002", "Drgn2", "123", "test@mail");
         s2 = new Student("Drgn", "3", "22", "62010003", "Drgn3", "123", "test@mail");
         API.saveToDatabase(c, c1, s, s1, s2);
-        API.saveToDatabase(st,st2);
+        API.saveToDatabase(st, st2);
     }
 }

@@ -73,6 +73,8 @@ public class Register extends Application {
     /////////////////////////////////////////////////////////////
     /////////////setting for scene///////////////////////////////
     //Create starting page//
+    Person user;
+
     Register(Stage a) {
         settext();
         setVbox();
@@ -100,9 +102,19 @@ public class Register extends Application {
         LogInpage.getChildren().addAll(TextBox, NameBox, PWBox); //, comboBox);
         LogInpage.getChildren().addAll(next, allbutton[3]);
         next.setOnAction((ActionEvent t) -> {
-            Person user = (Person) idcheckers();
+            user = (Person) idcheckers();
             if (user != null) {
                 System.out.println(user.getRole() + " LOGIN ");
+                if (user.getRole().equals("Student")) {
+                    Stu s = new Stu();
+                    s.Start(a, (Student) user);
+                } else if (user.getRole().equals("Staff")) {
+                    TeacherUI s = new TeacherUI();
+                    s.Start(a, (Staff) user);
+                } else if (user.getRole().equals("Admin")) {
+                    AdminLabel s = new AdminLabel();
+                    s.Start(a, (Admin) user);
+                }
             } else {
                 a.setScene(scene[2]);
                 a.setTitle("Error404_PAGE");

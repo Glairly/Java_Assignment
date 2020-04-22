@@ -81,13 +81,21 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         launch(args);
     }
 
+    Stage stage;
+
+    void cancelTimer() {
+        session_Timer.cancel();
+        session_Timer.purge();
+    }
+
+    ;
     /////////////////////////////////////////////// Main ////////////////////////////////////////////////////////////////////////////////////
     public Stage Start(Stage stage, Student stu) {
+        this.stage = stage;
         Myself = stu;
         // stop query
         stage.setOnCloseRequest(e -> {
-            session_Timer.cancel();
-            session_Timer.purge();
+            cancelTimer();
         });
 
         //Myself = (Student) Authority.login("FoyFoy", "yoFyoF");
@@ -537,8 +545,12 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         StackPane text = new StackPane();
         text.getChildren().add(conf);
 
+        // Changed //
         yesButton.setOnAction(e -> {
-            Platform.exit();
+            Register s = new Register(this.stage);
+            cancelTimer();
+            this.stage.setScene(s.scene[1]);
+            this.stage.show();
         });
         noButton.setOnAction(e -> {
             Logoutstage.close();
