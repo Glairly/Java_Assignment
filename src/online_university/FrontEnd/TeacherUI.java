@@ -191,6 +191,7 @@ public class TeacherUI extends Application {
     String ts, tf, tl, ta, ti, te;
     String sn;
     Label lbl4 = new Label("Username : ");
+    Label lbl4_2 = new Label("Username : ");
     Label lbl6 = new Label("Firstname : ");
     Label lbl7 = new Label("Lastname : ");
     Label lbl8 = new Label("Age : ");
@@ -252,6 +253,7 @@ public class TeacherUI extends Application {
         te = this.User.getEmail();
 
         Label Tusername = new Label(ts);
+        Label Tusername3 = new Label(ts);
         Label Tfirstname = new Label(tf);
         Label Tlastname = new Label(tl);
         Label Tage = new Label(ta);
@@ -278,6 +280,9 @@ public class TeacherUI extends Application {
         Tusername.setScaleX(3);
         Tusername.setScaleY(3);
         Tusername.setScaleZ(3);
+        Tusername3.setScaleX(3);
+        Tusername3.setScaleY(3);
+        Tusername3.setScaleZ(3);
         Tfirstname.setScaleX(3);
         Tfirstname.setScaleY(3);
         Tfirstname.setScaleZ(3);
@@ -297,6 +302,9 @@ public class TeacherUI extends Application {
         lbl4.setScaleX(3);
         lbl4.setScaleY(3);
         lbl4.setScaleZ(3);
+        lbl4_2.setScaleX(3);
+        lbl4_2.setScaleY(3);
+        lbl4_2.setScaleZ(3);
         lbl5.setScaleX(5);
         lbl5.setScaleY(5);
         lbl5.setScaleZ(5);
@@ -320,6 +328,8 @@ public class TeacherUI extends Application {
         Ong.setScaleZ(4);
 
         lbl3.getStyleClass().add("special-label");
+        AnchorPane.setLeftAnchor(lbl4_2, 80d);
+        AnchorPane.setTopAnchor(lbl4_2, 30d);
         AnchorPane.setLeftAnchor(lbl4, 80d);
         AnchorPane.setBottomAnchor(lbl4, 280d);
         AnchorPane.setLeftAnchor(lbl6, 83d);
@@ -340,6 +350,8 @@ public class TeacherUI extends Application {
 
         AnchorPane.setLeftAnchor(Tusername, 250d);
         AnchorPane.setBottomAnchor(Tusername, 280d);
+        AnchorPane.setLeftAnchor(Tusername3, 250d);
+        AnchorPane.setTopAnchor(Tusername3, 30d);
         AnchorPane.setLeftAnchor(Tfirstname, 250d);
         AnchorPane.setBottomAnchor(Tfirstname,230d);
         AnchorPane.setLeftAnchor(Tlastname, 250d);
@@ -361,14 +373,14 @@ public class TeacherUI extends Application {
 
         SubScrollPane.setLayoutX((SubPane.getWidth() / 2) - (SubScrollPane.getPrefWidth() / 2));
         SubScrollPane.setLayoutY((SubPane.getHeight() / 2) - (SubScrollPane.getPrefHeight() / 2));
-        SubPane.getChildren().add(Tusername);
+        SubPane.getChildren().add(Tusername3);
         SubPane.getChildren().add(Tfirstname);
         SubPane.getChildren().add(Tlastname);
         SubPane.getChildren().add(Tage);
         SubPane.getChildren().add(Tid);
         SubPane.getChildren().add(Temail);
 
-        SubPane.getChildren().add(lbl4);
+        SubPane.getChildren().add(lbl4_2);
         SubPane.getChildren().add(lbl6);
         SubPane.getChildren().add(lbl7);
         SubPane.getChildren().add(lbl8);
@@ -443,7 +455,7 @@ public class TeacherUI extends Application {
         BckBtn2.setOnAction(e
                 -> addsubstage.close());
         BckBtn4.setOnAction(e
-                -> addsubstage.close());
+                -> viewpstage.close());
         AnchorPane.setRightAnchor(BckBtn4, 10d);
         AnchorPane.setBottomAnchor(BckBtn4, 10d);
 //        AnchorPane.setRightAnchor(BckBtn2, 350d);
@@ -907,7 +919,7 @@ public class TeacherUI extends Application {
         NumSesCol.getStyleClass().add("tablecolumn");
 
         TableColumn firstSesNameCol = new TableColumn("FullName");
-        firstSesNameCol.setMinWidth(300);
+        firstSesNameCol.setMinWidth(280);
         firstSesNameCol.setCellValueFactory(
                 new PropertyValueFactory<Persons, String>("FullName"));
         firstSesNameCol.getStyleClass().add("tablecolumn");
@@ -1065,7 +1077,7 @@ public class TeacherUI extends Application {
         table.setPrefSize(1180, 600);
         // AddSubjectTable.setPrefWidth(NumCoCol.getMinWidth() + CourseNameCol.getMinWidth() + DescriptCol.getMinWidth() + CoteachCol.getMinWidth() +CorSelCol.getMinWidth());
         table2.setPrefWidth(NumCol.getMinWidth() + firstNameCol.getMinWidth() + lastNameCol.getMinWidth() + SelectCol.getMinWidth());
-        table3.setPrefWidth(NumSesCol.getMinWidth() + firstSesNameCol.getMinWidth()+ lastNameSesCol.getMinWidth());
+        table3.setPrefWidth(NumSesCol.getMinWidth() + firstSesNameCol.getMinWidth()+ lastNameSesCol.getMinWidth()+20+5);
         //AddPane.getChildren().add(table2);
 
         AddPane.getChildren().add(AddScrollPane);
