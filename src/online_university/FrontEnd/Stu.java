@@ -222,9 +222,13 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
 
         Courses.getColumns().addAll(CourseNameColumn, CourseColumn, TNameColumn, ScoreColumn);
         Myself.updateCourse();
-        for (Course c : Myself.getCourse()) {
-            c.setMark(c.getStudent(Myself).getValue().getGrade());
-            Courses.getItems().add(c);
+        if (Myself.getCourse() != null) {
+            for (Course c : Myself.getCourse()) {
+                if (c.getStudent(Myself) != null) {
+                    c.setMark(c.getStudent(Myself).getValue().getGrade());
+                    Courses.getItems().add(c);
+                }
+            }
         }
 
         Courses.setLayoutX(375);
@@ -542,7 +546,7 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
             update(AddC.getSelectionModel().getSelectedItem());
             addCourse_Data.remove(AddC.getSelectionModel().getSelectedItem());
         }
-        AddC.setItems(addCourse_Data);
+        // AddC.setItems(addCourse_Data);
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -719,13 +723,10 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
                 }
             }
             if (!isOnsession) {
-//                this.setRun(false);
-//                this.cancel();
                 return;
             }
+            SimulationArea.setText(nowSession.getLecture());
             if (nowSession.getAttended_Students() != null) {
-
-                SimulationArea.setText(nowSession.getLecture());
 
                 if (Attended_Student != null) {
                     Attended_Student.clear();
@@ -757,7 +758,6 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         Stage joinedStage = new Stage();
         joinedStage.setTitle("On going session");
         joinedStage.setResizable(false);
-        TextArea SimulationArea = new TextArea();
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //-------------------------------- Simulation Display -------------------------------------------------------//
@@ -776,7 +776,6 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
 
         VBox ClassDescripVbox = new VBox();
         ClassDescripVbox.setPrefSize(900, 150);
-        //ClassDescripVbox.setStyle("-fx-background-color:linear-gradient(#e1e2ff 0%, #a7eeff 50%, #e1e2ff 100%);");
 
         Label ClassdescriptionLabel = new Label("On-going Session");
         ClassdescriptionLabel.setStyle("-fx-text-fill:#ffffff;-fx-font-weight: bold;-fx-font-size:13pt;");
@@ -796,19 +795,19 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         VBox SmallBox = new VBox();
         SmallBox.setStyle("-fx-background-color:linear-gradient(#0A60C8,#072F5F)");
-        SmallBox.setPrefSize(250, 120);
+        SmallBox.setPrefSize(450, 120);
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //----------------------------------- Teachere Name ---------------------------------------------------------//
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         StackPane teachernamePane = new StackPane();
 
-        teachernamePane.setLayoutX(120);
+        teachernamePane.setLayoutX(110);
         teachernamePane.setLayoutY(80);
 
         Staff stff = ss.getStaff();
         Label teachernameLabel = new Label(stff.getFullName() + " is Teaching");
-        teachernameLabel.setStyle("-fx-text-fill:#00026b;-fx-font-weight: bold;-fx-font-size:12pt");
+        teachernameLabel.setStyle("-fx-text-fill:#ffffff;-fx-font-weight: bold;-fx-font-size:12pt");
 
         teachernamePane.getChildren().add(teachernameLabel);
 
@@ -931,8 +930,8 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         //-------------------------------- rootpane -------------------------------------------------------//
         /////////////////////////////////////////////////////////////////////////////////////////////////////
         Pane rootPane = new Pane();
-        rootPane.setStyle("-fx-background-color:linear-gradient(#ffffff 40%,#3e437d 80%)");
-        rootPane.getChildren().addAll(DecoratePane, BGClassdescriptionPane, subjectnamePane, teachernamePane,
+        rootPane.setStyle("-fx-background-color:linear-gradient(#bfbeff 40%,#3e437d 80%)");
+        rootPane.getChildren().addAll(DecoratePane, BGClassdescriptionPane, SmallBox, subjectnamePane, teachernamePane,
                 AttendTableView, AttendedButton, Backtosessionslist, forClassdescriptionPane, SimulationArea,
                 StudentListButton, AttendedListButton, StudentListTableView);
 

@@ -10,6 +10,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -20,7 +22,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -43,6 +44,7 @@ public class LoginAndSignUp extends Application {
     StackPane stackPaneRight = new StackPane();
 
     Label uNameLabel = new Label("HWU");
+    Label universityLabel = new Label("UNIVERSITY");
     Label userNameLabel = new Label("USERNAME");
     Label passWordLabel = new Label("PASSWORD");
     Label signUpLabel = new Label("SIGN UP");
@@ -52,6 +54,7 @@ public class LoginAndSignUp extends Application {
     Label userNameTopic = new Label("Username");
     Label passWordTopic = new Label("Password");
     Label emailTopic = new Label("E-Mail");
+    Label loginErrorLabel = new Label("Username or Password is wrong");
 
     TextField loginUserName = new TextField();
     PasswordField loginPassWord = new PasswordField();
@@ -76,10 +79,18 @@ public class LoginAndSignUp extends Application {
         universityPane.setPrefSize(640, 720);
         universityPane.getStyleClass().add("university-background");
         uNameLabel.getStyleClass().add("u-name-label");
-        universityPane.getChildren().add(uNameLabel);
+        universityLabel.getStyleClass().add("university-label");
+        ImageView universityImage = new ImageView("Images/university_icon.png");
+        universityImage.setFitHeight(300);
+        universityImage.setFitWidth(300);
+        universityPane.getChildren().addAll(uNameLabel, universityLabel, universityImage);
         // Set LayOut //
-        uNameLabel.setLayoutX(200);
-        uNameLabel.setLayoutY(300);
+        universityImage.setLayoutX(170);
+        universityImage.setLayoutY(80);
+        uNameLabel.setLayoutX(195);
+        uNameLabel.setLayoutY(420);
+        universityLabel.setLayoutX(150);
+        universityLabel.setLayoutY(580);
 
         /// Set up loginPane ///
         loginPane.setPrefSize(640, 720);
@@ -88,8 +99,9 @@ public class LoginAndSignUp extends Application {
         passWordLabel.getStyleClass().add("topic-label");
         loginUserName.getStyleClass().add("login-text-field");
         loginPassWord.getStyleClass().add("login-text-field");
-        lineUserName.getStyleClass().add("login-button");
-        linePassWord.getStyleClass().add("sign-up-button");
+        lineUserName.getStyleClass().add("login-line");
+        linePassWord.getStyleClass().add("sign-up-line");
+        loginErrorLabel.getStyleClass().add("before-error");
         loginUserName.setPrefSize(300, 50);
         loginPassWord.setPrefSize(300, 50);
         lineUserName.setStartX(170);
@@ -109,6 +121,7 @@ public class LoginAndSignUp extends Application {
         loginPane.getChildren().add(loginPassWord);
         loginPane.getChildren().add(lineUserName);
         loginPane.getChildren().add(linePassWord);
+        loginPane.getChildren().add(loginErrorLabel);
         loginPane.getChildren().add(loginButton);
         loginPane.getChildren().add(signUpButton);
         // Set LayOut //
@@ -120,6 +133,8 @@ public class LoginAndSignUp extends Application {
         loginUserName.setLayoutY(200);
         loginPassWord.setLayoutX(170);
         loginPassWord.setLayoutY(350);
+        loginErrorLabel.setLayoutX(210);
+        loginErrorLabel.setLayoutY(420);
         loginButton.setLayoutX(220);
         loginButton.setLayoutY(500);
         signUpButton.setLayoutX(220);
@@ -144,6 +159,15 @@ public class LoginAndSignUp extends Application {
         textFirstName.setPrefSize(240, 35);
         textLastName.setPrefSize(240, 35);
         textAge.setPrefSize(240, 35);
+        textAge.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    textAge.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+
+        });
         textUserName.setPrefSize(240, 35);
         textPassWord.setPrefSize(240, 35);
         textEmail.setPrefSize(240, 35);
@@ -177,35 +201,35 @@ public class LoginAndSignUp extends Application {
         signUpLabel.setLayoutX(150);
         signUpLabel.setLayoutY(50);
         textFirstName.setLayoutX(150);
-        textFirstName.setLayoutY(180);
+        textFirstName.setLayoutY(170);
         textLastName.setLayoutX(150);
-        textLastName.setLayoutY(250);
+        textLastName.setLayoutY(242);
         textAge.setLayoutX(150);
-        textAge.setLayoutY(320);
+        textAge.setLayoutY(315);
         textUserName.setLayoutX(150);
-        textUserName.setLayoutY(390);
+        textUserName.setLayoutY(387);
         textPassWord.setLayoutX(150);
         textPassWord.setLayoutY(460);
         textEmail.setLayoutX(150);
-        textEmail.setLayoutY(530);
+        textEmail.setLayoutY(535);
         firstNameTopic.setLayoutX(150);
-        firstNameTopic.setLayoutY(150);
+        firstNameTopic.setLayoutY(140);
         lastNameTopic.setLayoutX(150);
-        lastNameTopic.setLayoutY(220);
+        lastNameTopic.setLayoutY(212);
         ageTopic.setLayoutX(150);
-        ageTopic.setLayoutY(290);
+        ageTopic.setLayoutY(285);
         userNameTopic.setLayoutX(150);
-        userNameTopic.setLayoutY(360);
+        userNameTopic.setLayoutY(357);
         passWordTopic.setLayoutX(150);
         passWordTopic.setLayoutY(430);
         emailTopic.setLayoutX(150);
-        emailTopic.setLayoutY(500);
+        emailTopic.setLayoutY(505);
         roleSelector.setLayoutX(150);
-        roleSelector.setLayoutY(580);
+        roleSelector.setLayoutY(590);
         genderSelector.setLayoutX(250);
-        genderSelector.setLayoutY(580);
+        genderSelector.setLayoutY(590);
         okButton.setLayoutX(450);
-        okButton.setLayoutY(540);
+        okButton.setLayoutY(535);
         backButton.setLayoutX(20);
         backButton.setLayoutY(10);
 
@@ -215,9 +239,6 @@ public class LoginAndSignUp extends Application {
 
         // Log in Button //
         loginButton.setOnAction(e -> {
-            System.out.println("Log in Pressed");
-            System.out.println(loginUserName.getText());
-            System.out.println(loginPassWord.getText());
             Person user = (Person) Authority.login(loginUserName.getText(), loginPassWord.getText());
             if (user != null) {
                 System.out.println(user.getRole() + " LOGIN ");
@@ -232,21 +253,24 @@ public class LoginAndSignUp extends Application {
                     s.Start(stage, (Admin) user);
                 }
             } else {
-                System.out.println("Error");
+                loginErrorLabel.getStyleClass().remove(loginErrorLabel.getStyleClass().size() - 1);
+                loginErrorLabel.getStyleClass().add("after-error");
             }
         });
 
         // signUp Button //
         signUpButton.setOnMouseClicked(e -> {
-            if (!stackPaneRight.getChildren().contains(signUpPane)) {
-                stackPaneRight.getChildren().add(signUpPane);
-            }
+            stackPaneRight.getChildren().add(signUpPane);
             signUpPane.translateXProperty().set(640);
             changePage(stackPaneRight, signUpPane);
         });
 
         // back Button //
         backButton.setOnMouseClicked(e -> {
+            // Change after error back to before error //
+            loginErrorLabel.getStyleClass().remove(loginErrorLabel.getStyleClass().size() - 1);
+            loginErrorLabel.getStyleClass().add("before-error");
+
             stackPaneRight.getChildren().add(loginPane);
             loginPane.translateXProperty().set(640);
             changePage(stackPaneRight, loginPane);

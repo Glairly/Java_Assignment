@@ -6,7 +6,6 @@
 package online_university.FrontEnd;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -24,7 +23,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -93,10 +91,15 @@ public class AdminLabel extends Application {
     Label userListLabel = new Label("User List");
     Label refreshLabel = new Label("Refresh");
     Label deleteLabel = new Label("Delete");
-    Label viewRegistorLabel = new Label("View Registor");
+    Label viewRegistorLabel = new Label("View Register");
     Label addUserLabel = new Label("Add User");
     Label addCourseLabel = new Label("Add Course");
     Label dashBoardLabel = new Label("Dashboard");
+    Label logOutLabel = new Label("Log Out");
+
+    Label studentGenderLabel = new Label("Student Gender");
+    Label teacherGenderLabel = new Label("Teacher Gender");
+    Label classRankingLabel = new Label("Class Ranking");
 
     TableView<Person> studentDataTable = new TableView();
     TableView<Person> teacherDataTable = new TableView();
@@ -141,15 +144,10 @@ public class AdminLabel extends Application {
     /// Create AlertBoxs ///
     AlertBox alertBox = new AlertBox();
 
-    /// Create ArrayList of Teacher ///
-    ObservableList<Person> registerData = FXCollections.observableArrayList( //         new Staff("Rapeepat","don't know","19","62010881","peepee","peepee_pass","peepee@hotmail.com"),
-            //         new Student("Siwakon","Phetnoi","18","62010882","pokpok","pokpok_pass","pokpok@hotmail.com"),
-            //         new Staff("Siwat","Promak","19","62010883","foyfoy","foyfoy_pass","foyfoy@hotmail.com"),
-            //         new Student("Wongvarit","Panjaruen","19","62010884","oakoak","oakoak_pass","oakoak@hotmail.com")
-            );
+    /// Create ArrayList of Teacher //
     ObservableList<Person> studentData = FXCollections.observableArrayList();
     ObservableList<Person> teacherData = FXCollections.observableArrayList();
-    //ObservableList<Person> registerData = FXCollections.observableArrayList();
+    ObservableList<Person> registerData = FXCollections.observableArrayList();
     ObservableList<Person> courseData = FXCollections.observableArrayList();
 
     public Stage Start(Stage stage, Admin user) {
@@ -193,6 +191,7 @@ public class AdminLabel extends Application {
         Pane paneForAddUser = new Pane();
         Pane paneForAddCourse = new Pane();
         Pane paneForDashBoard = new Pane();
+        Pane paneForLogOut = new Pane();
 
         // Zero [ Admin Label] //
         ImageView adminIcon = new ImageView(new Image("/Images/admin_icon.png"));
@@ -210,7 +209,7 @@ public class AdminLabel extends Application {
         adminIcon.setLayoutY(25);
 
         // First [ User List ] //
-        ImageView userListIcon = new ImageView(new Image("/Images/user_list_icon.png"));
+        ImageView userListIcon = new ImageView(new Image("/Images/data_icon.png"));
         userListIcon.setFitHeight(50);
         userListIcon.setFitWidth(50);
         paneForRefresh.setPrefSize(400, 75);
@@ -357,8 +356,14 @@ public class AdminLabel extends Application {
         dashBoardIcon.setLayoutY(12.5);
         dashBoardLabel.setLayoutX(80);
 
+        // Nine [ LogOut ] //
+        logOutLabel.getStyleClass().add("log-out-label");
+        paneForLogOut.getChildren().addAll(logOutLabel);
+        // Set LayOut //
+        logOutLabel.setLayoutX(330);
+
         // Put all pane to vBox_1 //
-        vBox_1.getChildren().addAll(paneForAdminLabel, paneForUserList, paneForSearch, paneForRefresh, paneForDelete, paneForViewRegister, paneForAddUser, paneForAddCourse, paneForDashBoard);
+        vBox_1.getChildren().addAll(paneForAdminLabel, paneForUserList, paneForSearch, paneForRefresh, paneForDelete, paneForViewRegister, paneForAddUser, paneForAddCourse, paneForDashBoard, paneForLogOut);
 
         /// Create panes in vBox_2_NameList ///
         HBox paneForSelectTable = new HBox();
@@ -518,10 +523,6 @@ public class AdminLabel extends Application {
 
         // Set up Label and Pane //
         paneForViewRegisterInterface.setPrefSize(880, 720);
-//        registerData.get(0).setGender("Female");
-//        registerData.get(1).setGender("Male");
-//        registerData.get(2).setGender("Female");
-//        registerData.get(3).setGender("Male");
 
         viewRegisterTopic.getStyleClass().add("add-user-topic");
         viewRegisterRect.setArcHeight(20);
@@ -754,16 +755,16 @@ public class AdminLabel extends Application {
         studentGenderData.add(new PieChart.Data("Male", getCount(studentData)[1]));
         studentGenderData.add(new PieChart.Data("Female", getCount(studentData)[2]));
         PieChart studentGenderChart = new PieChart(studentGenderData);
-        studentGenderChart.setTitle("Student Gender");
-        studentGenderChart.setPrefSize(300, 300);
+        studentGenderLabel.getStyleClass().add("chart-topic");
+        studentGenderChart.setPrefSize(250, 250);
         studentGenderChart.setLabelsVisible(false);
         // Teacher Gender PieChart
         ObservableList<PieChart.Data> teacherGenderData = FXCollections.observableArrayList();
         teacherGenderData.add(new PieChart.Data("Male", getCount(teacherData)[1]));
         teacherGenderData.add(new PieChart.Data("Female", getCount(teacherData)[2]));
         PieChart teacherGenderChart = new PieChart(teacherGenderData);
-        teacherGenderChart.setTitle("Teacher Gender");
-        teacherGenderChart.setPrefSize(300, 300);
+        teacherGenderLabel.getStyleClass().add("chart-topic");
+        teacherGenderChart.setPrefSize(250, 250);
         teacherGenderChart.setLabelsVisible(false);
         // Class ranking Chart //
         CategoryAxis classRankingName = new CategoryAxis();
@@ -776,7 +777,8 @@ public class AdminLabel extends Application {
         classRankingSeries.getData().add(new XYChart.Data(classRanking[0].getUserName(), Integer.parseInt(classRanking[0].getAge())));
         classRankingSeries.getData().add(new XYChart.Data(classRanking[1].getUserName(), Integer.parseInt(classRanking[1].getAge())));
         classRankingSeries.getData().add(new XYChart.Data(classRanking[2].getUserName(), Integer.parseInt(classRanking[2].getAge())));
-        classRankingBarChart.setPrefSize(300, 300);
+        classRankingLabel.getStyleClass().add("chart-topic");
+        classRankingBarChart.setPrefSize(250, 250);
         classRankingBarChart.setLegendVisible(false);
         classRankingBarChart.getData().add(classRankingSeries);
 
@@ -796,25 +798,33 @@ public class AdminLabel extends Application {
 
         // Add Elements to pane //
         paneForDashBoardInterface.getChildren().add(dashBoardTopic);
+        paneForDashBoardInterface.getChildren().add(studentGenderLabel);
         paneForDashBoardInterface.getChildren().add(studentGenderChart);
+        paneForDashBoardInterface.getChildren().add(teacherGenderLabel);
         paneForDashBoardInterface.getChildren().add(teacherGenderChart);
+        paneForDashBoardInterface.getChildren().add(classRankingLabel);
         paneForDashBoardInterface.getChildren().add(classRankingBarChart);
 
         // Set Layout //
         dashBoardTopic.setLayoutX(315);
         dashBoardTopic.setLayoutY(40);
-        studentGenderChart.setLayoutX(90);
-        studentGenderChart.setLayoutY(130);
+        studentGenderLabel.setLayoutX(125);
+        studentGenderLabel.setLayoutY(110);
+        studentGenderChart.setLayoutX(115);
+        studentGenderChart.setLayoutY(145);
+        teacherGenderLabel.setLayoutX(500);
+        teacherGenderLabel.setLayoutY(110);
         teacherGenderChart.setLayoutX(500);
-        teacherGenderChart.setLayoutY(130);
-        classRankingBarChart.setLayoutX(90);
-        classRankingBarChart.setLayoutY(430);
+        teacherGenderChart.setLayoutY(145);
+        classRankingLabel.setLayoutX(350);
+        classRankingLabel.setLayoutY(415);
+        classRankingBarChart.setLayoutX(300);
+        classRankingBarChart.setLayoutY(450);
 
         /// adminScene Set Style Class ///
         Scene adminScene = new Scene(mainPane);
         adminScene.getStylesheets().add("css/brightside.css");
 
-        /// ComboBox Interaction ///
         searchStudentChoice.setOnAction(e -> {
             textSearch.setPromptText("By " + searchStudentChoice.getValue());
             search(studentFilteredData, searchStudentChoice.getValue(), studentDataTable);
@@ -957,10 +967,19 @@ public class AdminLabel extends Application {
         paneForDashBoard.setOnMouseClicked(e -> {
             if (pageState != 5 && pageState != 0) {
                 pageState = 0;
-                updateDashBoard(studentGenderChart, teacherGenderChart);
+                updateDashBoard(studentGenderChart, teacherGenderChart, classRankingBarChart);
                 stackPane_2.getChildren().add(vBox_2_DashBoard);
                 vBox_2_DashBoard.translateYProperty().set(720);
                 changePage(stackPane_2, vBox_2_DashBoard, 5);
+            }
+        });
+
+        logOutLabel.setOnMouseClicked(e -> {
+            System.out.println("Out");
+            if (confirmBox.display("Log Out", "Do you want to Log Out ?")) {
+                LoginAndSignUp loginAndSignUp = new LoginAndSignUp(stage);
+                //cancelTimer();
+                stage.show();
             }
         });
 
@@ -1011,46 +1030,16 @@ public class AdminLabel extends Application {
             textFieldAddUserClear();
         });
 
-        // Edit Button //
-        /*editButton.setOnAction(e -> {
-            if (!studentDataTable.getSelectionModel().isEmpty()) {
-                int index = studentDataTable.getSelectionModel().getSelectedIndex();
-                stateForOKButton = 2;
-                //showState.setText("  State : Edit");
-
-                indexForEdit = index;
-
-                if (tableState == 1) {
-                    textFirstName.setText(studentData.get(index).getFirstName());
-                    textLastName.setText(studentData.get(index).getLastName());
-                    textAge.setText(studentData.get(index).getAge());
-                    textStudentID.setText(studentData.get(index).getStudentId());
-                    textUserName.setText(studentData.get(index).getUserName());
-                    textPassWord.setText(studentData.get(index).getPassWord());
-                    textEmail.setText(studentData.get(index).getEmail());
-                } else if (tableState == 2) {
-                    textFirstName.setText(studentSearch.get(index).getFirstName());
-                    textLastName.setText(studentSearch.get(index).getLastName());
-                    textAge.setText(studentSearch.get(index).getAge());
-                    textStudentID.setText(studentSearch.get(index).getStudentId());
-                    textUserName.setText(studentSearch.get(index).getUserName());
-                    textPassWord.setText(studentSearch.get(index).getPassWord());
-                    textEmail.setText(studentSearch.get(index).getEmail());
-                }
-            }
-        });*/
         // Accept Register //
         acceptRegisterButton.setOnAction(e -> {
             // Add to their role's data //
             for (Person register : registerDataTable.getSelectionModel().getSelectedItems()) {
                 if (register.getRole() == "Student") {
-                    var s = (Student) register;
+                    Student s = (Student) register;
                     s.setStudentId(s.getUserName());
                     studentData.add(s);
-                    API.RemoveFromDatabase("Registers", s);
-                } else if (register.getRole() == "Staff") {
+                } else if (register.getRole() == "Teacher") {
                     teacherData.add((Staff) register);
-                    API.RemoveFromDatabase("Registers", (Staff) register);
                 }
             }
             registerData.removeAll(registerDataTable.getSelectionModel().getSelectedItems());
@@ -1455,14 +1444,21 @@ public class AdminLabel extends Application {
         return count;
     }
 
-    void updateDashBoard(PieChart studentGenderChart, PieChart teacherGenderChart) {
+    void updateDashBoard(PieChart studentGenderChart, PieChart teacherGenderChart, BarChart classRankingChart) {
         // Update Student PieChart //
         studentGenderChart.getData().get(0).setPieValue(getCount(studentData)[1]);
         studentGenderChart.getData().get(1).setPieValue(getCount(studentData)[2]);
         // Update Teacher PieChart //
         teacherGenderChart.getData().get(0).setPieValue(getCount(teacherData)[1]);
         teacherGenderChart.getData().get(1).setPieValue(getCount(teacherData)[2]);
-        System.out.println("Update Chart");
+        // Update ClassRanking BarChart //
+        classRankingChart.getData().remove(0);
+        XYChart.Series classRankingSeries = new XYChart.Series();
+        Person[] classRanking = getRanking(courseData);
+        classRankingSeries.getData().add(new XYChart.Data(classRanking[0].getUserName(), Integer.parseInt(classRanking[0].getAge())));
+        classRankingSeries.getData().add(new XYChart.Data(classRanking[1].getUserName(), Integer.parseInt(classRanking[1].getAge())));
+        classRankingSeries.getData().add(new XYChart.Data(classRanking[2].getUserName(), Integer.parseInt(classRanking[2].getAge())));
+        classRankingChart.getData().add(classRankingSeries);
     }
 
     /// Search Function ///
@@ -1509,11 +1505,8 @@ public class AdminLabel extends Application {
         for (int i = 0; i < tempCourseData.size(); i++) {
             for (int j = 0; j < tempCourseData.size() - 1; j++) {
                 if (Integer.parseInt(tempCourseData.get(j).getAge()) < Integer.parseInt(tempCourseData.get(j + 1).getAge())) {
-                    System.out.println("Less and Swap");
                     Person tempPerson = tempCourseData.get(j);
-                    System.out.println("Created");
                     tempCourseData.remove(j);
-                    System.out.println("Removed");
                     System.out.println(j + 1);
                     tempCourseData.add(j, tempCourseData.get(j));
                     tempCourseData.remove(j + 1);
@@ -1539,10 +1532,6 @@ public class AdminLabel extends Application {
             courseRanking[1] = new Person("", "", "0", "", "none", "", "");
             courseRanking[2] = new Person("", "", "0", "", "none", "", "");
         }
-
-        System.out.println("one : " + courseRanking[0].getUserName());
-        System.out.println("two : " + courseRanking[1].getUserName());
-        System.out.println("three : " + courseRanking[2].getUserName());
 
         return courseRanking;
     }
@@ -1619,20 +1608,4 @@ public class AdminLabel extends Application {
             textCourseDescription.getStyleClass().add("add-user-text-field");
         }
     }
-
-    /// Choose theme ///
-    /*void chooseTheme(Scene scene, String choice) {
-        switch (choice) {
-            case "Bright":
-                scene.getStylesheets().remove(0);
-                scene.getStylesheets().add("Admin/brightside.css");
-                System.out.println("Bright");
-                break;
-            case "Dark":
-                scene.getStylesheets().remove(0);
-                scene.getStylesheets().add("Admin/darkside.css");
-                System.out.println("Black");
-                break;
-        }
-    }*/
 }

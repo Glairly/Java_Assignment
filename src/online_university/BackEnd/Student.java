@@ -6,6 +6,7 @@
 package online_university.BackEnd;
 
 import java.util.ArrayList;
+import javafx.util.Pair;
 
 /**
  *
@@ -61,11 +62,21 @@ public class Student extends Person {
             boolean isExist = false;
             for (Course cc : allC) {
                 if (c.toString().equals(cc.toString())) {
-                    isExist = true;
-                    c.setStudents(cc.getStudents());
-                    break;
+                    for (Pair<Student, Grading> s : cc.getStudents()) {
+                        if (s.getKey().toString().equals(this.toString())) {
+                            isExist = true;
+                            c.setStudents(cc.getStudents());
+                            break;
+                        }
+                    }
                 }
             }
+            if (!isExist) {
+                removeC.add(c);
+            }
+        }
+        for (var c : removeC) {
+            this.course.remove(c);
         }
     }
 

@@ -17,7 +17,7 @@ public class API {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-            System.out.println(API.getAllSession().get(0).getLecture());
+                System.out.println(API.getAllCourse().get(1).getStudents());
     }
 
     public static boolean isNumeric(String strNum) {
