@@ -1164,6 +1164,7 @@ public class AdminLabel extends Application {
 
             if (countCorseTexted == 0) {
                 Course tempCourse = new Course(textCourseName.getText(), null, null);
+                tempCourse.setClassDescription(textCourseDescription.getText());
                 tempCourse.setAge("0");
                 courseData.add(tempCourse);
                 API.saveToDatabase(tempCourse);
