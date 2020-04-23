@@ -1,3 +1,4 @@
+
 .root{
     -fx-background-color: #ffffff;
 }
@@ -62,6 +63,17 @@
     -fx-font-size: 15;
 }
 
+.before-success{
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+}
+.after-success{
+    -fx-text-fill: #0884EA;
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+}
+
 .sign-up-text-field{
     -fx-font-size: 20;
     -fx-border-color: #2E6EB6;
@@ -70,3 +82,18 @@
     -fx-font-size: 20;
     -fx-border-color: #FF0000;
 }
+
+.add-user-text-field{
+    -fx-font-size: 20;
+    -fx-border-color: #2E6EB6;
+    -fx-font-fill: #000000;
+}
+.add-user-text-field-error{
+    -fx-font-size: 20;
+    -fx-border-color: #FF0000;
+    -fx-font-fill: #000000;
+}
+
+
+
+

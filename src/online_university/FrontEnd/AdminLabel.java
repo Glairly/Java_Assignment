@@ -11,6 +11,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -631,6 +633,15 @@ public class AdminLabel extends Application {
         textFirstName.getStyleClass().add("add-user-text-field");
         textLastName.getStyleClass().add("add-user-text-field");
         textAge.getStyleClass().add("add-user-text-field");
+        textAge.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    textAge.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+
+        }); 
         textStudentID.getStyleClass().add("add-user-text-field");
         textUserName.getStyleClass().add("add-user-text-field");
         textPassWord.getStyleClass().add("add-user-text-field");
@@ -975,7 +986,33 @@ public class AdminLabel extends Application {
         });
 
         logOutLabel.setOnMouseClicked(e -> {
-            System.out.println("Out");
+            ArrayList<Person> tempStudentData = new ArrayList<>();
+            ArrayList<Person> tempTeacherData = new ArrayList<>();
+            ArrayList<Person> tempCourseData = new ArrayList<>();
+
+            studentData.forEach((student) -> {
+                tempStudentData.add(student);
+            });
+
+            teacherData.forEach((teacher) -> {
+                tempTeacherData.add(teacher);
+            });
+
+            courseData.forEach((course) -> {
+                tempCourseData.add(course);
+            });
+
+            Database db = new Database();
+            db.setPath_Students();
+            db.write(tempStudentData);
+
+            db.setPath_Staffs();
+            db.write(tempTeacherData);
+
+            db.setPath_Courses();
+            db.write(tempCourseData);
+
+            System.out.println("Saved");
             if (confirmBox.display("Log Out", "Do you want to Log Out ?")) {
                 LoginAndSignUp loginAndSignUp = new LoginAndSignUp(stage);
                 //cancelTimer();
@@ -1034,6 +1071,7 @@ public class AdminLabel extends Application {
         acceptRegisterButton.setOnAction(e -> {
             // Add to their role's data //
             for (Person register : registerDataTable.getSelectionModel().getSelectedItems()) {
+                System.out.println(register.getRole());
                 if (register.getRole() == "Student") {
                     Student s = (Student) register;
                     s.setStudentId(s.getUserName());
@@ -1302,28 +1340,25 @@ public class AdminLabel extends Application {
             alertWindow.setTitle(windowTitle);
             alertWindow.initModality(Modality.APPLICATION_MODAL);
 
-            VBox vBox = new VBox(50);
-            GridPane gridPane = new GridPane();
-            Button yesButton = new Button("Yes");
+            Pane pane = new Pane();
+            Button yesButton = new Button("OK");
             Label label = new Label(confirmLabel);
+            label.setStyle("-fx-font-size:15; -fx-font-weight: bold");
 
             yesButton.setPrefSize(75, 50);
 
-            vBox.setPrefSize(260, 260);
-            vBox.setAlignment(Pos.CENTER);
-            vBox.setPadding(new Insets(10, 10, 10, 10));
-
-            gridPane.setHgap(75);
-            gridPane.setPadding(new Insets(10, 10, 10, 10));
-
             // Add buttons into gridPane //
-            gridPane.add(yesButton, 0, 0);
+            label.setLayoutX(12);
+            label.setLayoutY(50);
+            yesButton.setLayoutX(62.5);
+            yesButton.setLayoutY(100);
 
             // Add gridPane into vBox //
-            vBox.getChildren().addAll(label, gridPane);
+            pane.getChildren().addAll(label, yesButton);
+            pane.setPrefSize(200, 200);
 
             // Add vBox into confirmScene //
-            Scene confirmScene = new Scene(vBox);
+            Scene confirmScene = new Scene(pane);
 
             // Click Yes //
             yesButton.setOnAction(e -> {

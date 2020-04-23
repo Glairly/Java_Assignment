@@ -12,6 +12,8 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -19,10 +21,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import online_university.BackEnd.Admin;
@@ -35,14 +40,14 @@ import online_university.BackEnd.Student;
  *
  * @author UNS_CT
  */
-public class LoginAndSignUp extends Application {
+public class LoginAndSignUp extends Application{
 
     HBox mainPane = new HBox();
     Pane universityPane = new Pane();
     Pane loginPane = new Pane();
     Pane signUpPane = new Pane();
     StackPane stackPaneRight = new StackPane();
-
+    
     Label uNameLabel = new Label("HWU");
     Label universityLabel = new Label("UNIVERSITY");
     Label userNameLabel = new Label("USERNAME");
@@ -55,7 +60,9 @@ public class LoginAndSignUp extends Application {
     Label passWordTopic = new Label("Password");
     Label emailTopic = new Label("E-Mail");
     Label loginErrorLabel = new Label("Username or Password is wrong");
-
+    Label signUpErrorLabel = new Label("This username has already used");
+    Label signUpSuccessLabel = new Label("Sign Up Success");
+    
     TextField loginUserName = new TextField();
     PasswordField loginPassWord = new PasswordField();
     Line lineUserName = new Line();
@@ -69,31 +76,33 @@ public class LoginAndSignUp extends Application {
     TextField textEmail = new TextField();
     ComboBox<String> genderSelector = new ComboBox<>();
     ComboBox<String> roleSelector = new ComboBox<>();
-
+    
     Button loginButton = new Button("Log in");
     Button signUpButton = new Button("Sign Up");
     Button okButton = new Button("OK");
+    
+    AlertBox alertBox = new AlertBox();
 
     public LoginAndSignUp(Stage stage) {
         /// Set up universityPane ///
-        universityPane.setPrefSize(640, 720);
+        universityPane.setPrefSize(640,720);
         universityPane.getStyleClass().add("university-background");
         uNameLabel.getStyleClass().add("u-name-label");
         universityLabel.getStyleClass().add("university-label");
         ImageView universityImage = new ImageView("Images/university_icon.png");
         universityImage.setFitHeight(300);
         universityImage.setFitWidth(300);
-        universityPane.getChildren().addAll(uNameLabel, universityLabel, universityImage);
+        universityPane.getChildren().addAll(uNameLabel,universityLabel,universityImage);
         // Set LayOut //
         universityImage.setLayoutX(170);
         universityImage.setLayoutY(80);
         uNameLabel.setLayoutX(195);
-        uNameLabel.setLayoutY(420);
+        uNameLabel.setLayoutY(460);
         universityLabel.setLayoutX(150);
         universityLabel.setLayoutY(580);
-
+        
         /// Set up loginPane ///
-        loginPane.setPrefSize(640, 720);
+        loginPane.setPrefSize(640,720);
         loginPane.getStyleClass().add("login-background");
         userNameLabel.getStyleClass().add("topic-label");
         passWordLabel.getStyleClass().add("topic-label");
@@ -139,14 +148,23 @@ public class LoginAndSignUp extends Application {
         loginButton.setLayoutY(500);
         signUpButton.setLayoutX(220);
         signUpButton.setLayoutY(560);
-
+        
         /// Set up signUpPane ///
-        signUpPane.setPrefSize(640, 720);
+        signUpPane.setPrefSize(640,720);
         signUpPane.getStyleClass().add("login-background");
         signUpLabel.getStyleClass().add("sign-up-label");
         textFirstName.getStyleClass().add("sign-up-text-field");
         textLastName.getStyleClass().add("sign-up-text-field");
         textAge.getStyleClass().add("sign-up-text-field");
+        textAge.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    textAge.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+
+        }); 
         textUserName.getStyleClass().add("sign-up-text-field");
         textPassWord.getStyleClass().add("sign-up-text-field");
         textEmail.getStyleClass().add("sign-up-text-field");
@@ -156,24 +174,17 @@ public class LoginAndSignUp extends Application {
         userNameTopic.getStyleClass().add("sign-up-topic");
         passWordTopic.getStyleClass().add("sign-up-topic");
         emailTopic.getStyleClass().add("sign-up-topic");
+        signUpErrorLabel.getStyleClass().add("before-error");
+        signUpSuccessLabel.getStyleClass().add("before-success");
         textFirstName.setPrefSize(240, 35);
         textLastName.setPrefSize(240, 35);
         textAge.setPrefSize(240, 35);
-        textAge.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    textAge.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-
-        });
         textUserName.setPrefSize(240, 35);
         textPassWord.setPrefSize(240, 35);
         textEmail.setPrefSize(240, 35);
-        roleSelector.getItems().addAll("Student", "Teacher", "Admin");
+        roleSelector.getItems().addAll("Student","Teacher","Admin");
         roleSelector.setValue("Student");
-        genderSelector.getItems().addAll("Female", "Male");
+        genderSelector.getItems().addAll("Female","Male");
         genderSelector.setValue("Female");
         okButton.setPrefSize(150, 50);
         ImageView backButton = new ImageView("Images/back.png");
@@ -195,6 +206,8 @@ public class LoginAndSignUp extends Application {
         signUpPane.getChildren().add(emailTopic);
         signUpPane.getChildren().add(roleSelector);
         signUpPane.getChildren().add(genderSelector);
+        signUpPane.getChildren().add(signUpErrorLabel);
+        signUpPane.getChildren().add(signUpSuccessLabel);
         signUpPane.getChildren().add(okButton);
         signUpPane.getChildren().add(backButton);
         // Set LayOut //
@@ -228,15 +241,19 @@ public class LoginAndSignUp extends Application {
         roleSelector.setLayoutY(590);
         genderSelector.setLayoutX(250);
         genderSelector.setLayoutY(590);
+        signUpErrorLabel.setLayoutX(400);
+        signUpErrorLabel.setLayoutY(390);
+        signUpSuccessLabel.setLayoutX(470);
+        signUpSuccessLabel.setLayoutY(620);
         okButton.setLayoutX(450);
         okButton.setLayoutY(535);
         backButton.setLayoutX(20);
         backButton.setLayoutY(10);
-
+        
         stackPaneRight.getChildren().add(loginPane);
         /// Add 2 panes into mainPane ///
-        mainPane.getChildren().addAll(universityPane, stackPaneRight);
-
+        mainPane.getChildren().addAll(universityPane,stackPaneRight);
+        
         // Log in Button //
         loginButton.setOnAction(e -> {
             Person user = (Person) Authority.login(loginUserName.getText(), loginPassWord.getText());
@@ -253,49 +270,123 @@ public class LoginAndSignUp extends Application {
                     s.Start(stage, (Admin) user);
                 }
             } else {
-                loginErrorLabel.getStyleClass().remove(loginErrorLabel.getStyleClass().size() - 1);
+                loginErrorLabel.getStyleClass().remove(loginErrorLabel.getStyleClass().size()-1);
                 loginErrorLabel.getStyleClass().add("after-error");
             }
         });
-
+        
         // signUp Button //
         signUpButton.setOnMouseClicked(e -> {
+            signUpErrorLabel.getStyleClass().remove(signUpErrorLabel.getStyleClass().size()-1);
+            signUpErrorLabel.getStyleClass().add("before-error");
+            // Clear Old Text //
+            textFieldSignUpClear();
             stackPaneRight.getChildren().add(signUpPane);
             signUpPane.translateXProperty().set(640);
-            changePage(stackPaneRight, signUpPane);
+            changePage(stackPaneRight,signUpPane);  
         });
-
+        
         // back Button //
         backButton.setOnMouseClicked(e -> {
-            // Change after error back to before error //
-            loginErrorLabel.getStyleClass().remove(loginErrorLabel.getStyleClass().size() - 1);
-            loginErrorLabel.getStyleClass().add("before-error");
-
-            stackPaneRight.getChildren().add(loginPane);
-            loginPane.translateXProperty().set(640);
-            changePage(stackPaneRight, loginPane);
+                // Change after error back to before error //
+                loginErrorLabel.getStyleClass().remove(loginErrorLabel.getStyleClass().size()-1);
+                loginErrorLabel.getStyleClass().add("before-error");
+            
+                stackPaneRight.getChildren().add(loginPane);
+                loginPane.translateXProperty().set(640);
+                changePage(stackPaneRight,loginPane);  
         });
-
+        
         // ok Button //
-        okButton.setOnAction(e -> {
-            if (roleSelector.getValue().equals("Student")) {
-                //public Person(String name, String lname, String age, String stuId, String id, String password, String email) 
-                Student st = new Student(textFirstName.getText(), textLastName.getText(), textAge.getText(), null, textUserName.getText(), textPassWord.getText(), textEmail.getText());
-                st.setGender(genderSelector.getValue());
-                Authority.registor(st);
-            }// get role
-            else if (roleSelector.getValue().equals("Teacher")) {
-                Staff st = new Staff(textFirstName.getText(), textLastName.getText(), textAge.getText(), null, textUserName.getText(), textPassWord.getText(), textEmail.getText());
-                st.setGender(genderSelector.getValue());
-                Authority.registor(st);
-            } else if (roleSelector.getValue().equals("Admin")) {
-                Admin st = new Admin(textFirstName.getText(), textLastName.getText(), textAge.getText(), null, textUserName.getText(), textPassWord.getText(), textEmail.getText());
-                st.setGender(genderSelector.getValue());
-                Authority.registor(st);
+        okButton.setOnAction(e ->{
+            int countSignUpTexted = 0;
+            boolean[] signUpTextError = new boolean[6];
+            for(int i=0;i<6;i++){
+                signUpTextError[i] = false;
             }
-            textFieldSignUpClear();
+            
+            if(textFirstName.getText().length() == 0){
+                countSignUpTexted++;
+                signUpTextError[0] = true;
+            } 
+            if(textLastName.getText().length() == 0){
+                countSignUpTexted++;
+                signUpTextError[1] = true;
+            } 
+            if(textAge.getText().length() == 0){
+                countSignUpTexted++;
+                signUpTextError[2] = true;
+            } 
+            if(textUserName.getText().length() == 0){
+                countSignUpTexted++;
+                signUpTextError[3] = true;
+            } 
+            if(textPassWord.getText().length() == 0){
+                countSignUpTexted++;
+                signUpTextError[4] = true;
+            } 
+            if(textEmail.getText().length() == 0){
+                countSignUpTexted++;
+                signUpTextError[5] = true;
+            } 
+            
+            if(countSignUpTexted == 0){
+                if (roleSelector.getValue().equals("Student")) {
+                    Student st = new Student(textFirstName.getText(), textLastName.getText(), textAge.getText(), null, textUserName.getText(), textPassWord.getText(), textEmail.getText());
+                    st.setGender(genderSelector.getValue());
+                    if(!Authority.registor(st)){
+                        signUpErrorLabel.getStyleClass().remove(signUpErrorLabel.getStyleClass().size()-1);
+                        signUpErrorLabel.getStyleClass().add("after-error");
+                        textUserName.clear();
+                        textUserName.getStyleClass().remove(textFirstName.getStyleClass().size()-1);
+                        textUserName.getStyleClass().add("add-user-text-field-error");
+                    }else{
+                        textFieldSignUpClear();
+                        signUpErrorLabel.getStyleClass().remove(signUpErrorLabel.getStyleClass().size()-1);
+                        signUpErrorLabel.getStyleClass().add("before-error");
+                        signUpSuccessLabel.getStyleClass().remove(signUpSuccessLabel.getStyleClass().size()-1);
+                        signUpSuccessLabel.getStyleClass().add("after-success");
+                    }
+                }// get role
+                else if (roleSelector.getValue().equals("Teacher")) {
+                        Staff st = new Staff(textFirstName.getText(), textLastName.getText(), textAge.getText(), null, textUserName.getText(), textPassWord.getText(), textEmail.getText());
+                        st.setGender(genderSelector.getValue());
+                        if(!Authority.registor(st)){
+                            signUpErrorLabel.getStyleClass().remove(signUpErrorLabel.getStyleClass().size()-1);
+                            signUpErrorLabel.getStyleClass().add("after-error");
+                            textUserName.clear();
+                            textUserName.getStyleClass().remove(textFirstName.getStyleClass().size()-1);
+                            textUserName.getStyleClass().add("add-user-text-field-error");
+                        }else{
+                            textFieldSignUpClear();
+                            signUpErrorLabel.getStyleClass().remove(signUpErrorLabel.getStyleClass().size()-1);
+                            signUpErrorLabel.getStyleClass().add("before-error");
+                            signUpSuccessLabel.getStyleClass().remove(signUpSuccessLabel.getStyleClass().size()-1);
+                            signUpSuccessLabel.getStyleClass().add("after-success");
+                        }
+                } else if (roleSelector.getValue().equals("Admin")) {
+                        Admin st = new Admin(textFirstName.getText(), textLastName.getText(), textAge.getText(), null, textUserName.getText(), textPassWord.getText(), textEmail.getText());
+                        st.setGender(genderSelector.getValue());
+                        if(!Authority.registor(st)){
+                            signUpErrorLabel.getStyleClass().remove(signUpErrorLabel.getStyleClass().size()-1);
+                            signUpErrorLabel.getStyleClass().add("after-error");
+                            textUserName.clear();
+                            textUserName.getStyleClass().remove(textFirstName.getStyleClass().size()-1);
+                            textUserName.getStyleClass().add("add-user-text-field-error");
+                        }else{
+                            textFieldSignUpClear();
+                            signUpErrorLabel.getStyleClass().remove(signUpErrorLabel.getStyleClass().size()-1);
+                            signUpErrorLabel.getStyleClass().add("before-error");
+                            signUpSuccessLabel.getStyleClass().remove(signUpSuccessLabel.getStyleClass().size()-1);
+                            signUpSuccessLabel.getStyleClass().add("after-success");
+                        }
+                }
+            }else{
+                alertBox.display("Alert Box", "Please enter all textfield.");
+                setSignUpTextError(signUpTextError);
+            }
         });
-
+        
         Scene loginScene = new Scene(mainPane);
         loginScene.getStylesheets().add("css/loginSide.css");
         stage.setScene(loginScene);
@@ -304,26 +395,26 @@ public class LoginAndSignUp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
+        
     }
-
+    
     public static void main(String[] args) {
         launch(args);
     }
-
+    
     /// Change Page Function ///
-    void changePage(StackPane stackPane, Pane nextPage) {
+    void changePage(StackPane stackPane,Pane nextPage){
         /// Change Page Animation ///
-        Timeline changePage = new Timeline();
-        KeyValue kv = new KeyValue(nextPage.translateXProperty(), 0, Interpolator.EASE_IN);
-        KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
-        changePage.getKeyFrames().add(kf);
-        changePage.setOnFinished(e -> {
-            stackPane.getChildren().remove(0);
-        });
-        changePage.play();
+         Timeline changePage = new Timeline();
+         KeyValue kv = new KeyValue(nextPage.translateXProperty(), 0, Interpolator.EASE_IN);
+         KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
+         changePage.getKeyFrames().add(kf);
+         changePage.setOnFinished(e -> {
+             stackPane.getChildren().remove(0);
+         });
+         changePage.play();
     }
-
+    
     /// TextField Sign Up Clear ///
     void textFieldSignUpClear() {
         textFirstName.clear();
@@ -334,5 +425,102 @@ public class LoginAndSignUp extends Application {
         textEmail.clear();
         roleSelector.setValue("Student");
         genderSelector.setValue("Female");
+        textFirstName.getStyleClass().remove(textFirstName.getStyleClass().size()-1);
+        textFirstName.getStyleClass().add("add-user-text-field");
+        textLastName.getStyleClass().remove(textLastName.getStyleClass().size()-1);
+        textLastName.getStyleClass().add("add-user-text-field");
+        textAge.getStyleClass().remove(textAge.getStyleClass().size()-1);
+        textAge.getStyleClass().add("add-user-text-field");
+        textUserName.getStyleClass().remove(textUserName.getStyleClass().size()-1);
+        textUserName.getStyleClass().add("add-user-text-field");
+        textPassWord.getStyleClass().remove(textPassWord.getStyleClass().size()-1);
+        textPassWord.getStyleClass().add("add-user-text-field");
+        textEmail.getStyleClass().remove(textEmail.getStyleClass().size()-1);
+        textEmail.getStyleClass().add("add-user-text-field");
+    }
+    
+    /// AlertBox ///
+    class AlertBox {
+
+        void display(String windowTitle, String confirmLabel) {
+            Stage alertWindow = new Stage();
+            alertWindow.setTitle(windowTitle);
+            alertWindow.initModality(Modality.APPLICATION_MODAL);
+
+            Pane pane = new Pane();
+            Button yesButton = new Button("OK");
+            Label label = new Label(confirmLabel);
+            label.setStyle("-fx-font-size:15; -fx-font-weight: bold");
+
+            yesButton.setPrefSize(75, 50);
+
+            // Add buttons into gridPane //
+            label.setLayoutX(12);
+            label.setLayoutY(50);
+            yesButton.setLayoutX(62.5);
+            yesButton.setLayoutY(100);
+
+            // Add gridPane into vBox //
+            pane.getChildren().addAll(label, yesButton);
+            pane.setPrefSize(200, 200);
+
+            // Add vBox into confirmScene //
+            Scene confirmScene = new Scene(pane);
+
+            // Click Yes //
+            yesButton.setOnAction(e -> {
+                alertWindow.close();
+            });
+
+            alertWindow.setScene(confirmScene);
+            alertWindow.showAndWait();
+        }
+    }
+    
+    /// Set Add User TextError ///
+    void setSignUpTextError(boolean[] textError){
+        // Set all wrong to be red //
+        if(textError[0] == true){
+           textFirstName.getStyleClass().remove(textFirstName.getStyleClass().size()-1);
+           textFirstName.getStyleClass().add("add-user-text-field-error");
+        }else{
+           textFirstName.getStyleClass().remove(textFirstName.getStyleClass().size()-1);
+           textFirstName.getStyleClass().add("add-user-text-field");
+        }
+        if(textError[1] == true){
+           textLastName.getStyleClass().remove(textFirstName.getStyleClass().size()-1);
+           textLastName.getStyleClass().add("add-user-text-field-error");
+        }else{
+           textLastName.getStyleClass().remove(textFirstName.getStyleClass().size()-1);
+           textLastName.getStyleClass().add("add-user-text-field");
+        }
+        if(textError[2] == true){
+           textAge.getStyleClass().remove(textFirstName.getStyleClass().size()-1);
+           textAge.getStyleClass().add("add-user-text-field-error");
+        }else{
+           textAge.getStyleClass().remove(textFirstName.getStyleClass().size()-1);
+           textAge.getStyleClass().add("add-user-text-field");
+        }
+        if(textError[3] == true){
+            textUserName.getStyleClass().remove(textFirstName.getStyleClass().size()-1);
+            textUserName.getStyleClass().add("add-user-text-field-error");
+        }else{
+            textUserName.getStyleClass().remove(textFirstName.getStyleClass().size()-1);
+            textUserName.getStyleClass().add("add-user-text-field");
+        }
+        if(textError[4] == true){
+            textPassWord.getStyleClass().remove(textFirstName.getStyleClass().size()-1);
+            textPassWord.getStyleClass().add("add-user-text-field-error");
+        }else{
+            textPassWord.getStyleClass().remove(textFirstName.getStyleClass().size()-1);
+            textPassWord.getStyleClass().add("add-user-text-field");
+        }
+        if(textError[5] == true){
+            textEmail.getStyleClass().remove(textFirstName.getStyleClass().size()-1);
+            textEmail.getStyleClass().add("add-user-text-field-error");
+        }else{
+            textEmail.getStyleClass().remove(textFirstName.getStyleClass().size()-1);
+            textEmail.getStyleClass().add("add-user-text-field");
+        }
     }
 }

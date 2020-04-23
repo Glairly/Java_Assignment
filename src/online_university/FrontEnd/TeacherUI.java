@@ -361,7 +361,7 @@ public class TeacherUI extends Application {
         AnchorPane.setBottomAnchor(Tage, 130d);
         AnchorPane.setLeftAnchor(Tid, 250d);
         AnchorPane.setBottomAnchor(Tid, 80d);
-        AnchorPane.setLeftAnchor(Temail, 250d);
+        AnchorPane.setLeftAnchor(Temail, 340d);
         AnchorPane.setBottomAnchor(Temail, 80d);
 
         SubScrollPane.setPrefSize(500, 400);
@@ -429,6 +429,7 @@ public class TeacherUI extends Application {
         });
         Stage addsubstage = new Stage();
         AddSub.setOnAction(e -> {
+            AddSubjectTable_Data.clear();
             var allC = API.getAllCourse();
             if (allC != null) {
                 int i = 0;
