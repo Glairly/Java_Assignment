@@ -38,10 +38,14 @@
 .sidebar-hbox:hover{
     -fx-background-color: #141B29;
 }
-
-.pane-for-edit{
-    -fx-background-color: #24282E; 
-    -fx-border-color: #24282E;
+.log-out-label{
+    -fx-text-fill: #FF0000;
+    -fx-font-size: 15;
+}
+.log-out-label:hover{
+    -fx-text-fill: #FF0000;
+    -fx-font-size: 15;
+    -fx-background-color: #141B29;
 }
 
 
@@ -100,4 +104,11 @@
 }
 .dashboard-background{
     -fx-background-color: linear-gradient(#FFFFFF,#FFFFF9);
+}
+.chart-topic{
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-font-size: 30;
+    -fx-stroke: #FFFFFF;
+    -fx-stroke-width: 10;
 }

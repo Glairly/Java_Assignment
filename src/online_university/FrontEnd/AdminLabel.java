@@ -1038,8 +1038,10 @@ public class AdminLabel extends Application {
                     Student s = (Student) register;
                     s.setStudentId(s.getUserName());
                     studentData.add(s);
-                } else if (register.getRole() == "Teacher") {
+                    API.RemoveFromDatabase("Registers", s);
+                } else if (register.getRole() == "Staff") {
                     teacherData.add((Staff) register);
+                    API.RemoveFromDatabase("Registers", (Staff) register);
                 }
             }
             registerData.removeAll(registerDataTable.getSelectionModel().getSelectedItems());

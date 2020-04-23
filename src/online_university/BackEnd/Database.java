@@ -240,7 +240,6 @@ public class Database implements Serializable {
         if (t != null) {
             arr.addAll((ArrayList<Person>) t);
         }
-        
         return arr;
     }
 
