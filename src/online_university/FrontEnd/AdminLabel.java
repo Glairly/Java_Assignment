@@ -53,13 +53,14 @@ import online_university.BackEnd.*;
  * @author UNS_CT
  */
 public class AdminLabel extends Application {
+
     // SideBar Elements //
     TextField textSearch = new TextField();
-    
+
     // View Register Element //
     Button acceptRegisterButton = new Button("Accept");
     Button declineRegisterButton = new Button("Decline");
-    
+
     // Add User Element //
     TextField textFirstName = new TextField();
     TextField textLastName = new TextField();
@@ -72,13 +73,13 @@ public class AdminLabel extends Application {
     ComboBox<String> roleSelector = new ComboBox<>();
     Button clearAddUserButton = new Button("Clear");
     Button okAddUserButton = new Button("OK");
-    
+
     // Add Course Element //
     TextField textCourseName = new TextField();
     TextArea textCourseDescription = new TextArea();
     Button clearAddCourseButton = new Button("Clear");
     Button okAddCourseButton = new Button("OK");
-    
+
     // Not Use //
     Button addNewButton = new Button("Add New");
     Button editButton = new Button("Edit");
@@ -120,7 +121,7 @@ public class AdminLabel extends Application {
     TableColumn<Person, String> passWordCol_t = new TableColumn("Password");
     TableColumn<Person, String> emailCol_t = new TableColumn("E-Mail");
     TableColumn<Person, String> genderCol_t = new TableColumn("Gender");
-    
+
     // Creaete registerDataTable's Column //
     TableColumn<Person, String> roleCol_r = new TableColumn("Role");
     TableColumn<Person, String> firstNameCol_r = new TableColumn("First Name");
@@ -130,7 +131,7 @@ public class AdminLabel extends Application {
     TableColumn<Person, String> passWordCol_r = new TableColumn("Password");
     TableColumn<Person, String> emailCol_r = new TableColumn("E-Mail");
     TableColumn<Person, String> genderCol_r = new TableColumn("Gender");
-    
+
     // Creaete registerDataTable's Column //
     TableColumn<Person, String> courseNameCol_c = new TableColumn("Course Name");
     TableColumn<Person, String> memberCol_c = new TableColumn("Member");
@@ -141,18 +142,17 @@ public class AdminLabel extends Application {
     AlertBox alertBox = new AlertBox();
 
     /// Create ArrayList of Teacher ///
-     ObservableList<Person> registerData = FXCollections.observableArrayList(
-         new Staff("Rapeepat","don't know","19","62010881","peepee","peepee_pass","peepee@hotmail.com"),
-         new Student("Siwakon","Phetnoi","18","62010882","pokpok","pokpok_pass","pokpok@hotmail.com"),
-         new Staff("Siwat","Promak","19","62010883","foyfoy","foyfoy_pass","foyfoy@hotmail.com"),
-         new Student("Wongvarit","Panjaruen","19","62010884","oakoak","oakoak_pass","oakoak@hotmail.com")
-     );
+    ObservableList<Person> registerData = FXCollections.observableArrayList( //         new Staff("Rapeepat","don't know","19","62010881","peepee","peepee_pass","peepee@hotmail.com"),
+            //         new Student("Siwakon","Phetnoi","18","62010882","pokpok","pokpok_pass","pokpok@hotmail.com"),
+            //         new Staff("Siwat","Promak","19","62010883","foyfoy","foyfoy_pass","foyfoy@hotmail.com"),
+            //         new Student("Wongvarit","Panjaruen","19","62010884","oakoak","oakoak_pass","oakoak@hotmail.com")
+            );
     ObservableList<Person> studentData = FXCollections.observableArrayList();
     ObservableList<Person> teacherData = FXCollections.observableArrayList();
     //ObservableList<Person> registerData = FXCollections.observableArrayList();
     ObservableList<Person> courseData = FXCollections.observableArrayList();
 
-    public Stage Start(Stage stage,Admin user){
+    public Stage Start(Stage stage, Admin user) {
         /// Read Data Base //
         readDataBaseStudents();
         readDataBaseTeachers();
@@ -218,7 +218,7 @@ public class AdminLabel extends Application {
         userListLabel.getStyleClass().add("sidebar-button");
         paneForUserList.getStyleClass().add("sidebar-hbox");
         paneForUserList.getChildren().addAll(userListIcon, userListLabel);
-        
+
         // Set LayOut //
         userListIcon.setLayoutX(20);
         userListIcon.setLayoutY(12.5);
@@ -235,30 +235,30 @@ public class AdminLabel extends Application {
         textSearch.getStyleClass().add("sidebar-textfield");
         // searchStudentChoice //
         ComboBox<String> searchStudentChoice = new ComboBox<>();
-        searchStudentChoice.getItems().addAll("FirstName","LastName","Age","StudentID","UserName","PassWord","E-Mail","Gender");
+        searchStudentChoice.getItems().addAll("FirstName", "LastName", "Age", "StudentID", "UserName", "PassWord", "E-Mail", "Gender");
         searchStudentChoice.setValue("FirstName");
         searchStudentChoice.setPrefSize(100, 40);
         searchStudentChoice.setStyle("-fx-background-color: #43474E; -fx-alignment: center; -fx-text-fill: #FFFFFF;");
-        paneForSearch.getChildren().addAll(searchIcon, textSearch,searchStudentChoice);
+        paneForSearch.getChildren().addAll(searchIcon, textSearch, searchStudentChoice);
         // searchTeacherChoice //
         ComboBox<String> searchTeacherChoice = new ComboBox<>();
-        searchTeacherChoice.getItems().addAll("FirstName","LastName","Age","UserName","PassWord","E-Mail","Gender");
+        searchTeacherChoice.getItems().addAll("FirstName", "LastName", "Age", "UserName", "PassWord", "E-Mail", "Gender");
         searchTeacherChoice.setValue("FirstName");
         searchTeacherChoice.setPrefSize(100, 40);
         searchTeacherChoice.setStyle("-fx-background-color: #43474E; -fx-alignment: center; -fx-text-fill: #FFFFFF;");
         // searchCourseChoice //
         ComboBox<String> searchCourseChoice = new ComboBox<>();
-        searchCourseChoice.getItems().addAll("CourseName","Member");
+        searchCourseChoice.getItems().addAll("CourseName", "Member");
         searchCourseChoice.setValue("CourseName");
         searchCourseChoice.setPrefSize(100, 40);
         searchCourseChoice.setStyle("-fx-background-color: #43474E; -fx-alignment: center; -fx-text-fill: #FFFFFF;");
         // searchRegisterChoice //
         ComboBox<String> searchRegisterChoice = new ComboBox<>();
-        searchRegisterChoice.getItems().addAll("Role","FirstName","LastName","Age","UserName","PassWord","E-Mail","Gender");
+        searchRegisterChoice.getItems().addAll("Role", "FirstName", "LastName", "Age", "UserName", "PassWord", "E-Mail", "Gender");
         searchRegisterChoice.setValue("Role");
         searchRegisterChoice.setPrefSize(100, 40);
         searchRegisterChoice.setStyle("-fx-background-color: #43474E; -fx-alignment: center; -fx-text-fill: #FFFFFF;");
-        
+
         // Set LayOut //
         searchIcon.setLayoutX(50);
         searchIcon.setLayoutY(12.5);
@@ -272,7 +272,6 @@ public class AdminLabel extends Application {
         searchCourseChoice.setLayoutY(18);
         searchRegisterChoice.setLayoutX(295);
         searchRegisterChoice.setLayoutY(18);
-        
 
         // Three [ Refresh ] //
         ImageView refreshIcon = new ImageView(new Image("/Images/refresh_icon.png"));
@@ -431,17 +430,17 @@ public class AdminLabel extends Application {
         genderCol.setCellValueFactory(new PropertyValueFactory<>("Gender"));
 
         // Pass data into FilteredList //
-        FilteredList<Person> studentFilteredData = new FilteredList(studentData,p -> true);
+        FilteredList<Person> studentFilteredData = new FilteredList(studentData, p -> true);
         // Set studentData into studentDataTable //
         studentDataTable.setItems(studentFilteredData);
 
         // Add Created column into Table //
-        studentDataTable.getColumns().addAll(firstNameCol, lastNameCol, ageCol, studentIDCol, userNameCol, passWordCol, emailCol,genderCol);
+        studentDataTable.getColumns().addAll(firstNameCol, lastNameCol, ageCol, studentIDCol, userNameCol, passWordCol, emailCol, genderCol);
         // Set standard choice of studentDataTable //
         if (!studentDataTable.getItems().isEmpty()) {
             studentDataTable.getSelectionModel().select(0);
         }
-        
+
         /// Set up Teacher Table ///
         teacherDataTable.setPrefSize(880, 620);
         teacherDataTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -472,17 +471,17 @@ public class AdminLabel extends Application {
         genderCol_t.setCellValueFactory(new PropertyValueFactory<>("Gender"));
 
         // Pass data into FilteredList //
-        FilteredList<Person> teacherFilteredData = new FilteredList(teacherData,p -> true);
+        FilteredList<Person> teacherFilteredData = new FilteredList(teacherData, p -> true);
         // Set teacherData into teacherDataTable //
         teacherDataTable.setItems(teacherFilteredData);
 
         // Add Created column into Table //
-        teacherDataTable.getColumns().addAll(firstNameCol_t, lastNameCol_t, ageCol_t, userNameCol_t, passWordCol_t, emailCol_t,genderCol_t);
+        teacherDataTable.getColumns().addAll(firstNameCol_t, lastNameCol_t, ageCol_t, userNameCol_t, passWordCol_t, emailCol_t, genderCol_t);
         // Set standard choice of teacherDataTable //
         if (!teacherDataTable.getItems().isEmpty()) {
             teacherDataTable.getSelectionModel().select(0);
         }
-        
+
         /// Set up Course Table ///
         courseDataTable.setPrefSize(880, 620);
         courseDataTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -498,7 +497,7 @@ public class AdminLabel extends Application {
         memberCol_c.setCellValueFactory(new PropertyValueFactory<>("Age"));
 
         // Pass data into FilteredList //
-        FilteredList<Person> courseFilteredData = new FilteredList(courseData,p -> true);
+        FilteredList<Person> courseFilteredData = new FilteredList(courseData, p -> true);
         // Set courseData into teacherDataTable //
         courseDataTable.setItems(courseFilteredData);
 
@@ -512,7 +511,6 @@ public class AdminLabel extends Application {
         // Put all pane to vBox_2_NameList //
         vBox_2_UserList.getChildren().addAll(paneForSelectTable, studentDataTable);
 
-        
         /// Create panes in vBox_2_ViewRegister ///
         Pane paneForViewRegisterInterface = new Pane();
         Label viewRegisterTopic = new Label("Register List");
@@ -520,10 +518,10 @@ public class AdminLabel extends Application {
 
         // Set up Label and Pane //
         paneForViewRegisterInterface.setPrefSize(880, 720);
-        registerData.get(0).setGender("Female");
-        registerData.get(1).setGender("Male");
-        registerData.get(2).setGender("Female");
-        registerData.get(3).setGender("Male");
+//        registerData.get(0).setGender("Female");
+//        registerData.get(1).setGender("Male");
+//        registerData.get(2).setGender("Female");
+//        registerData.get(3).setGender("Male");
 
         viewRegisterTopic.getStyleClass().add("add-user-topic");
         viewRegisterRect.setArcHeight(20);
@@ -532,7 +530,7 @@ public class AdminLabel extends Application {
         viewRegisterRect.setFill(Paint.valueOf("#FFFFFF"));
         acceptRegisterButton.setPrefSize(150, 50);
         declineRegisterButton.setPrefSize(150, 50);
-        
+
         /// Set up Register Student Table ///
         registerDataTable.setPrefSize(640, 450);
         registerDataTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -566,20 +564,20 @@ public class AdminLabel extends Application {
         genderCol_r.setCellValueFactory(new PropertyValueFactory<>("Gender"));
 
         // Pass data into FilteredList //
-        FilteredList<Person> registerFilteredData = new FilteredList(registerData,p -> true);
+        FilteredList<Person> registerFilteredData = new FilteredList(registerData, p -> true);
         // Set registerData into studentDataTable //
         registerDataTable.setItems(registerFilteredData);
 
         // Add Created column into Table //
-        registerDataTable.getColumns().addAll(roleCol_r,firstNameCol_r, lastNameCol_r, ageCol_r, userNameCol_r, passWordCol_r, emailCol_r,genderCol_r);
+        registerDataTable.getColumns().addAll(roleCol_r, firstNameCol_r, lastNameCol_r, ageCol_r, userNameCol_r, passWordCol_r, emailCol_r, genderCol_r);
         // Set standard choice of registerDataTable //
         if (!registerDataTable.getItems().isEmpty()) {
             registerDataTable.getSelectionModel().select(0);
         }
 
-        paneForViewRegisterInterface.getChildren().add(viewRegisterRect); 
+        paneForViewRegisterInterface.getChildren().add(viewRegisterRect);
         paneForViewRegisterInterface.getChildren().add(viewRegisterTopic);
-        paneForViewRegisterInterface.getChildren().add(registerDataTable); 
+        paneForViewRegisterInterface.getChildren().add(registerDataTable);
         paneForViewRegisterInterface.getChildren().add(acceptRegisterButton);
         paneForViewRegisterInterface.getChildren().add(declineRegisterButton);
 
@@ -598,17 +596,16 @@ public class AdminLabel extends Application {
         // Put all pane to vBox_2_ViewRegister //
         vBox_2_ViewRegister.getStyleClass().add("add-user-background");
         vBox_2_ViewRegister.getChildren().add(paneForViewRegisterInterface);
-        
-        
+
         /// Create panes in vBox_2_AddUser ///
         // First [ PaneForAddUser ] //
         Pane paneForAddUserInterface = new Pane();
         Label addUserTopic = new Label("Add User");
         Rectangle addUserRect = new Rectangle(700, 680);
         genderSelector.setValue("Select Your Gender");
-        genderSelector.getItems().addAll("Female","Male");
+        genderSelector.getItems().addAll("Female", "Male");
         roleSelector.setValue("Select Your Role");
-        roleSelector.getItems().addAll("Student","Teacher");
+        roleSelector.getItems().addAll("Student", "Teacher");
 
         // Set up Label and Pane //
         paneForAddUserInterface.setPrefSize(880, 720);
@@ -692,7 +689,6 @@ public class AdminLabel extends Application {
         vBox_2_AddUser.getStyleClass().add("add-user-background");
         vBox_2_AddUser.getChildren().add(paneForAddUserInterface);
 
-        
         /// Create panes in vBox_2_AddCourse ///
         // First [ PaneForAddCourse ] //
         Pane paneForAddCourseInterface = new Pane();
@@ -718,7 +714,7 @@ public class AdminLabel extends Application {
         clearAddCourseButton.setPrefSize(150, 50);
         okAddCourseButton.setPrefSize(150, 50);
 
-        paneForAddCourseInterface.getChildren().add(addCourseRect); 
+        paneForAddCourseInterface.getChildren().add(addCourseRect);
         paneForAddCourseInterface.getChildren().add(addCourseTopic);
         paneForAddCourseInterface.getChildren().add(textCourseName);
         paneForAddCourseInterface.getChildren().add(textCourseDescription);
@@ -747,24 +743,24 @@ public class AdminLabel extends Application {
         Pane paneForDashBoardInterface = new Pane();
         Label dashBoardTopic = new Label("Dashboard");
         Rectangle dashBoardRect = new Rectangle(700, 680);
-        
+
         dashBoardRect.setArcHeight(20);
         dashBoardRect.setArcWidth(30);
         dashBoardRect.getStyleClass().add("add-user-rect");
         dashBoardRect.setFill(Paint.valueOf("#FFFFFF"));
-        
+
         // Student Gender PieChart
         ObservableList<PieChart.Data> studentGenderData = FXCollections.observableArrayList();
-        studentGenderData.add(new PieChart.Data("Male",getCount(studentData)[1]));
-        studentGenderData.add(new PieChart.Data("Female",getCount(studentData)[2]));
+        studentGenderData.add(new PieChart.Data("Male", getCount(studentData)[1]));
+        studentGenderData.add(new PieChart.Data("Female", getCount(studentData)[2]));
         PieChart studentGenderChart = new PieChart(studentGenderData);
         studentGenderChart.setTitle("Student Gender");
         studentGenderChart.setPrefSize(300, 300);
         studentGenderChart.setLabelsVisible(false);
         // Teacher Gender PieChart
         ObservableList<PieChart.Data> teacherGenderData = FXCollections.observableArrayList();
-        teacherGenderData.add(new PieChart.Data("Male",getCount(teacherData)[1]));
-        teacherGenderData.add(new PieChart.Data("Female",getCount(teacherData)[2]));
+        teacherGenderData.add(new PieChart.Data("Male", getCount(teacherData)[1]));
+        teacherGenderData.add(new PieChart.Data("Female", getCount(teacherData)[2]));
         PieChart teacherGenderChart = new PieChart(teacherGenderData);
         teacherGenderChart.setTitle("Teacher Gender");
         teacherGenderChart.setPrefSize(300, 300);
@@ -774,36 +770,36 @@ public class AdminLabel extends Application {
         classRankingName.setLabel("Class Name");
         NumberAxis classRankingStudent = new NumberAxis();
         classRankingStudent.setLabel("Student");
-        BarChart classRankingBarChart = new BarChart(classRankingName,classRankingStudent);
+        BarChart classRankingBarChart = new BarChart(classRankingName, classRankingStudent);
         XYChart.Series classRankingSeries = new XYChart.Series();
         Person[] classRanking = getRanking(courseData);
-        classRankingSeries.getData().add(new XYChart.Data(classRanking[0].getUserName(),Integer.parseInt(classRanking[0].getAge())));
-        classRankingSeries.getData().add(new XYChart.Data(classRanking[1].getUserName(),Integer.parseInt(classRanking[1].getAge())));
-        classRankingSeries.getData().add(new XYChart.Data(classRanking[2].getUserName(),Integer.parseInt(classRanking[2].getAge())));
+        classRankingSeries.getData().add(new XYChart.Data(classRanking[0].getUserName(), Integer.parseInt(classRanking[0].getAge())));
+        classRankingSeries.getData().add(new XYChart.Data(classRanking[1].getUserName(), Integer.parseInt(classRanking[1].getAge())));
+        classRankingSeries.getData().add(new XYChart.Data(classRanking[2].getUserName(), Integer.parseInt(classRanking[2].getAge())));
         classRankingBarChart.setPrefSize(300, 300);
         classRankingBarChart.setLegendVisible(false);
         classRankingBarChart.getData().add(classRankingSeries);
 
         // Set up Label and Pane //
         paneForDashBoardInterface.setPrefSize(880, 720);
-        paneForDashBoardInterface.getChildren().add(dashBoardRect); 
-        
+        paneForDashBoardInterface.getChildren().add(dashBoardRect);
+
         // Set Layout //
         dashBoardRect.setLayoutX(90);
         dashBoardRect.setLayoutY(20);
-        
+
         // Put all pane to vBox_2_DashBoard //
         vBox_2_DashBoard.getStyleClass().add("add-user-background");
         vBox_2_DashBoard.getChildren().add(paneForDashBoardInterface);
-        
+
         dashBoardTopic.getStyleClass().add("add-user-topic");
-        
+
         // Add Elements to pane //
         paneForDashBoardInterface.getChildren().add(dashBoardTopic);
         paneForDashBoardInterface.getChildren().add(studentGenderChart);
         paneForDashBoardInterface.getChildren().add(teacherGenderChart);
         paneForDashBoardInterface.getChildren().add(classRankingBarChart);
-        
+
         // Set Layout //
         dashBoardTopic.setLayoutX(315);
         dashBoardTopic.setLayoutY(40);
@@ -813,36 +809,33 @@ public class AdminLabel extends Application {
         teacherGenderChart.setLayoutY(130);
         classRankingBarChart.setLayoutX(90);
         classRankingBarChart.setLayoutY(430);
-        
+
         /// adminScene Set Style Class ///
         Scene adminScene = new Scene(mainPane);
         adminScene.getStylesheets().add("css/brightside.css");
 
-        
         /// ComboBox Interaction ///
-        
-        searchStudentChoice.setOnAction(e  -> {
+        searchStudentChoice.setOnAction(e -> {
             textSearch.setPromptText("By " + searchStudentChoice.getValue());
-            search(studentFilteredData,searchStudentChoice.getValue(),studentDataTable);
+            search(studentFilteredData, searchStudentChoice.getValue(), studentDataTable);
         });
-        searchTeacherChoice.setOnAction(e  -> {
+        searchTeacherChoice.setOnAction(e -> {
             textSearch.setPromptText("By " + searchTeacherChoice.getValue());
-            search(teacherFilteredData,searchTeacherChoice.getValue(),teacherDataTable);
+            search(teacherFilteredData, searchTeacherChoice.getValue(), teacherDataTable);
         });
-        searchCourseChoice.setOnAction(e  -> {
+        searchCourseChoice.setOnAction(e -> {
             textSearch.setPromptText("By " + searchCourseChoice.getValue());
-            search(courseFilteredData,searchCourseChoice.getValue(),courseDataTable);
+            search(courseFilteredData, searchCourseChoice.getValue(), courseDataTable);
         });
-        searchRegisterChoice.setOnAction(e  -> {
+        searchRegisterChoice.setOnAction(e -> {
             textSearch.setPromptText("By " + searchRegisterChoice.getValue());
-            search(registerFilteredData,searchRegisterChoice.getValue(),registerDataTable);
+            search(registerFilteredData, searchRegisterChoice.getValue(), registerDataTable);
         });
 
-        
         /// Panes Interaction ///       
         // User List //
         userListLabel.setOnMouseClicked(e -> {
-            if(pageState != 1 && pageState != 0){
+            if (pageState != 1 && pageState != 0) {
                 pageState = 0;
                 vBox_2_UserList.getChildren().remove(1);
                 vBox_2_UserList.getChildren().add(studentDataTable);
@@ -853,49 +846,49 @@ public class AdminLabel extends Application {
                 textSearch.setPromptText("By FirstName");
                 stackPane_2.getChildren().add(vBox_2_UserList);
                 vBox_2_UserList.translateYProperty().set(720);
-                changePage(stackPane_2,vBox_2_UserList,1);
+                changePage(stackPane_2, vBox_2_UserList, 1);
             }
         });
 
         // Search //
         textSearch.setOnKeyReleased(e -> {
-            if(tableState == 1){ // Student Table //
-                search(studentFilteredData,searchStudentChoice.getValue(),studentDataTable);
-            }else if(tableState == 2){ // Teacher Table //
-                search(teacherFilteredData,searchTeacherChoice.getValue(),teacherDataTable);
-            }else if(tableState == 3){ // Course Table //
-                search(courseFilteredData,searchCourseChoice.getValue(),courseDataTable);
-            }else if(tableState == 4){ // Register Table //
-                search(registerFilteredData,searchRegisterChoice.getValue(),registerDataTable);
+            if (tableState == 1) { // Student Table //
+                search(studentFilteredData, searchStudentChoice.getValue(), studentDataTable);
+            } else if (tableState == 2) { // Teacher Table //
+                search(teacherFilteredData, searchTeacherChoice.getValue(), teacherDataTable);
+            } else if (tableState == 3) { // Course Table //
+                search(courseFilteredData, searchCourseChoice.getValue(), courseDataTable);
+            } else if (tableState == 4) { // Register Table //
+                search(registerFilteredData, searchRegisterChoice.getValue(), registerDataTable);
             }
         });
 
         // Refresh //
         paneForRefresh.setOnMouseClicked(e -> {
             textSearch.clear();
-            if(tableState == 1){ // Student Table //
+            if (tableState == 1) { // Student Table //
                 studentFilteredData.setPredicate(p -> p.getFirstName().toLowerCase().contains(textSearch.getText().toLowerCase().trim()));
                 studentDataTable.getSelectionModel().select(0);
-            }else if(tableState == 2){ // Teacher Table //
+            } else if (tableState == 2) { // Teacher Table //
                 teacherFilteredData.setPredicate(p -> p.getFirstName().toLowerCase().contains(textSearch.getText().toLowerCase().trim()));
                 studentDataTable.getSelectionModel().select(0);
-            }else if(tableState == 3){ // Course Table //
+            } else if (tableState == 3) { // Course Table //
                 courseFilteredData.setPredicate(p -> p.getUserName().toLowerCase().contains(textSearch.getText().toLowerCase().trim()));
                 courseDataTable.getSelectionModel().select(0);
-            }else if(tableState == 4){ // Register Table //
+            } else if (tableState == 4) { // Register Table //
                 registerFilteredData.setPredicate(p -> p.getFirstName().toLowerCase().contains(textSearch.getText().toLowerCase().trim()));
                 registerDataTable.getSelectionModel().select(0);
             }
         });
 
         // Delete Button //
-        paneForDelete.setOnMouseClicked(e -> {  
+        paneForDelete.setOnMouseClicked(e -> {
             if (tableState == 1) {
                 if (!studentDataTable.getItems().isEmpty()) {
                     if (confirmBox.display("Confirm Please...", "Are you sure to Delete This Student")) {
                         // Remove from studentData //
                         studentData.removeAll(studentDataTable.getSelectionModel().getSelectedItems());
-                        
+
                         // Set deleteConfirm back to FALSE //
                         confirmBox.setAnswer(false);
                     }
@@ -905,7 +898,7 @@ public class AdminLabel extends Application {
                     if (confirmBox.display("Confirm Please...", "Are you sure to Delete This Teacher")) {
                         // Remove from teacherData //
                         teacherData.removeAll(teacherDataTable.getSelectionModel().getSelectedItems());
-                        
+
                         // Set deleteConfirm back to FALSE //
                         confirmBox.setAnswer(false);
                     }
@@ -915,7 +908,7 @@ public class AdminLabel extends Application {
                     if (confirmBox.display("Confirm Please...", "Are you sure to Delete This Course")) {
                         // Remove from teacherData //
                         courseData.removeAll(courseDataTable.getSelectionModel().getSelectedItems());
-                        
+
                         // Set deleteConfirm back to FALSE //
                         confirmBox.setAnswer(false);
                     }
@@ -925,11 +918,11 @@ public class AdminLabel extends Application {
 
         // viewRegistor Button //
         paneForViewRegister.setOnMouseClicked(e -> {
-            if(pageState != 2 && pageState != 0){
+            if (pageState != 2 && pageState != 0) {
                 pageState = 0;
                 stackPane_2.getChildren().add(vBox_2_ViewRegister);
                 vBox_2_ViewRegister.translateYProperty().set(720);
-                changePage(stackPane_2,vBox_2_ViewRegister,2);  
+                changePage(stackPane_2, vBox_2_ViewRegister, 2);
                 tableState = 4;
                 paneForSearch.getChildren().remove(2);
                 paneForSearch.getChildren().add(searchRegisterChoice);
@@ -940,35 +933,34 @@ public class AdminLabel extends Application {
 
         // Add User //
         paneForAddUser.setOnMouseClicked(e -> {
-            if(pageState != 3 && pageState != 0){
+            if (pageState != 3 && pageState != 0) {
                 pageState = 0;
                 roleSelector.setValue("Student");
                 genderSelector.setValue("Female");
                 stackPane_2.getChildren().add(vBox_2_AddUser);
                 vBox_2_AddUser.translateYProperty().set(720);
-                changePage(stackPane_2,vBox_2_AddUser,3);  
+                changePage(stackPane_2, vBox_2_AddUser, 3);
             }
         });
 
-        
         // Add Course //
         paneForAddCourse.setOnMouseClicked(e -> {
-            if(pageState != 4 && pageState != 0){
+            if (pageState != 4 && pageState != 0) {
                 pageState = 0;
                 stackPane_2.getChildren().add(vBox_2_AddCourse);
                 vBox_2_AddCourse.translateYProperty().set(720);
-                changePage(stackPane_2,vBox_2_AddCourse,4);
+                changePage(stackPane_2, vBox_2_AddCourse, 4);
             }
         });
 
         // DashBoard //
         paneForDashBoard.setOnMouseClicked(e -> {
-            if(pageState != 5 && pageState != 0){
+            if (pageState != 5 && pageState != 0) {
                 pageState = 0;
                 updateDashBoard(studentGenderChart, teacherGenderChart);
                 stackPane_2.getChildren().add(vBox_2_DashBoard);
                 vBox_2_DashBoard.translateYProperty().set(720);
-                changePage(stackPane_2,vBox_2_DashBoard,5);
+                changePage(stackPane_2, vBox_2_DashBoard, 5);
             }
         });
 
@@ -997,7 +989,7 @@ public class AdminLabel extends Application {
                 textSearch.setPromptText("By FirstName");
             }
         });
-        
+
         // Course Choice //
         paneForCourseChoice.setOnMouseClicked(e -> {
             if (tableState != 3) {
@@ -1047,21 +1039,23 @@ public class AdminLabel extends Application {
                 }
             }
         });*/
-        
         // Accept Register //
         acceptRegisterButton.setOnAction(e -> {
             // Add to their role's data //
-            for(Person register:registerDataTable.getSelectionModel().getSelectedItems()){
-                if(register.getRole() == "Student"){
-                    studentData.add((Student)register);
-                }
-                else if(register.getRole() == "Staff"){
-                    teacherData.add((Staff)register);
+            for (Person register : registerDataTable.getSelectionModel().getSelectedItems()) {
+                if (register.getRole() == "Student") {
+                    var s = (Student) register;
+                    s.setStudentId(s.getUserName());
+                    studentData.add(s);
+                    API.RemoveFromDatabase("Registers", s);
+                } else if (register.getRole() == "Staff") {
+                    teacherData.add((Staff) register);
+                    API.RemoveFromDatabase("Registers", (Staff) register);
                 }
             }
             registerData.removeAll(registerDataTable.getSelectionModel().getSelectedItems());
         });
-        
+
         // Decline Register //
         declineRegisterButton.setOnAction(e -> {
             registerData.removeAll(registerDataTable.getSelectionModel().getSelectedItems());
@@ -1069,14 +1063,14 @@ public class AdminLabel extends Application {
 
         // Change role for Add User //
         roleSelector.setOnAction(e -> {
-            if(roleSelector.getValue() == "Teacher"){
+            if (roleSelector.getValue() == "Teacher") {
                 textStudentID.clear();
                 textStudentID.setDisable(true);
-            }else{
+            } else {
                 textStudentID.setDisable(false);
             }
         });
-        
+
         // Clear AddUser Button //
         clearAddUserButton.setOnAction(e -> {
             // Clear Text //
@@ -1087,72 +1081,72 @@ public class AdminLabel extends Application {
         okAddUserButton.setOnAction(e -> {
             int countUserTexted = 0;
             boolean[] userTextError = new boolean[7];
-            for(int i=0;i<7;i++){
+            for (int i = 0; i < 7; i++) {
                 userTextError[i] = false;
             }
-            
-            if(textFirstName.getText().length() == 0){
+
+            if (textFirstName.getText().length() == 0) {
                 countUserTexted++;
                 userTextError[0] = true;
-            } 
-            if(textLastName.getText().length() == 0){
+            }
+            if (textLastName.getText().length() == 0) {
                 countUserTexted++;
                 userTextError[1] = true;
-            } 
-            if(textAge.getText().length() == 0){
+            }
+            if (textAge.getText().length() == 0) {
                 countUserTexted++;
                 userTextError[2] = true;
-            } 
-            if(textUserName.getText().length() == 0){
+            }
+            if (textUserName.getText().length() == 0) {
                 countUserTexted++;
                 userTextError[4] = true;
-            } 
-            if(textPassWord.getText().length() == 0){
+            }
+            if (textPassWord.getText().length() == 0) {
                 countUserTexted++;
                 userTextError[5] = true;
-            } 
-            if(textEmail.getText().length() == 0){
+            }
+            if (textEmail.getText().length() == 0) {
                 countUserTexted++;
                 userTextError[6] = true;
-            } 
-            
-            if(roleSelector.getValue() == "Teacher"){
-                if(countUserTexted == 0){
+            }
+
+            if (roleSelector.getValue() == "Teacher") {
+                if (countUserTexted == 0) {
                     teacherData.add(new Staff(
-                         textFirstName.getText(), textLastName.getText(),
-                         textAge.getText(), textStudentID.getText(),
-                         textUserName.getText(), textPassWord.getText(),
-                         textEmail.getText()
+                            textFirstName.getText(), textLastName.getText(),
+                            textAge.getText(), textStudentID.getText(),
+                            textUserName.getText(), textPassWord.getText(),
+                            textEmail.getText()
                     ));
-                    teacherData.get(teacherData.size()-1).setGender(genderSelector.getValue());
+                    teacherData.get(teacherData.size() - 1).setGender(genderSelector.getValue());
                     textFieldAddUserClear();
                     setAddUserTextError(userTextError);
-                }else{
+                } else {
                     alertBox.display("Alert Box", "Please enter all textfield.");
                     setAddUserTextError(userTextError);
                 }
-            }else{
-                if(textStudentID.getText().length() == 0){
+            } else {
+                if (textStudentID.getText().length() == 0) {
                     countUserTexted++;
                     userTextError[3] = true;
-                } 
-                if(countUserTexted == 0){
-                    studentData.add(new Student(        
-                        textFirstName.getText(), textLastName.getText(),
-                        textAge.getText(), textStudentID.getText(),
-                        textUserName.getText(), textPassWord.getText(),
-                        textEmail.getText()
+                }
+                if (countUserTexted == 0) {
+                    studentData.add(new Student(
+                            textFirstName.getText(), textLastName.getText(),
+                            textAge.getText(), textStudentID.getText(),
+                            textUserName.getText(), textPassWord.getText(),
+                            textEmail.getText()
                     ));
-                    studentData.get(studentData.size()-1).setGender(genderSelector.getValue());
+                    studentData.get(studentData.size() - 1).setGender(genderSelector.getValue());
                     textFieldAddUserClear();
                     setAddUserTextError(userTextError);
-                }else{
+                } else {
                     alertBox.display("Alert Box", "Please enter all textfield.");
                     setAddUserTextError(userTextError);
                 }
             }
         });
-        
+
         // Clear AddCourse Button //
         clearAddCourseButton.setOnAction(e -> {
             // Clear Text //
@@ -1163,28 +1157,28 @@ public class AdminLabel extends Application {
         okAddCourseButton.setOnAction(e -> {
             int countCorseTexted = 0;
             boolean[] courseTextError = new boolean[2];
-            for(int i=0;i<2;i++){
+            for (int i = 0; i < 2; i++) {
                 courseTextError[i] = false;
             }
-            
+
             // Check text Empty? //
-            if(textCourseName.getText().length() == 0){
+            if (textCourseName.getText().length() == 0) {
                 countCorseTexted++;
                 courseTextError[0] = true;
-            } 
-            if(textCourseDescription.getText().length() == 0){
+            }
+            if (textCourseDescription.getText().length() == 0) {
                 countCorseTexted++;
                 courseTextError[1] = true;
-            } 
-            
-            if(countCorseTexted == 0){
-                Course tempCourse = new Course(textCourseName.getText(),null,null);
+            }
+
+            if (countCorseTexted == 0) {
+                Course tempCourse = new Course(textCourseName.getText(), null, null);
                 tempCourse.setAge("0");
                 courseData.add(tempCourse);
                 API.saveToDatabase(tempCourse);
                 textFieldAddCourseClear();
                 setAddCourseTextError(courseTextError);
-            }else {
+            } else {
                 alertBox.display("Alert Box", "Please enter all textfield.");
                 setAddCourseTextError(courseTextError);
             }
@@ -1203,9 +1197,10 @@ public class AdminLabel extends Application {
         return stage;
     }
 
-    
     @Override
-    public void start(Stage stage) throws Exception {}
+    public void start(Stage stage) throws Exception {
+    }
+
     /// Main Function ///
     public static void main(String[] args) {
         Database db = new Database();
@@ -1213,7 +1208,7 @@ public class AdminLabel extends Application {
 
         launch(args);
     }
-    
+
     /// TextField Add User Clear ///
     void textFieldAddUserClear() {
         textFirstName.clear();
@@ -1227,29 +1222,30 @@ public class AdminLabel extends Application {
         genderSelector.setValue("Select Your Gender");*/
         System.out.println("Cleared");
     }
-    
+
     /// TextField Add Course Clear ///
     void textFieldAddCourseClear() {
         textCourseName.clear();
         textCourseDescription.clear();
     }
-    
+
     /// Change Page Function ///
-    void changePage(StackPane stackPane,VBox nextPage,int endState){
+    void changePage(StackPane stackPane, VBox nextPage, int endState) {
         /// Change Page Animation ///
-         Timeline changePage = new Timeline();
-         KeyValue kv = new KeyValue(nextPage.translateYProperty(), 0, Interpolator.EASE_IN);
-         KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
-         changePage.getKeyFrames().add(kf);
-         changePage.setOnFinished(e -> {
-             stackPane.getChildren().remove(0);
-             pageState = endState;
-         });
-         changePage.play();
+        Timeline changePage = new Timeline();
+        KeyValue kv = new KeyValue(nextPage.translateYProperty(), 0, Interpolator.EASE_IN);
+        KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
+        changePage.getKeyFrames().add(kf);
+        changePage.setOnFinished(e -> {
+            stackPane.getChildren().remove(0);
+            pageState = endState;
+        });
+        changePage.play();
     }
 
     /// ConfirmBox ///
     class ConfirmBox {
+
         boolean answer = false;
 
         boolean display(String windowTitle, String confirmLabel) {
@@ -1305,9 +1301,10 @@ public class AdminLabel extends Application {
             this.answer = answer;
         }
     }
-    
+
     /// AlertBox ///
     class AlertBox {
+
         void display(String windowTitle, String confirmLabel) {
             Stage alertWindow = new Stage();
             alertWindow.setTitle(windowTitle);
@@ -1365,14 +1362,14 @@ public class AdminLabel extends Application {
             courseData.forEach((course) -> {
                 tempCourseData.add(course);
             });
-            
+
             Database db = new Database();
             db.setPath_Students();
             db.write(tempStudentData);
 
             db.setPath_Staffs();
             db.write(tempTeacherData);
-            
+
             db.setPath_Courses();
             db.write(tempCourseData);
 
@@ -1410,7 +1407,7 @@ public class AdminLabel extends Application {
 
         System.out.println("Read Teachers");
     }
-    
+
     /// Read Courses From DataBase Function ///
     void readDataBaseCourses() {
         ArrayList<Course> tempCourseData = new ArrayList<>();
@@ -1442,20 +1439,23 @@ public class AdminLabel extends Application {
     }
 
     /// Count Teacher [All] [Male] [Female] ///
-    Integer[] getCount(ObservableList<Person> persons){
+    Integer[] getCount(ObservableList<Person> persons) {
         Integer[] count = new Integer[3];
         count[0] = 0;
         count[1] = 0;
         count[2] = 0;
-        for(Person person:persons){
+        for (Person person : persons) {
             count[0] += 1;
-            if("Male".equals(person.getGender())) count[1] += 1;
-            else if("Female".equals(person.getGender())) count[2] += 1;
+            if ("Male".equals(person.getGender())) {
+                count[1] += 1;
+            } else if ("Female".equals(person.getGender())) {
+                count[2] += 1;
+            }
         }
         return count;
     }
-    
-    void updateDashBoard(PieChart studentGenderChart,PieChart teacherGenderChart){
+
+    void updateDashBoard(PieChart studentGenderChart, PieChart teacherGenderChart) {
         // Update Student PieChart //
         studentGenderChart.getData().get(0).setPieValue(getCount(studentData)[1]);
         studentGenderChart.getData().get(1).setPieValue(getCount(studentData)[2]);
@@ -1464,10 +1464,10 @@ public class AdminLabel extends Application {
         teacherGenderChart.getData().get(1).setPieValue(getCount(teacherData)[2]);
         System.out.println("Update Chart");
     }
-    
+
     /// Search Function ///
-    void search(FilteredList<Person> filteredData,String choice,TableView dataTable){
-        switch(choice){
+    void search(FilteredList<Person> filteredData, String choice, TableView dataTable) {
+        switch (choice) {
             case "FirstName":
                 filteredData.setPredicate(p -> p.getFirstName().toLowerCase().contains(textSearch.getText().toLowerCase().trim()));
                 break;
@@ -1501,123 +1501,123 @@ public class AdminLabel extends Application {
         }
         dataTable.getSelectionModel().select(0);
     }
-    
+
     /// SortFilteredList ///
-    Person[] getRanking(ObservableList<Person> courseData){
+    Person[] getRanking(ObservableList<Person> courseData) {
         ObservableList<Person> tempCourseData = courseData;
         Person[] courseRanking = new Person[3];
-        for(int i=0;i<tempCourseData.size();i++){
-            for(int j=0;j<tempCourseData.size()-1;j++){
-                if(Integer.parseInt(tempCourseData.get(j).getAge()) < Integer.parseInt(tempCourseData.get(j+1).getAge())){
+        for (int i = 0; i < tempCourseData.size(); i++) {
+            for (int j = 0; j < tempCourseData.size() - 1; j++) {
+                if (Integer.parseInt(tempCourseData.get(j).getAge()) < Integer.parseInt(tempCourseData.get(j + 1).getAge())) {
                     System.out.println("Less and Swap");
                     Person tempPerson = tempCourseData.get(j);
                     System.out.println("Created");
                     tempCourseData.remove(j);
                     System.out.println("Removed");
-                    System.out.println(j+1);
+                    System.out.println(j + 1);
                     tempCourseData.add(j, tempCourseData.get(j));
-                    tempCourseData.remove(j+1);
-                    tempCourseData.add(j+1, tempPerson);
+                    tempCourseData.remove(j + 1);
+                    tempCourseData.add(j + 1, tempPerson);
                 }
             }
         }
         // Check if List size less than three //
-        if(tempCourseData.size() >= 3){
+        if (tempCourseData.size() >= 3) {
             courseRanking[0] = tempCourseData.get(0);
             courseRanking[1] = tempCourseData.get(1);
             courseRanking[2] = tempCourseData.get(2);
-        }else if(tempCourseData.size() == 2){
+        } else if (tempCourseData.size() == 2) {
             courseRanking[0] = tempCourseData.get(0);
             courseRanking[1] = tempCourseData.get(1);
-            courseRanking[2] = new Person("","","0","","none","","");
-        }else if(tempCourseData.size() == 1){
+            courseRanking[2] = new Person("", "", "0", "", "none", "", "");
+        } else if (tempCourseData.size() == 1) {
             courseRanking[0] = tempCourseData.get(0);
-            courseRanking[1] = new Person("","","0","","none","","");
-            courseRanking[2] = new Person("","","0","","none","","");
-        }else if(tempCourseData.size() == 0){
-            courseRanking[0] = new Person("","","0","","none","","");
-            courseRanking[1] = new Person("","","0","","none","","");
-            courseRanking[2] = new Person("","","0","","none","","");
+            courseRanking[1] = new Person("", "", "0", "", "none", "", "");
+            courseRanking[2] = new Person("", "", "0", "", "none", "", "");
+        } else if (tempCourseData.size() == 0) {
+            courseRanking[0] = new Person("", "", "0", "", "none", "", "");
+            courseRanking[1] = new Person("", "", "0", "", "none", "", "");
+            courseRanking[2] = new Person("", "", "0", "", "none", "", "");
         }
-        
+
         System.out.println("one : " + courseRanking[0].getUserName());
         System.out.println("two : " + courseRanking[1].getUserName());
         System.out.println("three : " + courseRanking[2].getUserName());
-        
+
         return courseRanking;
     }
-    
+
     /// Set Add User TextError ///
-    void setAddUserTextError(boolean[] textError){
+    void setAddUserTextError(boolean[] textError) {
         // Set all wrong to be red //
-        if(textError[0] == true){
-           textFirstName.getStyleClass().remove(2);
-           textFirstName.getStyleClass().add("add-user-text-field-error");
-        }else{
-           textFirstName.getStyleClass().remove(2);
-           textFirstName.getStyleClass().add("add-user-text-field");
+        if (textError[0] == true) {
+            textFirstName.getStyleClass().remove(2);
+            textFirstName.getStyleClass().add("add-user-text-field-error");
+        } else {
+            textFirstName.getStyleClass().remove(2);
+            textFirstName.getStyleClass().add("add-user-text-field");
         }
-        if(textError[1] == true){
-           textLastName.getStyleClass().remove(2);
-           textLastName.getStyleClass().add("add-user-text-field-error");
-        }else{
-           textLastName.getStyleClass().remove(2);
-           textLastName.getStyleClass().add("add-user-text-field");
+        if (textError[1] == true) {
+            textLastName.getStyleClass().remove(2);
+            textLastName.getStyleClass().add("add-user-text-field-error");
+        } else {
+            textLastName.getStyleClass().remove(2);
+            textLastName.getStyleClass().add("add-user-text-field");
         }
-        if(textError[2] == true){
-           textAge.getStyleClass().remove(2);
-           textAge.getStyleClass().add("add-user-text-field-error");
-        }else{
-           textAge.getStyleClass().remove(2);
-           textAge.getStyleClass().add("add-user-text-field");
+        if (textError[2] == true) {
+            textAge.getStyleClass().remove(2);
+            textAge.getStyleClass().add("add-user-text-field-error");
+        } else {
+            textAge.getStyleClass().remove(2);
+            textAge.getStyleClass().add("add-user-text-field");
         }
-        if(textError[3] == true){
-           textStudentID.getStyleClass().remove(2);
-           textStudentID.getStyleClass().add("add-user-text-field-error");
-        }else{
-           textStudentID.getStyleClass().remove(2);
-           textStudentID.getStyleClass().add("add-user-text-field");
+        if (textError[3] == true) {
+            textStudentID.getStyleClass().remove(2);
+            textStudentID.getStyleClass().add("add-user-text-field-error");
+        } else {
+            textStudentID.getStyleClass().remove(2);
+            textStudentID.getStyleClass().add("add-user-text-field");
         }
-        if(textError[4] == true){
+        if (textError[4] == true) {
             textUserName.getStyleClass().remove(2);
             textUserName.getStyleClass().add("add-user-text-field-error");
-        }else{
+        } else {
             textUserName.getStyleClass().remove(2);
             textUserName.getStyleClass().add("add-user-text-field");
         }
-        if(textError[5] == true){
+        if (textError[5] == true) {
             textPassWord.getStyleClass().remove(3);
             textPassWord.getStyleClass().add("add-user-text-field-error");
-        }else{
+        } else {
             textPassWord.getStyleClass().remove(3);
             textPassWord.getStyleClass().add("add-user-text-field");
         }
-        if(textError[6] == true){
+        if (textError[6] == true) {
             textEmail.getStyleClass().remove(2);
             textEmail.getStyleClass().add("add-user-text-field-error");
-        }else{
+        } else {
             textEmail.getStyleClass().remove(2);
             textEmail.getStyleClass().add("add-user-text-field");
-       }
-    }
-    
-    /// Set Add Course TextError ///
-    void setAddCourseTextError(boolean[] textError){
-        // Set all wrong to be red //
-        if(textError[0] == true){
-           textCourseName.getStyleClass().remove(2);
-           textCourseName.getStyleClass().add("add-user-text-field-error");
-        }else{
-           textCourseName.getStyleClass().remove(2);
-           textCourseName.getStyleClass().add("add-user-text-field");
         }
-        if(textError[1] == true){
-           textCourseDescription.getStyleClass().remove(2);
-           textCourseDescription.getStyleClass().add("add-user-text-field-error");
-        }else{
-           textCourseDescription.getStyleClass().remove(2);
-           textCourseDescription.getStyleClass().add("add-user-text-field");
-        } 
+    }
+
+    /// Set Add Course TextError ///
+    void setAddCourseTextError(boolean[] textError) {
+        // Set all wrong to be red //
+        if (textError[0] == true) {
+            textCourseName.getStyleClass().remove(2);
+            textCourseName.getStyleClass().add("add-user-text-field-error");
+        } else {
+            textCourseName.getStyleClass().remove(2);
+            textCourseName.getStyleClass().add("add-user-text-field");
+        }
+        if (textError[1] == true) {
+            textCourseDescription.getStyleClass().remove(2);
+            textCourseDescription.getStyleClass().add("add-user-text-field-error");
+        } else {
+            textCourseDescription.getStyleClass().remove(2);
+            textCourseDescription.getStyleClass().add("add-user-text-field");
+        }
     }
 
     /// Choose theme ///

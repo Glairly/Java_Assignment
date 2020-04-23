@@ -17,21 +17,7 @@ public class API {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        API._INIT_DATABASE_();
-//        Authority.registor(new Staff("Glairly","g12345"));
-//        Authority.registor(new Staff("Gai","g12345"));
-//        System.out.println(Authority.login("Gai", "g12345"));
-//        System.out.println(API.getCustom("Register"));
-//        Staff user = (Staff) Authority.login("Staff1", "12345");
-//        System.out.println(API.getAllCourse().get(1).getStudents());
-        for (Course c : API.getAllCourse()) {
-            System.out.println(c.getStudents());
-        }
-        //      System.out.println(API.getAllCourse().get(0).getStudents());
-        //       API._INIT_DATABASE_();
-        //       System.out.println(API.getAllSession());
-//        Database db = new Database("Sessions");
-//        db.write(null);
+            System.out.println(API.getAllSession().get(0).getLecture());
     }
 
     public static boolean isNumeric(String strNum) {

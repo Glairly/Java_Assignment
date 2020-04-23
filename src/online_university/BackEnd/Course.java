@@ -25,7 +25,7 @@ public class Course extends Person {
     final String role = "Course";
     private ArrayList<Pair<Student, Grading>> students = new ArrayList<Pair<Student, Grading>>();
     private String classDescription = "";
-    private Staff staffs = new Staff();
+    private Staff staffs = null;
     private ArrayList<Session> sessions;
     private String teacher_Name = "";
     private String Mark = "X";
@@ -168,9 +168,11 @@ public class Course extends Person {
 
     public Pair<Student, Grading> getStudent(Student st) {
         ArrayList<Student> arr = new ArrayList<>();
-        for (Pair<Student, Grading> s : this.students) {
-            if (s.getKey().getUserName().equals(st.getUserName())) {
-                return s;
+        if (this.students != null) {
+            for (Pair<Student, Grading> s : this.students) {
+                if (s.getKey().getUserName().equals(st.getUserName())) {
+                    return s;
+                }
             }
         }
         return null;
@@ -178,9 +180,11 @@ public class Course extends Person {
 
     public Pair<Student, Grading> getStudent(String stuId) {
         ArrayList<Student> arr = new ArrayList<>();
-        for (Pair<Student, Grading> s : this.students) {
-            if (s.getKey().getStudentId().equals(stuId)) {
-                return s;
+        if (this.students != null) {
+            for (Pair<Student, Grading> s : this.students) {
+                if (s.getKey().getStudentId().equals(stuId)) {
+                    return s;
+                }
             }
         }
         return null;
@@ -189,9 +193,11 @@ public class Course extends Person {
     public static ArrayList<Course> getCouresByStudent(Student st) {
         var arrC = API.getAllCourse();
         ArrayList<Course> result = new ArrayList<>();
-        for (var i : arrC) {
-            if (i.getStudent(st) != null) {
-                result.add(i);
+        if (arrC != null) {
+            for (var i : arrC) {
+                if (i.getStudent(st) != null) {
+                    result.add(i);
+                }
             }
         }
         return result;

@@ -34,14 +34,14 @@ import online_university.BackEnd.Student;
  *
  * @author UNS_CT
  */
-public class LoginAndSignUp extends Application{
+public class LoginAndSignUp extends Application {
 
     HBox mainPane = new HBox();
     Pane universityPane = new Pane();
     Pane loginPane = new Pane();
     Pane signUpPane = new Pane();
     StackPane stackPaneRight = new StackPane();
-    
+
     Label uNameLabel = new Label("HWU");
     Label userNameLabel = new Label("USERNAME");
     Label passWordLabel = new Label("PASSWORD");
@@ -52,7 +52,7 @@ public class LoginAndSignUp extends Application{
     Label userNameTopic = new Label("Username");
     Label passWordTopic = new Label("Password");
     Label emailTopic = new Label("E-Mail");
-    
+
     TextField loginUserName = new TextField();
     PasswordField loginPassWord = new PasswordField();
     Line lineUserName = new Line();
@@ -66,23 +66,23 @@ public class LoginAndSignUp extends Application{
     TextField textEmail = new TextField();
     ComboBox<String> genderSelector = new ComboBox<>();
     ComboBox<String> roleSelector = new ComboBox<>();
-    
+
     Button loginButton = new Button("Log in");
     Button signUpButton = new Button("Sign Up");
     Button okButton = new Button("OK");
 
     public LoginAndSignUp(Stage stage) {
         /// Set up universityPane ///
-        universityPane.setPrefSize(640,720);
+        universityPane.setPrefSize(640, 720);
         universityPane.getStyleClass().add("university-background");
         uNameLabel.getStyleClass().add("u-name-label");
         universityPane.getChildren().add(uNameLabel);
         // Set LayOut //
         uNameLabel.setLayoutX(200);
         uNameLabel.setLayoutY(300);
-        
+
         /// Set up loginPane ///
-        loginPane.setPrefSize(640,720);
+        loginPane.setPrefSize(640, 720);
         loginPane.getStyleClass().add("login-background");
         userNameLabel.getStyleClass().add("topic-label");
         passWordLabel.getStyleClass().add("topic-label");
@@ -124,9 +124,9 @@ public class LoginAndSignUp extends Application{
         loginButton.setLayoutY(500);
         signUpButton.setLayoutX(220);
         signUpButton.setLayoutY(560);
-        
+
         /// Set up signUpPane ///
-        signUpPane.setPrefSize(640,720);
+        signUpPane.setPrefSize(640, 720);
         signUpPane.getStyleClass().add("login-background");
         signUpLabel.getStyleClass().add("sign-up-label");
         textFirstName.getStyleClass().add("sign-up-text-field");
@@ -147,9 +147,9 @@ public class LoginAndSignUp extends Application{
         textUserName.setPrefSize(240, 35);
         textPassWord.setPrefSize(240, 35);
         textEmail.setPrefSize(240, 35);
-        roleSelector.getItems().addAll("Student","Teacher","Admin");
+        roleSelector.getItems().addAll("Student", "Teacher", "Admin");
         roleSelector.setValue("Student");
-        genderSelector.getItems().addAll("Female","Male");
+        genderSelector.getItems().addAll("Female", "Male");
         genderSelector.setValue("Female");
         okButton.setPrefSize(150, 50);
         ImageView backButton = new ImageView("Images/back.png");
@@ -208,11 +208,11 @@ public class LoginAndSignUp extends Application{
         okButton.setLayoutY(540);
         backButton.setLayoutX(20);
         backButton.setLayoutY(10);
-        
+
         stackPaneRight.getChildren().add(loginPane);
         /// Add 2 panes into mainPane ///
-        mainPane.getChildren().addAll(universityPane,stackPaneRight);
-        
+        mainPane.getChildren().addAll(universityPane, stackPaneRight);
+
         // Log in Button //
         loginButton.setOnAction(e -> {
             System.out.println("Log in Pressed");
@@ -235,41 +235,43 @@ public class LoginAndSignUp extends Application{
                 System.out.println("Error");
             }
         });
-        
+
         // signUp Button //
         signUpButton.setOnMouseClicked(e -> {
+            if (!stackPaneRight.getChildren().contains(signUpPane)) {
                 stackPaneRight.getChildren().add(signUpPane);
-                signUpPane.translateXProperty().set(640);
-                changePage(stackPaneRight,signUpPane);  
+            }
+            signUpPane.translateXProperty().set(640);
+            changePage(stackPaneRight, signUpPane);
         });
-        
+
         // back Button //
         backButton.setOnMouseClicked(e -> {
-                stackPaneRight.getChildren().add(loginPane);
-                loginPane.translateXProperty().set(640);
-                changePage(stackPaneRight,loginPane);  
+            stackPaneRight.getChildren().add(loginPane);
+            loginPane.translateXProperty().set(640);
+            changePage(stackPaneRight, loginPane);
         });
-        
+
         // ok Button //
-        okButton.setOnAction(e ->{
+        okButton.setOnAction(e -> {
             if (roleSelector.getValue().equals("Student")) {
-                    //public Person(String name, String lname, String age, String stuId, String id, String password, String email) 
-                    Student st = new Student(textFirstName.getText(), textLastName.getText(), textAge.getText(), null, textUserName.getText(), textPassWord.getText(), textEmail.getText());
-                    st.setGender(genderSelector.getValue());
-                    Authority.registor(st);
+                //public Person(String name, String lname, String age, String stuId, String id, String password, String email) 
+                Student st = new Student(textFirstName.getText(), textLastName.getText(), textAge.getText(), null, textUserName.getText(), textPassWord.getText(), textEmail.getText());
+                st.setGender(genderSelector.getValue());
+                Authority.registor(st);
             }// get role
             else if (roleSelector.getValue().equals("Teacher")) {
-                    Staff st = new Staff(textFirstName.getText(), textLastName.getText(), textAge.getText(), null, textUserName.getText(), textPassWord.getText(), textEmail.getText());
-                    st.setGender(genderSelector.getValue());
-                    Authority.registor(st);
+                Staff st = new Staff(textFirstName.getText(), textLastName.getText(), textAge.getText(), null, textUserName.getText(), textPassWord.getText(), textEmail.getText());
+                st.setGender(genderSelector.getValue());
+                Authority.registor(st);
             } else if (roleSelector.getValue().equals("Admin")) {
-                    Admin st = new Admin(textFirstName.getText(), textLastName.getText(), textAge.getText(), null, textUserName.getText(), textPassWord.getText(), textEmail.getText());
-                    st.setGender(genderSelector.getValue());
-                    Authority.registor(st);
+                Admin st = new Admin(textFirstName.getText(), textLastName.getText(), textAge.getText(), null, textUserName.getText(), textPassWord.getText(), textEmail.getText());
+                st.setGender(genderSelector.getValue());
+                Authority.registor(st);
             }
             textFieldSignUpClear();
         });
-        
+
         Scene loginScene = new Scene(mainPane);
         loginScene.getStylesheets().add("css/loginSide.css");
         stage.setScene(loginScene);
@@ -278,26 +280,26 @@ public class LoginAndSignUp extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        
+
     }
-    
+
     public static void main(String[] args) {
         launch(args);
     }
-    
+
     /// Change Page Function ///
-    void changePage(StackPane stackPane,Pane nextPage){
+    void changePage(StackPane stackPane, Pane nextPage) {
         /// Change Page Animation ///
-         Timeline changePage = new Timeline();
-         KeyValue kv = new KeyValue(nextPage.translateXProperty(), 0, Interpolator.EASE_IN);
-         KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
-         changePage.getKeyFrames().add(kf);
-         changePage.setOnFinished(e -> {
-             stackPane.getChildren().remove(0);
-         });
-         changePage.play();
+        Timeline changePage = new Timeline();
+        KeyValue kv = new KeyValue(nextPage.translateXProperty(), 0, Interpolator.EASE_IN);
+        KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
+        changePage.getKeyFrames().add(kf);
+        changePage.setOnFinished(e -> {
+            stackPane.getChildren().remove(0);
+        });
+        changePage.play();
     }
-    
+
     /// TextField Sign Up Clear ///
     void textFieldSignUpClear() {
         textFirstName.clear();

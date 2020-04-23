@@ -343,6 +343,9 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
 
         if (allC != null) {
             for (Course c : allC) {
+                if (c.getStaffs() == null) {
+                    continue;
+                }
 /////////////////// make all course in main stage is not exist -------------------------------------------------                
                 boolean isExist = false;
                 /////    check if Courses table on main stage is not blank ---------------------------------------
@@ -405,7 +408,15 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
 
         search = new FilteredList(addCourse_Data, p -> true);//--------------------------------------------------------------------------------
         AddC.setItems(search);
-        AddC.getColumns().addAll(CourseNameColumn, CourseColumn, TNameColumn);
+        if (!AddC.getColumns().contains(CourseNameColumn)) {
+            AddC.getColumns().add(CourseNameColumn);
+        }
+        if (!AddC.getColumns().contains(CourseNameColumn)) {
+            AddC.getColumns().add(CourseColumn);
+        }
+        if (!AddC.getColumns().contains(CourseNameColumn)) {
+            AddC.getColumns().add(TNameColumn);
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //-------------------------------- Text Field (Can't do it) -------------------------------------------------//
@@ -523,14 +534,13 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
     private void ANC() {
         //AddC.setItems(FXCollections.observableSet(new HashSet<T>()));  
         // course AddC.getSelectionModel().getSelectedItem()
-        AddC.getSelectionModel().selectFirst();
 
         if (AddC.getSelectionModel().getSelectedItem() != null) {
             Courses.getItems().add(AddC.getSelectionModel().getSelectedItem());
             Myself.addCourse(AddC.getSelectionModel().getSelectedItem());
             AddC.getSelectionModel().getSelectedItem().addStudent(Myself);
             update(AddC.getSelectionModel().getSelectedItem());
-            AddC.getItems().remove(AddC.getSelectionModel().getSelectedItem());
+            addCourse_Data.remove(AddC.getSelectionModel().getSelectedItem());
         }
         AddC.setItems(addCourse_Data);
     }
@@ -574,6 +584,7 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
             LoginAndSignUp loginAndSignUp = new LoginAndSignUp(this.stage);
             cancelTimer();
             this.stage.show();
+            Logoutstage.close();
         });
         noButton.setOnAction(e -> {
             Logoutstage.close();
@@ -720,9 +731,7 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
                     Attended_Student.clear();
                 }
                 for (Student st : nowSession.getAttended_Students()) {
-                    System.out.println(st);
                     Attended_Student.add(st);
-                    System.out.println(st);
                 }
             }
         }

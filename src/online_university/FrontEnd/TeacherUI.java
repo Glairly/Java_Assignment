@@ -153,7 +153,7 @@ public class TeacherUI extends Application {
     Scene SesScene = new Scene(SesPane, 1280, 720);
     Scene AddScene = new Scene(AddPane, 700, 400);
     Scene AsScene = new Scene(AsPane, 700, 400);
-     Scene ViewpScene = new Scene(ViewpPane, 700, 400);
+    Scene ViewpScene = new Scene(ViewpPane, 700, 400);
     Scene ViewScene = new Scene(ViewPane, 1280, 720);
 
     Button AddStu = new Button("Add Students");
@@ -205,7 +205,8 @@ public class TeacherUI extends Application {
     Label lbl11 = new Label("Personal Profile");
     Label lbl3 = new Label("Students List");
     Label Ong = new Label("On-Going Session");
-
+    Label Subname = new Label();
+    Label Subname2 = new Label();
     ArrayList<Button> Sub = new ArrayList<>();
 
     Button StartSes = new Button("Start Session");
@@ -240,7 +241,7 @@ public class TeacherUI extends Application {
         AddPane.getStylesheets().add("css/newCascadeStyleSheet.css");
         SesPane.getStylesheets().add("css/newCascadeStyleSheet.css");
         AsPane.getStylesheets().add("css/newCascadeStyleSheet.css");
-         ViewpPane.getStylesheets().add("css/newCascadeStyleSheet.css");
+        ViewpPane.getStylesheets().add("css/newCascadeStyleSheet.css");
         SubjectName.setSpacing(100.0);
         this.User = st;
         initData();
@@ -264,7 +265,7 @@ public class TeacherUI extends Application {
         Sub = new ArrayList<>();
         if (this.CourseArr != null) {
             for (int i = 0; i < this.CourseArr.size(); i++) {
-                Sub.add(new Button(CourseArr.get(i).getFirstName()));
+                Sub.add(new Button(CourseArr.get(i).getUserName()));
             }
         }
         if (this.CourseArr != null) {
@@ -341,7 +342,7 @@ public class TeacherUI extends Application {
         AnchorPane.setLeftAnchor(lbl9, 163d);
         AnchorPane.setBottomAnchor(lbl9, 80d);
         AnchorPane.setLeftAnchor(lbl10, 130d);
-        AnchorPane.setBottomAnchor(lbl10, 30d);
+        AnchorPane.setBottomAnchor(lbl10, 80d);
         AnchorPane.setRightAnchor(lbl5, 590d);
         AnchorPane.setTopAnchor(lbl5, 50d);
 
@@ -353,15 +354,15 @@ public class TeacherUI extends Application {
         AnchorPane.setLeftAnchor(Tusername3, 250d);
         AnchorPane.setTopAnchor(Tusername3, 30d);
         AnchorPane.setLeftAnchor(Tfirstname, 250d);
-        AnchorPane.setBottomAnchor(Tfirstname,230d);
+        AnchorPane.setBottomAnchor(Tfirstname, 230d);
         AnchorPane.setLeftAnchor(Tlastname, 250d);
-        AnchorPane.setBottomAnchor(Tlastname,180d);
+        AnchorPane.setBottomAnchor(Tlastname, 180d);
         AnchorPane.setLeftAnchor(Tage, 250d);
         AnchorPane.setBottomAnchor(Tage, 130d);
         AnchorPane.setLeftAnchor(Tid, 250d);
         AnchorPane.setBottomAnchor(Tid, 80d);
         AnchorPane.setLeftAnchor(Temail, 250d);
-        AnchorPane.setBottomAnchor(Temail, 30d);
+        AnchorPane.setBottomAnchor(Temail, 80d);
 
         SubScrollPane.setPrefSize(500, 400);
 
@@ -374,25 +375,25 @@ public class TeacherUI extends Application {
         SubScrollPane.setLayoutX((SubPane.getWidth() / 2) - (SubScrollPane.getPrefWidth() / 2));
         SubScrollPane.setLayoutY((SubPane.getHeight() / 2) - (SubScrollPane.getPrefHeight() / 2));
         SubPane.getChildren().add(Tusername3);
-        SubPane.getChildren().add(Tfirstname);
-        SubPane.getChildren().add(Tlastname);
-        SubPane.getChildren().add(Tage);
-        SubPane.getChildren().add(Tid);
-        SubPane.getChildren().add(Temail);
+        ViewpPane.getChildren().add(Tfirstname);
+        ViewpPane.getChildren().add(Tlastname);
+        ViewpPane.getChildren().add(Tage);
+        //ViewpPane.getChildren().add(Tid);
+        ViewpPane.getChildren().add(Temail);
 
         SubPane.getChildren().add(lbl4_2);
-        SubPane.getChildren().add(lbl6);
-        SubPane.getChildren().add(lbl7);
-        SubPane.getChildren().add(lbl8);
-        SubPane.getChildren().add(lbl9);
-        SubPane.getChildren().add(lbl10);
+//        ViewpPane.getChildren().add(lbl6);
+//        ViewpPane.getChildren().add(lbl7);
+//        ViewpPane.getChildren().add(lbl8);
+//        ViewpPane.getChildren().add(lbl9);
+//        ViewpPane.getChildren().add(lbl10);
         SubPane.getChildren().add(lbl5);
         //SesPane.getChildren().add(Ong);
         SubScrollPane.setPrefSize(500, 450);
         Button AddSub = new Button("Add Courses");
         Button ViewP = new Button("View Profile");
         SubPane.getChildren().add(AddSub);
-         SubPane.getChildren().add(ViewP);
+        SubPane.getChildren().add(ViewP);
         AddSub.setPrefSize(250, 50);
         AddSub.setStyle("-fx-font-size: 20pt;");
         ViewP.setPrefSize(250, 50);
@@ -400,7 +401,7 @@ public class TeacherUI extends Application {
 
         AnchorPane.setRightAnchor(AddSub, 510d);
         AnchorPane.setBottomAnchor(AddSub, 30d);
-        
+
         AnchorPane.setRightAnchor(ViewP, 40d);
         AnchorPane.setBottomAnchor(ViewP, 30d);
 
@@ -494,7 +495,7 @@ public class TeacherUI extends Application {
         ViewpPane.getChildren().add(lbl6);
         ViewpPane.getChildren().add(lbl7);
         ViewpPane.getChildren().add(lbl8);
-        ViewpPane.getChildren().add(lbl9);
+        //ViewpPane.getChildren().add(lbl9);
         ViewpPane.getChildren().add(lbl10);
         ViewpPane.getChildren().add(Tusername);
         OKBt.setOnAction(e -> {
@@ -522,8 +523,8 @@ public class TeacherUI extends Application {
         TextField namesub = new TextField();
 
         namesub.setPrefSize(450, 80);
-        AnchorPane.setRightAnchor(namesub,125d);
-        AnchorPane.setTopAnchor(namesub,150d);
+        AnchorPane.setRightAnchor(namesub, 125d);
+        AnchorPane.setTopAnchor(namesub, 150d);
         namesub.setStyle("-fx-font-size: 30pt;");
         //AsPane.getChildren().add(namesub);
 
@@ -540,14 +541,17 @@ public class TeacherUI extends Application {
                 for (int ii = 0; ii < CourseArr.size(); ii++) {
                     if (Sub.get(ii) != null && Sub.get(ii).toString().equals(e.getSource().toString())) {
                         nowCourse = CourseArr.get(ii);
-                        sn = CourseArr.get(ii).getFirstName();
-                        Label Subname = new Label(sn);
+                        sn = CourseArr.get(ii).getUserName();
+                        Subname.setText(sn);
                         Rectangle rect = new Rectangle(1280, 60);
-                        rect.setFill(Color.rgb(63, 81, 181));
+                        //rect.setFill(Color.rgb(63, 81, 181));
+
                         AnchorPane.setLeftAnchor(rect, 0d);
                         AnchorPane.setTopAnchor(rect, 100d);
-                        ViewPane.getChildren().add(rect);
-                        ViewPane.getChildren().add(Subname);
+                        //ViewPane.getChildren().add(rect);
+                        if (!ViewPane.getChildren().contains(Subname)) {
+                            ViewPane.getChildren().add(Subname);
+                        }
                         Subname.setScaleX(3.5);
                         Subname.setScaleY(3.5);
                         Subname.setScaleZ(3.5);
@@ -555,14 +559,16 @@ public class TeacherUI extends Application {
                         Subname.setLayoutX(ViewPane.getWidth() / 2 - 20);
                         AnchorPane.setTopAnchor(Subname, 120d);
 
-                        Label Subname2 = new Label(sn);
+                        Subname2.setText(sn);
                         Label Tusername2 = new Label(ts + " is Teaching");
                         Rectangle rect2 = new Rectangle(700, 80);
                         rect2.setFill(Color.rgb(63, 81, 181));
                         AnchorPane.setLeftAnchor(rect2, 0d);
                         AnchorPane.setTopAnchor(rect2, 40d);
-                        SesPane.getChildren().add(rect2);
-                        SesPane.getChildren().add(Subname2);
+                        //SesPane.getChildren().add(rect2);
+                        if (!SesPane.getChildren().contains(Subname2)) {
+                            SesPane.getChildren().add(Subname2);
+                        }
                         Subname2.setScaleX(5.5);
                         Subname2.setScaleY(5.5);
                         Subname2.setScaleZ(5.5);
@@ -614,7 +620,7 @@ public class TeacherUI extends Application {
 
     Button BckBtn3 = new Button("Back to MainMenu");
     Button AddBtn = new Button("Add");
-    
+
     Button BckBtn = new Button("Close");
 
     void setUI() {
@@ -863,14 +869,14 @@ public class TeacherUI extends Application {
 //        AnchorPane.setBottomAnchor(textField , 105d);
 //        AnchorPane.setLeftAnchor(choiceBox, 300d);
 //        AnchorPane.setBottomAnchor(choiceBox, 105d);
-        choiceBox.setStyle("-fx-background-color: #3F51B5; -fx-font-size: 20pt; -fx-border-color: #FFFFFF;");
+        choiceBox.setStyle("-fx-background-color: #072F5F; -fx-font-size: 20pt; -fx-border-color: #FFFFFF;");
         textField.setStyle("-fx-font-size: 20pt;");
         textField3.setStyle("-fx-font-size: 10pt;");
         textField1.setStyle("-fx-font-size: 10pt;");
-        choiceBox2.setStyle("-fx-background-color: #3F51B5; -fx-border-color: #FFFFFF;");
-        choiceBox3.setStyle("-fx-background-color: #3F51B5; -fx-font-size: 10pt; -fx-border-color: #FFFFFF; ");
-        choiceBox1.setStyle("-fx-background-color: #3F51B5; -fx-font-size: 10pt; -fx-border-color: #FFFFFF; ");
-        choiceBox4.setStyle("-fx-background-color: #3F51B5; -fx-border-color: #FFFFFF;");
+        choiceBox2.setStyle("-fx-background-color: #072F5F; -fx-border-color: #FFFFFF;");
+        choiceBox3.setStyle("-fx-background-color: #072F5F; -fx-font-size: 10pt; -fx-border-color: #FFFFFF; ");
+        choiceBox1.setStyle("-fx-background-color: #072F5F; -fx-font-size: 10pt; -fx-border-color: #FFFFFF; ");
+        choiceBox4.setStyle("-fx-background-color: #072F5F; -fx-border-color: #FFFFFF;");
 
         ViewPane.getChildren().add(textField);
         ViewPane.getChildren().add(choiceBox);
@@ -1004,7 +1010,7 @@ public class TeacherUI extends Application {
         CourseNameCol.getStyleClass().add("tablecolumn");
 
         TableColumn DescriptCol = new TableColumn("Description");
-        DescriptCol.setMinWidth(250);
+        DescriptCol.setMinWidth(320);
         DescriptCol.setCellValueFactory(
                 new PropertyValueFactory<Persons, String>("totalScore"));
         DescriptCol.getStyleClass().add("tablecolumn");
@@ -1089,9 +1095,9 @@ public class TeacherUI extends Application {
         //table2.setItems(table2_Data);
         //table4.setItems(table3_Data2);
         table.setPrefSize(1180, 600);
-        // AddSubjectTable.setPrefWidth(NumCoCol.getMinWidth() + CourseNameCol.getMinWidth() + DescriptCol.getMinWidth() + CoteachCol.getMinWidth() +CorSelCol.getMinWidth());
+        //AddSubjectTable.setPrefWidth(NumCoCol.getMinWidth() + CourseNameCol.getMinWidth() + DescriptCol.getMinWidth() +CorSelCol.getMinWidth());
         table2.setPrefWidth(NumCol.getMinWidth() + firstNameCol.getMinWidth() + lastNameCol.getMinWidth() + SelectCol.getMinWidth());
-        table3.setPrefWidth(NumSesCol.getMinWidth() + firstSesNameCol.getMinWidth()+ lastNameSesCol.getMinWidth()+20+5);
+        table3.setPrefWidth(NumSesCol.getMinWidth() + firstSesNameCol.getMinWidth() + lastNameSesCol.getMinWidth() + 20 + 5);
         //AddPane.getChildren().add(table2);
 
         AddPane.getChildren().add(AddScrollPane);
@@ -1118,7 +1124,7 @@ public class TeacherUI extends Application {
         OKBt.setLayoutY(360);
         BckBtn2.setLayoutX(240);
         BckBtn2.setLayoutY(360);
-        
+
         choiceBox4.setLayoutX(290);
         choiceBox4.setLayoutY(360);
         textField4.setLayoutX(405);
@@ -1168,7 +1174,7 @@ public class TeacherUI extends Application {
         SesListScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         SesListScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
-        SesListScrollPane.setLayoutX((SesPane.getWidth() / 2) + (SesListScrollPane.getPrefWidth() / 2-160));
+        SesListScrollPane.setLayoutX((SesPane.getWidth() / 2) + (SesListScrollPane.getPrefWidth() / 2 - 160));
         SesListScrollPane.setLayoutY((SesPane.getHeight() / 2) - (SesListScrollPane.getPrefHeight() / 2 - 40));
 
         CancelHandlerClass h2 = new CancelHandlerClass();
@@ -1351,9 +1357,11 @@ public class TeacherUI extends Application {
     void delStu(String... stuId) {
         ArrayList<Pair<Student, Grading>> arr = new ArrayList<>();
         for (var i : stuId) {
-            for (Pair<Student, Grading> st : nowCourse.getStudents()) {
-                if (st.getKey().getStudentId().equals(i)) {
-                    arr.add(st);
+            if (nowCourse.getStudents() != null) {
+                for (Pair<Student, Grading> st : nowCourse.getStudents()) {
+                    if (st.getKey().getStudentId().equals(i)) {
+                        arr.add(st);
+                    }
                 }
             }
         }
@@ -1367,11 +1375,13 @@ public class TeacherUI extends Application {
 
     void addStu(String... stuId) {
         for (var i : stuId) {
-            for (var st : StudentArr) {
-                if (st.getStudentId().equals(i)) {
-                    nowCourse.addStudent(st);
-                    st.addCourse(nowCourse);
-                    API.saveToDatabase(st);
+            if (StudentArr != null) {
+                for (var st : StudentArr) {
+                    if (st.getStudentId().equals(i)) {
+                        nowCourse.addStudent(st);
+                        st.addCourse(nowCourse);
+                        API.saveToDatabase(st);
+                    }
                 }
             }
         }
@@ -1381,11 +1391,13 @@ public class TeacherUI extends Application {
 
     void addCourse(String courseUsername) {
         var allC = API.getAllCourse();
-        for (Course c : allC) {
-            if (c.getUserName().equals(courseUsername)) {
-                c.addStaffs(this.User);
-                this.User.addCourses(c);
-                API.saveToDatabase(c);
+        if (allC != null) {
+            for (Course c : allC) {
+                if (c.getUserName().equals(courseUsername)) {
+                    c.addStaffs(this.User);
+                    this.User.addCourses(c);
+                    API.saveToDatabase(c);
+                }
             }
         }
         API.saveToDatabase(this.User);

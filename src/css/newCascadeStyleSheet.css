@@ -1,4 +1,3 @@
-
 /* 
     Created on : Apr 16, 2020, 2:42:18 AM
     Author     : user
@@ -19,7 +18,8 @@
 
 
 .root {
-    -fx-background-color: default-primary-color;
+    -fx-background-color: linear-gradient(to right,#0A60C8,#072F5F);
+    
 }
 
 .special-label{
@@ -47,6 +47,6 @@
 
     -fx-border-color: #C5CAE9; 
     -fx-text-fill: #ffffff;
-    -fx-background-color: #3F51B5;
+    -fx-background-color: #072F5F;
 }
 
