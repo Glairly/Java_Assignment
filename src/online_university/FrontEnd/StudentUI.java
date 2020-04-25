@@ -31,7 +31,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.scene.layout.Border;
 import online_university.BackEnd.*;
 
-public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
+public class StudentUI extends Application /*implements EventHandler<ActionEvent>*/ {
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -259,14 +259,14 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         editPane.setHgap(5.5);
         editPane.setVgap(5.5);
         editPane.setPadding(new Insets(11, 11, 11, 11));
-        editPane.add(new Label("Name"), 0, 0);
+        editPane.add(new Label("Username"), 0, 0);
         editPane.add(tfName, 1, 0);
-        editPane.add(new Label("LastName"), 0, 1);
+        editPane.add(new Label("Password"), 0, 1);
         editPane.add(tfLastname, 1, 1);
-        editPane.add(new Label("Age"), 0, 2);
-        editPane.add(tfAge, 1, 2);
-        editPane.add(new Label("E-mail"), 0, 3);
-        editPane.add(tfEm, 1, 3);
+//        editPane.add(new Label("Age"), 0, 2);
+//        editPane.add(tfAge, 1, 2);
+        editPane.add(new Label("E-mail"), 0, 2);
+        editPane.add(tfEm, 1, 2);
         editPane.setVisible(false);
 
         editPane.setLayoutX(0);
@@ -495,17 +495,12 @@ public class Stu extends Application /*implements EventHandler<ActionEvent>*/ {
         yesButton.setOnAction(e -> {
             if (!" ".equals(tfName.getText()) && !"".equals(tfName.getText())) {
                 name.setText(tfName.getText());
-                Myself.setFirstName(tfName.getText());
+                Myself.setUserName(tfName.getText());
             }
 
             if (!" ".equals(tfLastname.getText()) && !"".equals(tfLastname.getText())) {
                 lastname.setText(tfLastname.getText());
-                Myself.setLastName(tfLastname.getText());
-            }
-
-            if (!" ".equals(tfAge.getText()) && !"".equals(tfAge.getText())) {
-                Age.setText(tfAge.getText());
-                Myself.setAge(tfAge.getText());
+                Myself.setPassWord(tfLastname.getText());
             }
 
             if (!" ".equals(tfEm.getText()) && !"".equals(tfEm.getText())) {

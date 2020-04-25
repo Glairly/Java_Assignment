@@ -52,7 +52,7 @@ import online_university.BackEnd.*;
  *
  * @author UNS_CT
  */
-public class AdminLabel extends Application {
+public class AdminUI extends Application {
 
     // SideBar Elements //
     TextField textSearch = new TextField();

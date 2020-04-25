@@ -13,7 +13,7 @@ import online_university.BackEnd.*;
  *
  * @author user
  */
-public class TestGUI {
+public class restartDatabase {
 
     public static void main(String[] args) {
 

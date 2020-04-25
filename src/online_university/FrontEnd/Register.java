@@ -106,13 +106,13 @@ public class Register extends Application {
             if (user != null) {
                 System.out.println(user.getRole() + " LOGIN ");
                 if (user.getRole().equals("Student")) {
-                    Stu s = new Stu();
+                    StudentUI s = new StudentUI();
                     s.Start(a, (Student) user);
                 } else if (user.getRole().equals("Staff")) {
                     TeacherUI s = new TeacherUI();
                     s.Start(a, (Staff) user);
                 } else if (user.getRole().equals("Admin")) {
-                    AdminLabel s = new AdminLabel();
+                    AdminUI s = new AdminUI();
                     s.Start(a, (Admin) user);
                 }
             } else {
